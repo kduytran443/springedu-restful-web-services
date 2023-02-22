@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,23 +13,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "`meeting_action`")
-public class MeetingActionEntity {
+@Table(name = "message")
+public class MessageEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
-	private String action;
+	@Column(columnDefinition = "nvarchar(1024)")
+	private String content;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "meeting_id")
-	private MeetingEntity meeting;
+	@Column
+	private Date date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "class_id")
+	private ClassEntity classEntity;
 
 	public Long getId() {
 		return id;
@@ -37,20 +42,20 @@ public class MeetingActionEntity {
 		this.id = id;
 	}
 
-	public String getAction() {
-		return action;
+	public String getContent() {
+		return content;
 	}
 
-	public void setAction(String action) {
-		this.action = action;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public MeetingEntity getMeeting() {
-		return meeting;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setMeeting(MeetingEntity meeting) {
-		this.meeting = meeting;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public UserEntity getUser() {
@@ -59,6 +64,14 @@ public class MeetingActionEntity {
 
 	public void setUser(UserEntity user) {
 		this.user = user;
+	}
+
+	public ClassEntity getClassEntity() {
+		return classEntity;
+	}
+
+	public void setClassEntity(ClassEntity classEntity) {
+		this.classEntity = classEntity;
 	}
 	
 }

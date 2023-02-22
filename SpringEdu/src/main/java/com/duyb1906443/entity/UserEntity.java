@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -52,7 +53,20 @@ public class UserEntity {
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<MeetingActionEntity> meetingActions;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<CommentEntity> comments;
 
+	@OneToOne
+	@JoinColumn(name = "question_bank_id")
+	private QuestionBankEntity questionBank;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<SubmittedExerciseEntity> submittedExercises;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<MessageEntity> messages;
+	
 	public Long getId() {
 		return id;
 	}
@@ -131,6 +145,38 @@ public class UserEntity {
 
 	public void setMeetingActions(List<MeetingActionEntity> meetingActions) {
 		this.meetingActions = meetingActions;
+	}
+
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
+
+	public QuestionBankEntity getQuestionBank() {
+		return questionBank;
+	}
+
+	public void setQuestionBank(QuestionBankEntity questionBank) {
+		this.questionBank = questionBank;
+	}
+
+	public List<SubmittedExerciseEntity> getSubmittedExercises() {
+		return submittedExercises;
+	}
+
+	public void setSubmittedExercises(List<SubmittedExerciseEntity> submittedExercises) {
+		this.submittedExercises = submittedExercises;
+	}
+
+	public List<MessageEntity> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<MessageEntity> messages) {
+		this.messages = messages;
 	}
 	
 }

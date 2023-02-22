@@ -4,16 +4,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "`class_role`")
-public class ClassRoleEntity {
+@Table(name = "`weekly_class_schedule`")
+public class WeeklyClassScheduleEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -21,11 +21,11 @@ public class ClassRoleEntity {
 	@Column
 	private String code;
 	
-	@Column
+	@Column(columnDefinition = "nvarchar(32)")
 	private String name;
-	
-	@OneToMany(mappedBy = "classRole", fetch = FetchType.LAZY)
-	private List<ClassMemberEntity> classMember;
+
+	@ManyToMany(mappedBy = "weeklyClassSchedules")
+	private List<ClassScheduleEntity> classSchedule;
 
 	public Long getId() {
 		return id;
@@ -51,12 +51,12 @@ public class ClassRoleEntity {
 		this.name = name;
 	}
 
-	public List<ClassMemberEntity> getClassMember() {
-		return classMember;
+	public List<ClassScheduleEntity> getClassSchedule() {
+		return classSchedule;
 	}
 
-	public void setClassMember(List<ClassMemberEntity> classMember) {
-		this.classMember = classMember;
+	public void setClassSchedule(List<ClassScheduleEntity> classSchedule) {
+		this.classSchedule = classSchedule;
 	}
 	
 }
