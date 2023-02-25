@@ -25,8 +25,8 @@ public class ChoiceAnswerEntity {
 
 	@Column(columnDefinition = "nvarchar(1024)")
 	private String content;
-	
-	@Column
+
+	@Column(columnDefinition = "tinyint")
 	private int correct;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

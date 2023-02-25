@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.authorizeRequests()
 				.antMatchers("/api/sign-up","/verify").permitAll()
-				.antMatchers("/api/login").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này							
+				.antMatchers("/api/login").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
+				.antMatchers("/public/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.csrf().disable();

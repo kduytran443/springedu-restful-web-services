@@ -15,60 +15,78 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
-
 @Entity
 @Table(name = "`user`")
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false, unique = true)
 	private String username;
-	
-	@Column	
+
+	@Column
 	private String password;
 
 	@Column(columnDefinition = "nvarchar(24)")
 	private String fullname;
-	
+
 	@Column
 	private String email;
-	
+
 	@Column
 	private int phoneNumber;
-	
+
 	@Column
 	private String gender;
-	
+
 	@Column
 	private int brithYear;
-	
+
+	@Column(columnDefinition = "tinyint default 1")
+	private int status;
+
 	@ManyToMany
-	@JoinTable(
-	  name = "user_role", 
-	  joinColumns = @JoinColumn(name = "user_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles;
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<MeetingActionEntity> meetingActions;
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<CommentEntity> comments;
 
 	@OneToOne
 	@JoinColumn(name = "question_bank_id")
 	private QuestionBankEntity questionBank;
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<SubmittedExerciseEntity> submittedExercises;
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<MessageEntity> messages;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<ReportEntity> reports;
+
+	public List<ReportEntity> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<ReportEntity> reports) {
+		this.reports = reports;
+	}
+
 	public Long getId() {
 		return id;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public void setId(Long id) {
@@ -178,5 +196,5 @@ public class UserEntity {
 	public void setMessages(List<MessageEntity> messages) {
 		this.messages = messages;
 	}
-	
+
 }

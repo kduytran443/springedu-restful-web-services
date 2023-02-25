@@ -21,7 +21,7 @@ public class ClassRoleEntity {
 	@Column
 	private String code;
 	
-	@Column
+	@Column(columnDefinition = "NVARCHAR(32)")
 	private String name;
 	
 	@OneToMany(mappedBy = "classRole", fetch = FetchType.LAZY)

@@ -25,7 +25,7 @@ public class CategoryEntity {
 	@Column(columnDefinition = "nvarchar(64)")
 	private String name;
 	
-	@Column
+	@Column(columnDefinition = "NVARCHAR(256)")
 	private String description;
 	
 	@Column

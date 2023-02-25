@@ -30,10 +30,10 @@ public class ReviewEntity implements Serializable{
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
 	
-	@Column
+	@Column(columnDefinition = "tinyint default 0")
 	private float stars;
 	
-	@Column
+	@Column(columnDefinition = "NVARCHAR(512)")
 	private String comment;
 
 	public ReviewId getReviewId() {

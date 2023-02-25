@@ -37,7 +37,7 @@ public class ClassExcerciseEntity {
 	@Column
 	private float mark;
 
-	@Column
+	@Column(columnDefinition = "tinyint")
 	private int effective;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

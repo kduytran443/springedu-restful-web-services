@@ -27,7 +27,7 @@ public class CommentEntity {
 	@Column
 	private Date createdDate;
 
-	@Column
+	@Column(columnDefinition = "tinyint")
 	private Integer privateMode;
 
 	@OneToOne(fetch = FetchType.LAZY)

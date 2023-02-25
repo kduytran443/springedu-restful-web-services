@@ -18,57 +18,57 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "`class`")
 public class ClassEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(columnDefinition="NVARCHAR(128)")
+
+	@Column(columnDefinition = "NVARCHAR(128)")
 	private String name;
 
-	@Column
+	@Column(columnDefinition = "tinyint")
 	private Integer visiable;
-	
-	@Column
+
+	@Column(columnDefinition = "tinyint")
 	private Integer status;
-	
+
 	@Column
 	private Date createdDate;
-	
-	@Column(columnDefinition="TEXT")
+
+	@Column(columnDefinition = "TEXT")
 	private String avatar;
-	
-	@Column
+
+	@Column(columnDefinition = "tinyint default 0")
 	private Integer accepted;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_id")
 	private MeetingEntity meeting;
 
 	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
 	private List<CommentEntity> comments;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_schedule_id")
 	private ClassScheduleEntity classSchedule;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
 	private List<TopicEntity> topics;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
 	private List<ClassExcerciseEntity> classExcercises;
-	
+
 	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
 	private List<MessageEntity> messages;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private CategoryEntity category;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "text_data_id")
 	private TextDataEntity textData;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "background_id")
 	private FileEntity backgroundImage;
@@ -76,6 +76,17 @@ public class ClassEntity {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "video_id")
 	private FileEntity video;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
+	private List<ReportEntity> reports;
+
+	public List<ReportEntity> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<ReportEntity> reports) {
+		this.reports = reports;
+	}
 
 	public Long getId() {
 		return id;
