@@ -43,5 +43,10 @@ public class CategoryServiceImpl implements CategoryService {
 	public void delete(Long id) {
 		categoryRepository.delete(id);
 	}
+
+	@Override
+	public CategoryDTO findOneByCode(String code) {
+		return categoryConverter.toDTO(categoryRepository.findOneByCode(code));
+	}
 	
 }

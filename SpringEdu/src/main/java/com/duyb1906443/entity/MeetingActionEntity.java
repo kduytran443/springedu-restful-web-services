@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,6 +30,9 @@ public class MeetingActionEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
+	
+	@Column
+	private Timestamp time;
 
 	public Long getId() {
 		return id;
@@ -59,6 +64,14 @@ public class MeetingActionEntity {
 
 	public void setUser(UserEntity user) {
 		this.user = user;
+	}
+
+	public Timestamp getTime() {
+		return time;
+	}
+
+	public void setTime(Timestamp time) {
+		this.time = time;
 	}
 	
 }

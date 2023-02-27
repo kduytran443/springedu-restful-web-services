@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,9 +27,9 @@ public class CommentEntity {
 	private String content;
 
 	@Column
-	private Date createdDate;
+	private Timestamp createdDate;
 
-	@Column(columnDefinition = "tinyint")
+	@Column(columnDefinition = "tinyint default '0'")
 	private Integer privateMode;
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -61,11 +63,11 @@ public class CommentEntity {
 		this.content = content;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

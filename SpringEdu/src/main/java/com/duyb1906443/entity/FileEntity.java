@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "file")
+@Table(name = "`file`")
 public class FileEntity {
 
 	@Id

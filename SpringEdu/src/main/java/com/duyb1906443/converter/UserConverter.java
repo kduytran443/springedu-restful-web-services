@@ -8,7 +8,7 @@ import com.duyb1906443.dto.UserDTO;
 import com.duyb1906443.entity.UserEntity;
 
 @Component
-public class UserConverter implements IConverter<UserEntity, UserDTO> {
+public class UserConverter implements IConverterToDTO<UserEntity, UserDTO>, IConverterToEntity<UserEntity, UserDTO> {
 
 	@Override
 	public UserEntity toEntity(UserDTO dto) {
@@ -20,9 +20,10 @@ public class UserConverter implements IConverter<UserEntity, UserDTO> {
 		userEntity.setId(dto.getId());
 		userEntity.setPhoneNumber(dto.getPhoneNumber());
 		userEntity.setUsername(dto.getUsername());
-		
+		userEntity.setAvatar(dto.getAvatar());
+
 		userEntity.setRoles(null);
-		
+
 		return userEntity;
 	}
 
@@ -36,6 +37,7 @@ public class UserConverter implements IConverter<UserEntity, UserDTO> {
 		userDTO.setId(entity.getId());
 		userDTO.setPhoneNumber(entity.getPhoneNumber());
 		userDTO.setUsername(entity.getUsername());
+		userDTO.setAvatar(entity.getAvatar());
 		return userDTO;
 	}
 

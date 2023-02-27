@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,21 +17,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "message")
 public class MessageEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(columnDefinition = "nvarchar(1024)")
 	private String content;
-	
+
 	@Column
-	private Date date;
-	
+	private Timestamp date;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
@@ -50,11 +52,11 @@ public class MessageEntity {
 		this.content = content;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 
@@ -73,5 +75,5 @@ public class MessageEntity {
 	public void setClassEntity(ClassEntity classEntity) {
 		this.classEntity = classEntity;
 	}
-	
+
 }

@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,7 +34,7 @@ public class ReportEntity {
 	private String content;
 
 	@Column
-	private Date createdDate;
+	private Timestamp createdDate;
 
 	@Column(columnDefinition = "tinyint default 0")
 	private int checked;
@@ -69,11 +71,11 @@ public class ReportEntity {
 		this.content = content;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

@@ -42,8 +42,11 @@ public class UserEntity {
 
 	@Column
 	private int brithYear;
+	
+	@Column
+	private String avatar;
 
-	@Column(columnDefinition = "tinyint default 1")
+	@Column(columnDefinition = "tinyint default '1'")
 	private int status;
 
 	@ManyToMany
@@ -68,6 +71,9 @@ public class UserEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<ReportEntity> reports;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
+	private List<ClassEntity> createdClasses;
 
 	public List<ReportEntity> getReports() {
 		return reports;
@@ -95,6 +101,14 @@ public class UserEntity {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public void setUsername(String username) {

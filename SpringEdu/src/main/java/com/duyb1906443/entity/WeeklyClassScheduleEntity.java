@@ -1,13 +1,10 @@
 package com.duyb1906443.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,15 +14,12 @@ public class WeeklyClassScheduleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
 	private String code;
-	
+
 	@Column(columnDefinition = "nvarchar(32)")
 	private String name;
-
-	@ManyToMany(mappedBy = "weeklyClassSchedules")
-	private List<ClassScheduleEntity> classSchedule;
 
 	public Long getId() {
 		return id;
@@ -50,13 +44,4 @@ public class WeeklyClassScheduleEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public List<ClassScheduleEntity> getClassSchedule() {
-		return classSchedule;
-	}
-
-	public void setClassSchedule(List<ClassScheduleEntity> classSchedule) {
-		this.classSchedule = classSchedule;
-	}
-	
 }

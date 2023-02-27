@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,35 +23,35 @@ public class ClassExcerciseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(columnDefinition = "nvarchar(256)")
 	private String name;
-	
-	@Column
-	private Date createdTime;
-	
-	@Column
-	private Date startTime;
 
 	@Column
-	private Date endTime;
+	private Timestamp createdTime;
+
+	@Column
+	private Timestamp startTime;
+
+	@Column
+	private Timestamp endTime;
 
 	@Column
 	private float mark;
 
 	@Column(columnDefinition = "tinyint")
 	private int effective;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
-	
+
 	@OneToMany(mappedBy = "classExcercise", fetch = FetchType.LAZY)
 	private List<FileEntity> files;
-	
+
 	@OneToMany(mappedBy = "classExcercise", fetch = FetchType.LAZY)
 	private List<SubmittedExerciseEntity> submittedExercises;
-	
+
 	@OneToMany(mappedBy = "classExcercise", fetch = FetchType.LAZY)
 	private List<ChoiceQuestionOfClassExcerciseEntity> ChoiceQuestionOfClassExcercises;
 
@@ -69,27 +71,27 @@ public class ClassExcerciseEntity {
 		this.name = name;
 	}
 
-	public Date getCreatedTime() {
+	public Timestamp getCreatedTime() {
 		return createdTime;
 	}
 
-	public void setCreatedTime(Date createdTime) {
+	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
 	}
 
-	public Date getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 
@@ -141,5 +143,5 @@ public class ClassExcerciseEntity {
 			List<ChoiceQuestionOfClassExcerciseEntity> choiceQuestionOfClassExcercises) {
 		ChoiceQuestionOfClassExcercises = choiceQuestionOfClassExcercises;
 	}
-	
+
 }

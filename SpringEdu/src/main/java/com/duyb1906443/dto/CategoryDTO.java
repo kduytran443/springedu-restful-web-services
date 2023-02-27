@@ -7,23 +7,33 @@ public class CategoryDTO {
 	private String name;
 	private String description;
 	private String image;
+	private String icon;
 
 	public CategoryDTO() {
 	}
 
-	public CategoryDTO(Long id, String code, String name, String description, String image) {
+	public CategoryDTO(Long id, String code, String name, String description, String image, String icon) {
 		super();
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.image = image;
+		this.icon = icon;
 	}
 
 	@Override
 	public String toString() {
 		return "CategoryDTO [id=" + id + ", code=" + code + ", name=" + name + ", description=" + description
-				+ ", image=" + image + "]";
+				+ ", image=" + image + ", icon=" + icon + "]";
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public Long getId() {

@@ -14,23 +14,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "`category`")
 public class CategoryEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
 	private String code;
-	
+
 	@Column(columnDefinition = "nvarchar(64)")
 	private String name;
-	
+
 	@Column(columnDefinition = "NVARCHAR(256)")
 	private String description;
-	
+
 	@Column
 	private String image;
+
+	@Column
+	private String icon;
 	
+	@Column(columnDefinition = "tinyint default '1'")
+	private String status;
+
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<ClassEntity> classes;
 
@@ -40,6 +46,14 @@ public class CategoryEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public String getCode() {
@@ -81,5 +95,5 @@ public class CategoryEntity {
 	public void setClasses(List<ClassEntity> classes) {
 		this.classes = classes;
 	}
-	
+
 }

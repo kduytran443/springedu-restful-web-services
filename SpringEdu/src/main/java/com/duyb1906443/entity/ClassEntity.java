@@ -1,6 +1,7 @@
 package com.duyb1906443.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,13 +34,16 @@ public class ClassEntity {
 	private Integer status;
 
 	@Column
-	private Date createdDate;
+	private Timestamp createdDate;
 
 	@Column(columnDefinition = "TEXT")
 	private String avatar;
 
 	@Column(columnDefinition = "tinyint default 0")
 	private Integer accepted;
+
+	@Column(columnDefinition = "NVARCHAR(256)")
+	private String shortDescription;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_id")
@@ -79,6 +83,18 @@ public class ClassEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
 	private List<ReportEntity> reports;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "creator_id")
+	private UserEntity creator;
+
+	public UserEntity getCreator() {
+		return creator;
+	}
+
+	public void setCreator(UserEntity creator) {
+		this.creator = creator;
+	}
 
 	public List<ReportEntity> getReports() {
 		return reports;
@@ -120,11 +136,11 @@ public class ClassEntity {
 		this.status = status;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -223,5 +239,23 @@ public class ClassEntity {
 	public void setVideo(FileEntity video) {
 		this.video = video;
 	}
-	
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
+	@Override
+	public String toString() {
+		return "ClassEntity [id=" + id + ", name=" + name + ", visiable=" + visiable + ", status=" + status
+				+ ", createdDate=" + createdDate + ", avatar=" + avatar + ", accepted=" + accepted
+				+ ", shortDescription=" + shortDescription + ", meeting=" + meeting + ", comments=" + comments
+				+ ", classSchedule=" + classSchedule + ", topics=" + topics + ", classExcercises=" + classExcercises
+				+ ", messages=" + messages + ", category=" + category + ", textData=" + textData + ", backgroundImage="
+				+ backgroundImage + ", video=" + video + ", reports=" + reports + ", creator=" + creator + "]";
+	}
+
 }

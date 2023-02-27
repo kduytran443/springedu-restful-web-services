@@ -5,7 +5,7 @@ import java.util.List;
 import com.duyb1906443.dto.RoleDTO;
 import com.duyb1906443.entity.RoleEntity;
 
-public class RoleConverter implements IConverter<RoleEntity, RoleDTO> {
+public class RoleConverter implements IConverterToDTO<RoleEntity, RoleDTO>, IConverterToEntity<RoleEntity, RoleDTO> {
 
 	@Override
 	public RoleEntity toEntity(RoleDTO dto) {

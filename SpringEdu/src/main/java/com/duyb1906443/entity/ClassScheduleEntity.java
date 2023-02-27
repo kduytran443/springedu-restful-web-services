@@ -1,7 +1,8 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,18 +22,11 @@ public class ClassScheduleEntity {
 	private Long id;
 
 	@Column
-	private Date startTime;
-	
+	private Timestamp startTime;
+
 	@Column
-	private Date endTime;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-	  name = "class_schedule_weekly_class_schedule", 
-	  joinColumns = @JoinColumn(name = "class_schedule_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "weekly_class_schedule_id"))
-	private List<WeeklyClassScheduleEntity> weeklyClassSchedules;
-	
+	private Timestamp endTime;
+
 	@OneToOne(mappedBy = "classSchedule", fetch = FetchType.LAZY)
 	private ClassEntity classEntity;
 
@@ -47,28 +38,20 @@ public class ClassScheduleEntity {
 		this.id = id;
 	}
 
-	public Date getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
-	}
-
-	public List<WeeklyClassScheduleEntity> getWeeklyClassSchedules() {
-		return weeklyClassSchedules;
-	}
-
-	public void setWeeklyClassSchedules(List<WeeklyClassScheduleEntity> weeklyClassSchedules) {
-		this.weeklyClassSchedules = weeklyClassSchedules;
 	}
 
 	public ClassEntity getClassEntity() {
@@ -78,5 +61,11 @@ public class ClassScheduleEntity {
 	public void setClassEntity(ClassEntity classEntity) {
 		this.classEntity = classEntity;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ClassScheduleEntity [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", classEntity="
+				+ classEntity + "]";
+	}
+
 }

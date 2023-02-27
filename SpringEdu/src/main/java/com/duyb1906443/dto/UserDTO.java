@@ -12,22 +12,17 @@ public class UserDTO {
 	private int brithYear;
 	private String password;
 	private List<Long> roles;
+	private String avatar;
 
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String username, String fullname, String email, int phoneNumber, String gender,
-			int brithYear, String password, List<Long> roles) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.fullname = fullname;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.gender = gender;
-		this.brithYear = brithYear;
-		this.password = password;
-		this.roles = roles;
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getPassword() {

@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,32 +20,32 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "submitted_exercise")
 public class SubmittedExerciseEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
-	private Date submitTime;
-	
+	private Timestamp submitTime;
+
 	@Column
 	private float mark;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "text_data_id")
 	private TextDataEntity textData;
 
 	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
 	private List<FileEntity> files;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_excercise_id")
 	private ClassExcerciseEntity classExcercise;
-	
+
 	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
 	private List<AnswerChoiceQuestionEntity> answerChoiceQuestions;
 
@@ -55,11 +57,11 @@ public class SubmittedExerciseEntity {
 		this.id = id;
 	}
 
-	public Date getSubmitTime() {
+	public Timestamp getSubmitTime() {
 		return submitTime;
 	}
 
-	public void setSubmitTime(Date submitTime) {
+	public void setSubmitTime(Timestamp submitTime) {
 		this.submitTime = submitTime;
 	}
 
@@ -110,5 +112,5 @@ public class SubmittedExerciseEntity {
 	public void setAnswerChoiceQuestions(List<AnswerChoiceQuestionEntity> answerChoiceQuestions) {
 		this.answerChoiceQuestions = answerChoiceQuestions;
 	}
-	
+
 }

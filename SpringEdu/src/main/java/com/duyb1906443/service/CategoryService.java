@@ -8,4 +8,5 @@ public interface CategoryService {
 	CategoryDTO save(CategoryDTO dto);
 	List<CategoryDTO> findAll();
 	void delete(Long id);
+	CategoryDTO findOneByCode(String code);
 }

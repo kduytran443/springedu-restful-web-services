@@ -14,25 +14,25 @@ import com.duyb1906443.entity.id.ReviewId;
 
 @Entity
 @Table(name = "`review`")
-public class ReviewEntity implements Serializable{
+public class ReviewEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private ReviewId reviewId;
-	
+
 	@ManyToOne
 	@MapsId("user_id")
 	@JoinColumn(name = "user_id")
-	private UserEntity users;
+	private UserEntity user;
 
 	@ManyToOne
 	@MapsId("class_id")
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
-	
+
 	@Column(columnDefinition = "tinyint default 0")
 	private float stars;
-	
+
 	@Column(columnDefinition = "NVARCHAR(512)")
 	private String comment;
 
@@ -44,12 +44,12 @@ public class ReviewEntity implements Serializable{
 		this.reviewId = reviewId;
 	}
 
-	public UserEntity getUsers() {
-		return users;
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setUsers(UserEntity users) {
-		this.users = users;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	public ClassEntity getClassEntity() {
@@ -75,7 +75,5 @@ public class ReviewEntity implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
-	
-	
+
 }

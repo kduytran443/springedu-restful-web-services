@@ -9,7 +9,8 @@ import com.duyb1906443.dto.CategoryDTO;
 import com.duyb1906443.entity.CategoryEntity;
 
 @Component
-public class CatogoryConverter implements IConverter<CategoryEntity, CategoryDTO>{
+public class CatogoryConverter
+		implements IConverterToDTO<CategoryEntity, CategoryDTO>, IConverterToEntity<CategoryEntity, CategoryDTO> {
 
 	@Override
 	public CategoryEntity toEntity(CategoryDTO dto) {
@@ -18,27 +19,30 @@ public class CatogoryConverter implements IConverter<CategoryEntity, CategoryDTO
 		entity.setDescription(dto.getDescription());
 		entity.setImage(dto.getImage());
 		entity.setName(dto.getName());
+		entity.setIcon(dto.getIcon());
 		return entity;
 	}
-	
+
 	public CategoryEntity toEntity(CategoryDTO dto, CategoryEntity entity) {
 		entity.setCode(dto.getCode());
 		entity.setDescription(dto.getDescription());
 		entity.setImage(dto.getImage());
 		entity.setName(dto.getName());
+		entity.setIcon(dto.getIcon());
 		return entity;
 	}
 
 	@Override
 	public CategoryDTO toDTO(CategoryEntity entity) {
 		CategoryDTO dto = new CategoryDTO();
-		if(entity.getId() != null) {
+		if (entity.getId() != null) {
 			dto.setId(entity.getId());
 		}
 		dto.setCode(entity.getCode());
 		dto.setDescription(entity.getDescription());
 		dto.setImage(entity.getImage());
 		dto.setName(entity.getName());
+		dto.setIcon(entity.getIcon());
 		return dto;
 	}
 

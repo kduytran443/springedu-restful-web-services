@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.duyb1906443.annotation.CrossOriginsList;
+import com.duyb1906443.constant.SystemConstant;
 import com.duyb1906443.dto.CategoryDTO;
 import com.duyb1906443.service.CategoryService;
 
@@ -17,10 +20,16 @@ public class CategoryAPI {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@CrossOrigin(origins = "*")
 	@GetMapping("/public/api/category")
+	@CrossOriginsList
 	public ResponseEntity<List<CategoryDTO>> getCategories(){
 		return ResponseEntity.status(200).body(categoryService.findAll());
+	}
+
+	@GetMapping("/public/api/category/{categoryCode}")
+	@CrossOriginsList
+	public ResponseEntity<CategoryDTO> getCategory(@PathVariable("categoryCode") String categoryCode){
+		return ResponseEntity.status(200).body(categoryService.findOneByCode(categoryCode));
 	}
 	
 }

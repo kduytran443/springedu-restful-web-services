@@ -2,6 +2,7 @@ package com.duyb1906443.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,9 @@ public class QuestionBankEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(columnDefinition = "NVARCHAR(128)", nullable = false)
+	private String name;
 	
 	@OneToOne(mappedBy = "questionBank")
 	private UserEntity user;

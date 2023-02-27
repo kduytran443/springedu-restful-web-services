@@ -1,6 +1,8 @@
 package com.duyb1906443.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +17,7 @@ import com.duyb1906443.entity.id.ClassMemberId;
 
 @Entity
 @Table(name = "class_member")
-public class ClassMemberEntity implements Serializable{
+public class ClassMemberEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -32,7 +34,7 @@ public class ClassMemberEntity implements Serializable{
 	private ClassEntity classEntity;
 
 	@Column
-	private Date createdDate;
+	private Timestamp createdDate;
 
 	@Column(nullable = true)
 	private float fee;
@@ -65,11 +67,11 @@ public class ClassMemberEntity implements Serializable{
 		this.classEntity = classEntity;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

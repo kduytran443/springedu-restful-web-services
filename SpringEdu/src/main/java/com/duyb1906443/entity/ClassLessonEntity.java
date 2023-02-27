@@ -1,5 +1,7 @@
 package com.duyb1906443.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,25 +20,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "`class_lesson`")
 public class ClassLessonEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(columnDefinition = "nvarchar(2048)")
 	private String name;
-	
+
 	@Column
-	private Date createdDate;
-	
+	private Timestamp createdDate;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_id")
-	private TopicEntity topic; 
-	
+	private TopicEntity topic;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "textdata_id")
 	private TextDataEntity textData;
-	
+
 	@OneToMany(mappedBy = "classLesson", fetch = FetchType.LAZY)
 	private List<FileEntity> files;
 
@@ -56,11 +58,11 @@ public class ClassLessonEntity {
 		this.name = name;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -87,5 +89,5 @@ public class ClassLessonEntity {
 	public void setFiles(List<FileEntity> files) {
 		this.files = files;
 	}
-	
+
 }
