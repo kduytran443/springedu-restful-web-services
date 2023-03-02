@@ -1,9 +1,5 @@
 package com.duyb1906443.dto;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 public class ClassReviewCardDTO {
 	private Long id;
 	private String name;
@@ -12,7 +8,25 @@ public class ClassReviewCardDTO {
 	private Integer accepted;
 	private float stars;
 	private String shortDescription;
-	
+	private Long fee;
+	private DiscountDTO discount;
+
+	public DiscountDTO getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(DiscountDTO discount) {
+		this.discount = discount;
+	}
+
+	public Long getFee() {
+		return fee;
+	}
+
+	public void setFee(Long fee) {
+		this.fee = fee;
+	}
+
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -72,7 +86,7 @@ public class ClassReviewCardDTO {
 	@Override
 	public String toString() {
 		return "ClassReviewCardDTO [id=" + id + ", name=" + name + ", createdDate=" + createdDate + ", avatar=" + avatar
-				+ ", accepted=" + accepted +  ", stars=" + stars + "]";
+				+ ", accepted=" + accepted + ", stars=" + stars + "]";
 	}
 
 }

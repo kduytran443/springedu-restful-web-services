@@ -1,8 +1,6 @@
 package com.duyb1906443.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -41,6 +39,17 @@ public class ClassLessonEntity {
 
 	@OneToMany(mappedBy = "classLesson", fetch = FetchType.LAZY)
 	private List<FileEntity> files;
+
+	@Column
+	private int ordinalNumber;
+
+	public int getOrdinalNumber() {
+		return ordinalNumber;
+	}
+
+	public void setOrdinalNumber(int ordinalNumber) {
+		this.ordinalNumber = ordinalNumber;
+	}
 
 	public Long getId() {
 		return id;

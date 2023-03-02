@@ -1,7 +1,6 @@
 package com.duyb1906443.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -45,6 +44,9 @@ public class ClassEntity {
 	@Column(columnDefinition = "NVARCHAR(256)")
 	private String shortDescription;
 
+	@Column
+	private Long fee;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_id")
 	private MeetingEntity meeting;
@@ -87,6 +89,18 @@ public class ClassEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
 	private UserEntity creator;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "discount_id")
+	private DiscountEntity discount;
+
+	public DiscountEntity getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(DiscountEntity discount) {
+		this.discount = discount;
+	}
 
 	public UserEntity getCreator() {
 		return creator;
@@ -246,6 +260,14 @@ public class ClassEntity {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	public Long getFee() {
+		return fee;
+	}
+
+	public void setFee(Long fee) {
+		this.fee = fee;
 	}
 
 	@Override

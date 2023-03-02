@@ -1,7 +1,6 @@
 package com.duyb1906443.dto;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ClassIntroDTO {
@@ -19,8 +18,26 @@ public class ClassIntroDTO {
 	private String username;
 	private String userFullname;
 	private float stars;
+	private Long fee;
 	private ClassScheduleDTO classSchedule;
 	private List<ClassScheduleWeeklyClassScheduleDTO> classScheduleWeeklyClassSchedule;
+	private DiscountDTO discount;
+
+	public DiscountDTO getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(DiscountDTO discount) {
+		this.discount = discount;
+	}
+
+	public Long getFee() {
+		return fee;
+	}
+
+	public void setFee(Long fee) {
+		this.fee = fee;
+	}
 
 	public List<ClassScheduleWeeklyClassScheduleDTO> getClassScheduleWeeklyClassSchedule() {
 		return classScheduleWeeklyClassSchedule;

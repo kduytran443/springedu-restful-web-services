@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.duyb1906443.dto.ClassIntroDTO;
-import com.duyb1906443.dto.DateDTO;
 import com.duyb1906443.entity.ClassEntity;
 
 @Component
@@ -15,6 +14,9 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 
 	@Autowired
 	private ClassScheduleConverter classScheduleConverter;
+	
+	@Autowired
+	private DiscountConverter discountConverter;
 
 	@Override
 	public ClassIntroDTO toDTO(ClassEntity entity) {
@@ -34,6 +36,8 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		dto.setUserAvatar(entity.getCreator().getAvatar());
 		dto.setUsername(entity.getCreator().getUsername());
 		dto.setUserFullname(entity.getCreator().getFullname());
+		dto.setFee(entity.getFee());
+		dto.setDiscount(discountConverter.toDTO(entity.getDiscount()));
 		return dto;
 	}
 

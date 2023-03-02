@@ -23,14 +23,14 @@ public class TopicEntity {
 
 	@Column(columnDefinition = "nvarchar(320)")
 	private String name;
-	
+
 	@Column
 	private int ordinalNumber;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "topic")
 	private List<ClassLessonEntity> classLessons;
 

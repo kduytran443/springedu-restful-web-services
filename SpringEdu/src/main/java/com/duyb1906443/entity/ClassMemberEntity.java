@@ -2,15 +2,15 @@ package com.duyb1906443.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.duyb1906443.entity.id.ClassMemberId;
@@ -35,6 +35,9 @@ public class ClassMemberEntity implements Serializable {
 
 	@Column
 	private Timestamp createdDate;
+	
+	@Column(columnDefinition = "tinyint")
+	private int accepted;
 
 	@Column(nullable = true)
 	private float fee;
@@ -42,6 +45,10 @@ public class ClassMemberEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "class_role_id")
 	private ClassRoleEntity classRole;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "discount_id", nullable = true)
+	private DiscountEntity discount;
 
 	public ClassMemberId getClassMemberId() {
 		return classMemberId;
