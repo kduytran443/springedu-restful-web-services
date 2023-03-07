@@ -1,4 +1,4 @@
-package com.duyb1906443.converter;
+package com.duyb1906443.dto;
 
 import java.sql.Timestamp;
 

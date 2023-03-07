@@ -10,7 +10,7 @@ import com.duyb1906443.dto.TopicDTO;
 import com.duyb1906443.entity.TopicEntity;
 
 @Component
-public class TopicConverter implements IConverterToDTO<TopicEntity, TopicDTO> {
+public class TopicConverter implements IConverterToDTO<TopicEntity, TopicDTO>, IConverterToEntity<TopicEntity, TopicDTO> {
 	
 	@Autowired
 	private ClassLessonReviewConverter classLessonReviewConverter;
@@ -22,6 +22,7 @@ public class TopicConverter implements IConverterToDTO<TopicEntity, TopicDTO> {
 		dto.setClassId(entity.getClassEntity().getId());
 		dto.setClassLessonReviews(classLessonReviewConverter.toDTOList(entity.getClassLessons()));
 		dto.setName(entity.getName());
+		dto.setVisible(entity.getVisible());
 		dto.setOrdinalNumber(entity.getOrdinalNumber());
 		return dto;
 	}
@@ -35,6 +36,31 @@ public class TopicConverter implements IConverterToDTO<TopicEntity, TopicDTO> {
 		return dtos;
 	}
 	
-	
+	public TopicEntity toEntity(TopicDTO dto, TopicEntity entity) {
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setOrdinalNumber(dto.getOrdinalNumber());
+		entity.setVisible(dto.getVisible());
+		return entity;
+	}
+
+	@Override
+	public TopicEntity toEntity(TopicDTO dto) {
+		TopicEntity entity = new TopicEntity();
+		if(dto.getId() != null) entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setOrdinalNumber(dto.getOrdinalNumber());
+		entity.setVisible(dto.getVisible());
+		return entity;
+	}
+
+	@Override
+	public List<TopicEntity> toEntityList(List<TopicDTO> dtos) {
+		List<TopicEntity> entities = new ArrayList<>();
+		for (TopicDTO topicDTO : dtos) {
+			entities.add(toEntity(topicDTO));
+		}
+		return entities;
+	}
 	
 }

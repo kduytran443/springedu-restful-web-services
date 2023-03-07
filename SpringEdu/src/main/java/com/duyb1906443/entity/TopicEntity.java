@@ -27,6 +27,9 @@ public class TopicEntity {
 	@Column
 	private int ordinalNumber;
 
+	@Column(columnDefinition = "tinyint")
+	private int visible;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
@@ -73,5 +76,13 @@ public class TopicEntity {
 	public void setClassLessons(List<ClassLessonEntity> classLessons) {
 		this.classLessons = classLessons;
 	}
-	
+
+	public int getVisible() {
+		return visible;
+	}
+
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
+
 }

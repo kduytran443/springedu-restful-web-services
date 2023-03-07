@@ -2,14 +2,21 @@ package com.duyb1906443.dto;
 
 import java.util.List;
 
-import com.duyb1906443.converter.ClassLessonReviewDTO;
-
 public class TopicDTO {
 	private Long id;
 	private String name;
 	private int ordinalNumber;
+	private int visible;
 	private Long classId;
 	private List<ClassLessonReviewDTO> classLessonReviews;
+
+	public int getVisible() {
+		return visible;
+	}
+
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
 
 	public Long getId() {
 		return id;

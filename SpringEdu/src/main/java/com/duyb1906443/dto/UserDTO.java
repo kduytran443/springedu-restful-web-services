@@ -1,7 +1,5 @@
 package com.duyb1906443.dto;
 
-import java.util.List;
-
 public class UserDTO {
 	private Long id;
 	private String username;
@@ -11,8 +9,17 @@ public class UserDTO {
 	private String gender;
 	private int brithYear;
 	private String password;
-	private List<Long> roles;
+	private String role;
 	private String avatar;
+	private String jwt;
+
+	public String getJwt() {
+		return jwt;
+	}
+
+	public void setJwt(String jwt) {
+		this.jwt = jwt;
+	}
 
 	public UserDTO() {
 	}
@@ -89,12 +96,19 @@ public class UserDTO {
 		this.brithYear = brithYear;
 	}
 
-	public List<Long> getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRoles(List<Long> roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", username=" + username + ", fullname=" + fullname + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", brithYear=" + brithYear + ", password="
+				+ password + ", role=" + role + ", avatar=" + avatar + ", jwt=" + jwt + "]";
 	}
 
 }

@@ -49,7 +49,7 @@ public class UserEntity {
 	@Column(columnDefinition = "tinyint default '1'")
 	private int status;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles;
 

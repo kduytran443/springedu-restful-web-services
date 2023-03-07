@@ -1,6 +1,5 @@
 package com.duyb1906443.entity;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,51 +20,54 @@ public class FileEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(columnDefinition = "nvarchar(256)")
 	private String name;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String data;
-	
+
 	@Column
 	private String type;
-	
+
 	@Column
 	private float size;
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "files")
-	private List<ChoiceQuestionEntity> choiceQuestions;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "files")
-	private List<ChoiceAnswerEntity> choiceAnswers;
-	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
+	private ChoiceQuestionEntity choiceQuestions;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
+	private ChoiceAnswerEntity choiceAnswers;
+
 	@ManyToOne
-	@JoinTable(
-			  name = "class_lesson_file", 
-			  joinColumns = @JoinColumn(name = "file_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "class_lesson_id"))
+	@JoinTable(name = "class_lesson_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "class_lesson_id"))
 	private ClassLessonEntity classLesson;
 
 	@ManyToOne
-	@JoinTable(
-			  name = "class_excercise_file", 
-			  joinColumns = @JoinColumn(name = "file_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "class_excercise_id"))
+	@JoinTable(name = "class_excercise_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "class_excercise_id"))
 	private ClassLessonEntity classExcercise;
 
 	@ManyToOne
-	@JoinTable(
-			  name = "submitted_exercise_file", 
-			  joinColumns = @JoinColumn(name = "file_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "submitted_exercise_id"))
+	@JoinTable(name = "submitted_exercise_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "submitted_exercise_id"))
 	private SubmittedExerciseEntity submittedExercise;
-	
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "backgroundImage")
 	private ClassEntity classEntityWithBackgroundImage;
-	
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "video")
 	private ClassEntity classEntityWithVideo;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "constructed_response_test_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "constructed_response_test_id"))
+	private ConstructedResponseTestEntity constructedResponseTest;
+
+	public ConstructedResponseTestEntity getConstructedResponseTest() {
+		return constructedResponseTest;
+	}
+
+	public void setConstructedResponseTest(ConstructedResponseTestEntity constructedResponseTest) {
+		this.constructedResponseTest = constructedResponseTest;
+	}
 
 	public Long getId() {
 		return id;
@@ -108,19 +109,19 @@ public class FileEntity {
 		this.size = size;
 	}
 
-	public List<ChoiceQuestionEntity> getChoiceQuestions() {
+	public ChoiceQuestionEntity getChoiceQuestions() {
 		return choiceQuestions;
 	}
 
-	public void setChoiceQuestions(List<ChoiceQuestionEntity> choiceQuestions) {
+	public void setChoiceQuestions(ChoiceQuestionEntity choiceQuestions) {
 		this.choiceQuestions = choiceQuestions;
 	}
 
-	public List<ChoiceAnswerEntity> getChoiceAnswers() {
+	public ChoiceAnswerEntity getChoiceAnswers() {
 		return choiceAnswers;
 	}
 
-	public void setChoiceAnswers(List<ChoiceAnswerEntity> choiceAnswers) {
+	public void setChoiceAnswers(ChoiceAnswerEntity choiceAnswers) {
 		this.choiceAnswers = choiceAnswers;
 	}
 
@@ -163,5 +164,5 @@ public class FileEntity {
 	public void setClassEntityWithVideo(ClassEntity classEntityWithVideo) {
 		this.classEntityWithVideo = classEntityWithVideo;
 	}
-	
+
 }

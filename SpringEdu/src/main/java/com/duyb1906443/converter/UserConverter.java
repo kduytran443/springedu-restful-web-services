@@ -38,6 +38,7 @@ public class UserConverter implements IConverterToDTO<UserEntity, UserDTO>, ICon
 		userDTO.setPhoneNumber(entity.getPhoneNumber());
 		userDTO.setUsername(entity.getUsername());
 		userDTO.setAvatar(entity.getAvatar());
+		if(entity.getRoles() != null) userDTO.setRole(entity.getRoles().get(0).getCode());
 		return userDTO;
 	}
 

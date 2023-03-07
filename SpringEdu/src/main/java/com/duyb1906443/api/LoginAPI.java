@@ -4,16 +4,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.duyb1906443.annotation.CrossOriginsList;
 import com.duyb1906443.dto.LoginRequestDTO;
 import com.duyb1906443.dto.LoginResponseDTO;
 import com.duyb1906443.dto.MessageDTO;
@@ -26,7 +30,7 @@ import com.duyb1906443.service.UserService;
 import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class LoginAPI {
 	
 	@Autowired
@@ -41,8 +45,9 @@ public class LoginAPI {
     @Autowired
     private MailService mailService;
     
-	@PostMapping("/login")
-	public LoginResponseDTO login(@RequestBody LoginRequestDTO loginRequest) {
+	@PostMapping("/api/login")
+	@CrossOriginsList
+	public UserDTO login(@RequestBody LoginRequestDTO loginRequest) {
 		System.out.println(loginRequest);
 		// Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
@@ -60,7 +65,21 @@ public class LoginAPI {
 
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new LoginResponseDTO("Bearer "+jwt);
+        UserDTO userDTO = userService.findOneById(((CustomUserDetails) authentication.getPrincipal()).getUser().getId());
+        userDTO.setJwt("Bearer "+jwt);
+        return userDTO;
+	}
+	
+
+	@GetMapping("/api/user")
+	@CrossOriginsList
+	public ResponseEntity<?> getUserFromJWT() {
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
+		UserDTO userDTO = userService.findOneById(userId);
+		
+		System.out.println("/api/user userDTO "+userDTO);
+		
+		return ResponseEntity.status(200).body(userDTO);
 	}
 	
 	@GetMapping("/home")
@@ -69,20 +88,23 @@ public class LoginAPI {
 		return new MessageDTO("SUCCESFULL");
 	}
 	
-	@PostMapping("/logout")
+	@PostMapping("/api/logout")
+	@CrossOriginsList
 	public MessageDTO logout() throws ServletException {
 		SecurityContextHolder.clearContext();
 		return new MessageDTO("Logout successfully!");
 	}
 	
-	@PostMapping("/sign-up")
+	@PostMapping("/api/sign-up")
+	@CrossOriginsList
 	public UserDTO signUp(@RequestBody UserDTO userDTO) {
 		
 		System.out.println(userDTO);
 		return userService.signUp(userDTO);
 	}
 	
-	@PostMapping("/verify")
+	@PostMapping("/api/verify")
+	@CrossOriginsList
 	public UserDTO verifySignUp(@RequestBody UserDTO userDTO) {
 		
 		MailHolder holder = new MailHolder(userDTO);

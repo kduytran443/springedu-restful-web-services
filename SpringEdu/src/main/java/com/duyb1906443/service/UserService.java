@@ -77,5 +77,9 @@ public class UserService implements UserDetailsService {
     	}
     	return false;
     }
-
+    
+    public UserDTO findOneById(Long id) {
+    	return userConverter.toDTO(userRepository.findOne(id));
+    }
+    
 }

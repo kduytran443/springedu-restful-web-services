@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duyb1906443.annotation.CrossOriginsList;
@@ -18,8 +21,7 @@ public class TopicAPI {
 	@Autowired
 	private TopicService topicService;
 	
-	/* Nho xoa public vi day la API cho Hoc Vien */
-	@GetMapping("/public/api/topic/{classId}")
+	@GetMapping("/api/topic/{classId}")
 	@CrossOriginsList
 	public ResponseEntity<List<TopicDTO>> getTopics(@PathVariable("classId") Long classId){
 		List<TopicDTO> dtos = topicService.findAllByClassId(classId);
@@ -28,5 +30,26 @@ public class TopicAPI {
 		}
 		return ResponseEntity.status(500).body(dtos);
 	}
-
+	
+	@PostMapping("/api/topic")
+	@CrossOriginsList
+	public ResponseEntity<TopicDTO> postTopic(@RequestBody TopicDTO topicDTO){
+		topicDTO.setId(null);
+		TopicDTO dto = topicService.save(topicDTO);
+		if(dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(dto);
+	}
+	
+	@PutMapping("/api/topic")
+	@CrossOriginsList
+	public ResponseEntity<TopicDTO> putTopic(@RequestBody TopicDTO topicDTO){
+		TopicDTO dto = topicService.save(topicDTO);
+		if(dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(dto);
+	}
+	
 }

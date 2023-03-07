@@ -1,6 +1,7 @@
 package com.duyb1906443.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -35,6 +36,17 @@ public class ReviewEntity implements Serializable {
 
 	@Column(columnDefinition = "NVARCHAR(512)")
 	private String comment;
+
+	@Column
+	private Timestamp date;
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
 
 	public ReviewId getReviewId() {
 		return reviewId;

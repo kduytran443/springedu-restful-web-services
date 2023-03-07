@@ -9,7 +9,7 @@ import com.duyb1906443.dto.FileDTO;
 import com.duyb1906443.entity.FileEntity;
 
 @Component
-public class FileConverter implements IConverterToDTO<FileEntity, FileDTO> {
+public class FileConverter implements IConverterToDTO<FileEntity, FileDTO>, IConverterToEntity<FileEntity, FileDTO> {
 
 	@Override
 	public FileDTO toDTO(FileEntity entity) {
@@ -31,6 +31,38 @@ public class FileConverter implements IConverterToDTO<FileEntity, FileDTO> {
 		}
 		
 		return dtos;
+	}
+
+	@Override
+	public FileEntity toEntity(FileDTO dto) {
+		FileEntity entity = new FileEntity();
+		
+		entity.setData(dto.getData());
+		if(dto.getId() != null) entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setType(dto.getType());
+		entity.setSize(dto.getSize());
+		
+		return entity;
+	}
+	
+	public FileEntity toEntity(FileDTO dto, FileEntity entity) {
+		entity.setData(dto.getData());
+		if(dto.getId() != null) entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setType(dto.getType());
+		entity.setSize(dto.getSize());
+		
+		return entity;
+	}
+
+	@Override
+	public List<FileEntity> toEntityList(List<FileDTO> dtos) {
+		List<FileEntity> entities = new ArrayList<>();
+		for (FileDTO fileDTO : dtos) {
+			entities.add(toEntity(fileDTO));
+		}
+		return entities;
 	}
 	
 }

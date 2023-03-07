@@ -8,4 +8,6 @@ public interface TopicService {
 	
 	List<TopicDTO> findAllByClassId(Long classId);
 	
+	TopicDTO save(TopicDTO topicDTO);
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.duyb1906443.dto.ClassLessonReviewDTO;
 import com.duyb1906443.entity.ClassLessonEntity;
 
 @Component
