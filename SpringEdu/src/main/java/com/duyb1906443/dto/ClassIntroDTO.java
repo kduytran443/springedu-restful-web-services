@@ -22,6 +22,15 @@ public class ClassIntroDTO {
 	private ClassScheduleDTO classSchedule;
 	private List<ClassScheduleWeeklyClassScheduleDTO> classScheduleWeeklyClassSchedule;
 	private DiscountDTO discount;
+	private String userRoleCode;
+
+	public String getUserRoleCode() {
+		return userRoleCode;
+	}
+
+	public void setUserRoleCode(String userRoleCode) {
+		this.userRoleCode = userRoleCode;
+	}
 
 	public DiscountDTO getDiscount() {
 		return discount;

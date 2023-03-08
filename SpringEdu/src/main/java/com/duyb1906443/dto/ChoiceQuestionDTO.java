@@ -7,21 +7,17 @@ public class ChoiceQuestionDTO {
 	private String name;
 	private List<Long> choiceAnswers;
 	private Long questionBank;
-	private List<Long> files;
-	private List<Long> ChoiceQuestionOfClassExcercises;
+	private FileDTO file;
 
-	public ChoiceQuestionDTO() {
+	public FileDTO getFile() {
+		return file;
 	}
 
-	public ChoiceQuestionDTO(Long id, String name, List<Long> choiceAnswers, Long questionBank, List<Long> files,
-			List<Long> choiceQuestionOfClassExcercises) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.choiceAnswers = choiceAnswers;
-		this.questionBank = questionBank;
-		this.files = files;
-		ChoiceQuestionOfClassExcercises = choiceQuestionOfClassExcercises;
+	public void setFile(FileDTO file) {
+		this.file = file;
+	}
+
+	public ChoiceQuestionDTO() {
 	}
 
 	public Long getId() {
@@ -54,29 +50,6 @@ public class ChoiceQuestionDTO {
 
 	public void setQuestionBank(Long questionBank) {
 		this.questionBank = questionBank;
-	}
-
-	public List<Long> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<Long> files) {
-		this.files = files;
-	}
-
-	public List<Long> getChoiceQuestionOfClassExcercises() {
-		return ChoiceQuestionOfClassExcercises;
-	}
-
-	public void setChoiceQuestionOfClassExcercises(List<Long> choiceQuestionOfClassExcercises) {
-		ChoiceQuestionOfClassExcercises = choiceQuestionOfClassExcercises;
-	}
-
-	@Override
-	public String toString() {
-		return "ChoiceQuestionDTO [id=" + id + ", name=" + name + ", choiceAnswers=" + choiceAnswers + ", questionBank="
-				+ questionBank + ", files=" + files + ", ChoiceQuestionOfClassExcercises="
-				+ ChoiceQuestionOfClassExcercises + "]";
 	}
 
 }

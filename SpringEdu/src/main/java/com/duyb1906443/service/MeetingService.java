@@ -8,5 +8,5 @@ public interface MeetingService {
 	MeetingDTO findOneByClassIdAndUserId(Long classId, Long userId);
 
 	MeetingDTO findOneByClassId(Long classId, Long userId);
-	
+	MeetingDTO save(MeetingDTO meetingDTO);
 }

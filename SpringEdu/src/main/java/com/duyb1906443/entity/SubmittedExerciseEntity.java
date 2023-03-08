@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -35,7 +36,8 @@ public class SubmittedExerciseEntity {
 	@JoinColumn(name = "text_data_id")
 	private TextDataEntity textData;
 
-	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "submitted_exercise_file", joinColumns = @JoinColumn(name = "submitted_exercise_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
 	private List<FileEntity> files;
 
 	@ManyToOne(fetch = FetchType.LAZY)

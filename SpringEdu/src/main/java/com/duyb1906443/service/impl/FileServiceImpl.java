@@ -28,9 +28,9 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public List<FileDTO> findAllByClassLessonId(Long classLessonId) {
 		ClassLessonEntity classLessonEntity = classLessonRepository.findOne(classLessonId);
-
+		System.out.println("classLessonEntity "+classLessonEntity.getName());
 		List<FileEntity> fileEntities = classLessonEntity.getFiles();
-
+		System.out.println("file length: "+fileEntities.size());
 		return fileConverter.toDTOList(fileEntities);
 	}
 
@@ -39,7 +39,6 @@ public class FileServiceImpl implements FileService {
 		ClassLessonEntity classLessonEntity = classLessonRepository.findOne(classId);
 		FileEntity fileEntity = fileConverter.toEntity(fileDTO);
 		fileDTO.setId(null);
-		fileEntity.setClassLesson(classLessonEntity);
 		fileEntity = fileRepository.save(fileEntity);
 		
 		List<FileEntity> files = classLessonEntity.getFiles();

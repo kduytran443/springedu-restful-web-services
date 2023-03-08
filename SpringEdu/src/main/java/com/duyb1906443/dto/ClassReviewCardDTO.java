@@ -10,6 +10,33 @@ public class ClassReviewCardDTO {
 	private String shortDescription;
 	private Long fee;
 	private DiscountDTO discount;
+	private String userFullname;
+	private String username;
+	private String userAvatar;
+
+	public String getUserFullname() {
+		return userFullname;
+	}
+
+	public void setUserFullname(String userFullname) {
+		this.userFullname = userFullname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUserAvatar() {
+		return userAvatar;
+	}
+
+	public void setUserAvatar(String userAvatar) {
+		this.userAvatar = userAvatar;
+	}
 
 	public DiscountDTO getDiscount() {
 		return discount;

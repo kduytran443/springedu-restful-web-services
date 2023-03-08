@@ -33,9 +33,9 @@ public class CategoryEntity {
 
 	@Column
 	private String icon;
-	
+
 	@Column(columnDefinition = "tinyint default '1'")
-	private String status;
+	private int status;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<ClassEntity> classes;
@@ -46,6 +46,14 @@ public class CategoryEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getIcon() {

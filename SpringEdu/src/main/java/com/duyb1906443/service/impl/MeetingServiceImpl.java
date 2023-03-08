@@ -9,7 +9,9 @@ import com.duyb1906443.converter.MeetingConverter;
 import com.duyb1906443.dto.ClassMemberDTO;
 import com.duyb1906443.dto.MeetingDTO;
 import com.duyb1906443.entity.ClassEntity;
+import com.duyb1906443.entity.MeetingEntity;
 import com.duyb1906443.repository.ClassRepository;
+import com.duyb1906443.repository.MeetingRepository;
 import com.duyb1906443.service.ClassMemberService;
 import com.duyb1906443.service.MeetingService;
 
@@ -21,6 +23,9 @@ public class MeetingServiceImpl implements MeetingService {
 
 	@Autowired
 	private MeetingConverter meetingConverter;
+	
+	@Autowired
+	private MeetingRepository meetingRepository;
 	
 	@Autowired
 	private ClassMemberService classMemberService;
@@ -47,6 +52,23 @@ public class MeetingServiceImpl implements MeetingService {
 	public MeetingDTO findOneByClassIdAndUserId(Long classId, Long userId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public MeetingDTO save(MeetingDTO meetingDTO) {
+		MeetingEntity meetingEntity = new MeetingEntity();
+		if(meetingDTO.getId() != null) {
+			meetingEntity = meetingRepository.findOne(meetingDTO.getId());
+			if(meetingDTO.getUrl() != null) meetingEntity.setUrl(meetingDTO.getUrl());
+		}
+		else {
+			int max = 50;
+			int min = 40;
+			int random = (int )(Math.random() * max + min);
+			meetingEntity.setUrl("spring-edu-dhct-"+random);
+		}
+		meetingEntity = meetingRepository.save(meetingEntity);
+		
+		return meetingConverter.toDTO(meetingEntity);
 	}
 
 }

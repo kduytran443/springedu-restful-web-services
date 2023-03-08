@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,8 +31,21 @@ public class ConstructedResponseTestEntity {
 	@OneToMany(mappedBy = "constructedResponseTest")
 	private List<ConstructedResponseMarkEntity> constructedResponseMarks;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "constructedResponseTest")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "constructed_response_test_file", joinColumns = @JoinColumn(name = "constructed_response_test_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
 	private List<FileEntity> fileEntity;
+
+	@ManyToOne
+	@JoinColumn(name = "constructed_response_test_id")
+	private QuestionBankEntity questionBank;
+
+	public QuestionBankEntity getQuestionBank() {
+		return questionBank;
+	}
+
+	public void setQuestionBank(QuestionBankEntity questionBank) {
+		this.questionBank = questionBank;
+	}
 
 	public Long getId() {
 		return id;

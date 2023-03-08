@@ -39,35 +39,11 @@ public class FileEntity {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
 	private ChoiceAnswerEntity choiceAnswers;
 
-	@ManyToOne
-	@JoinTable(name = "class_lesson_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "class_lesson_id"))
-	private ClassLessonEntity classLesson;
-
-	@ManyToOne
-	@JoinTable(name = "class_excercise_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "class_excercise_id"))
-	private ClassLessonEntity classExcercise;
-
-	@ManyToOne
-	@JoinTable(name = "submitted_exercise_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "submitted_exercise_id"))
-	private SubmittedExerciseEntity submittedExercise;
-
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "backgroundImage")
 	private ClassEntity classEntityWithBackgroundImage;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "video")
 	private ClassEntity classEntityWithVideo;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "constructed_response_test_file", joinColumns = @JoinColumn(name = "file_id"), inverseJoinColumns = @JoinColumn(name = "constructed_response_test_id"))
-	private ConstructedResponseTestEntity constructedResponseTest;
-
-	public ConstructedResponseTestEntity getConstructedResponseTest() {
-		return constructedResponseTest;
-	}
-
-	public void setConstructedResponseTest(ConstructedResponseTestEntity constructedResponseTest) {
-		this.constructedResponseTest = constructedResponseTest;
-	}
 
 	public Long getId() {
 		return id;
@@ -123,30 +99,6 @@ public class FileEntity {
 
 	public void setChoiceAnswers(ChoiceAnswerEntity choiceAnswers) {
 		this.choiceAnswers = choiceAnswers;
-	}
-
-	public ClassLessonEntity getClassLesson() {
-		return classLesson;
-	}
-
-	public void setClassLesson(ClassLessonEntity classLesson) {
-		this.classLesson = classLesson;
-	}
-
-	public ClassLessonEntity getClassExcercise() {
-		return classExcercise;
-	}
-
-	public void setClassExcercise(ClassLessonEntity classExcercise) {
-		this.classExcercise = classExcercise;
-	}
-
-	public SubmittedExerciseEntity getSubmittedExercise() {
-		return submittedExercise;
-	}
-
-	public void setSubmittedExercise(SubmittedExerciseEntity submittedExercise) {
-		this.submittedExercise = submittedExercise;
 	}
 
 	public ClassEntity getClassEntityWithBackgroundImage() {

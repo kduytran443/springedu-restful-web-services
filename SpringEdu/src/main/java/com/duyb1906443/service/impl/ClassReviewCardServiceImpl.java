@@ -10,6 +10,7 @@ import com.duyb1906443.converter.ClassReviewCardConverter;
 import com.duyb1906443.dto.ClassReviewCardDTO;
 import com.duyb1906443.entity.CategoryEntity;
 import com.duyb1906443.entity.ClassEntity;
+import com.duyb1906443.entity.UserEntity;
 import com.duyb1906443.repository.CategoryRepository;
 import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.service.ClassReviewCardService;
@@ -40,10 +41,15 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 		List<ClassReviewCardDTO> dtos = new ArrayList<ClassReviewCardDTO>();
 		for (ClassEntity classEntity : classEntities) {
 			ClassReviewCardDTO dto = classReviewCardConverter.toDTO(classEntity);
+			UserEntity user = classEntity.getCreator();
+			dto.setUserAvatar(user.getAvatar());
+			dto.setUsername(user.getUsername());
+			dto.setUserFullname(user.getFullname());
 			
+			dtos.add(dto);
 		}
 		
-		return classReviewCardConverter.toDTOList(classEntities);
+		return dtos;
 	}
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duyb1906443.annotation.CrossOriginsList;
+import com.duyb1906443.dto.ClassIntroDTO;
 import com.duyb1906443.dto.LoginRequestDTO;
 import com.duyb1906443.dto.LoginResponseDTO;
 import com.duyb1906443.dto.MessageDTO;
@@ -26,6 +28,7 @@ import com.duyb1906443.entity.CustomUserDetails;
 import com.duyb1906443.mail.MailHolder;
 import com.duyb1906443.mail.MailService;
 import com.duyb1906443.security.token.JwtTokenProvider;
+import com.duyb1906443.service.ClassIntroService;
 import com.duyb1906443.service.UserService;
 import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 
@@ -44,7 +47,10 @@ public class LoginAPI {
     
     @Autowired
     private MailService mailService;
-    
+
+	@Autowired
+	private ClassIntroService classIntroService;
+	
 	@PostMapping("/api/login")
 	@CrossOriginsList
 	public UserDTO login(@RequestBody LoginRequestDTO loginRequest) {
@@ -75,13 +81,13 @@ public class LoginAPI {
 	@CrossOriginsList
 	public ResponseEntity<?> getUserFromJWT() {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
+		System.out.println("id "+userId);
 		UserDTO userDTO = userService.findOneById(userId);
 		
 		System.out.println("/api/user userDTO "+userDTO);
 		
 		return ResponseEntity.status(200).body(userDTO);
 	}
-	
 	@GetMapping("/home")
 	public MessageDTO test() {
 		System.out.println("USERNAME: "+SecurityContextHolder.getContext().getAuthentication().getName());

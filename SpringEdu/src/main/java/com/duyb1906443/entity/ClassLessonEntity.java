@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,7 +38,8 @@ public class ClassLessonEntity {
 	@JoinColumn(name = "textdata_id")
 	private TextDataEntity textData;
 
-	@OneToMany(mappedBy = "classLesson", fetch = FetchType.LAZY)
+	@OneToMany
+	@JoinTable(name = "class_lesson_file", joinColumns = @JoinColumn(name = "class_lesson_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
 	private List<FileEntity> files;
 
 	@Column
@@ -97,6 +99,12 @@ public class ClassLessonEntity {
 
 	public void setFiles(List<FileEntity> files) {
 		this.files = files;
+	}
+
+	@Override
+	public String toString() {
+		return "ClassLessonEntity [id=" + id + ", name=" + name + ", createdDate=" + createdDate + ", topic=" + topic
+				+ ", textData=" + textData + ", files=" + files + ", ordinalNumber=" + ordinalNumber + "]";
 	}
 
 }

@@ -5,5 +5,6 @@ import com.duyb1906443.dto.ClassIntroDTO;
 public interface ClassIntroService {
 	
 	ClassIntroDTO findOneByClassId(Long classId);
+	ClassIntroDTO findOneByClassIdAndUserId(Long classId, Long userId);
 	
 }

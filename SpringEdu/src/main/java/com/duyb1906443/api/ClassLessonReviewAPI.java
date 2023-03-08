@@ -20,7 +20,7 @@ public class ClassLessonReviewAPI {
 	@Autowired
 	private ClassLessonReviewService classLessonReviewService;
 	
-	@GetMapping("/public/api/class-lesson-review/{classLessonId}")
+	@GetMapping("/api/class-lesson-review/{classLessonId}")
 	@CrossOriginsList
 	public ResponseEntity<ClassLessonReviewDTO> getMove(@PathVariable("classLessonId") Long classLessonId, @RequestParam("move") String move){
 		ClassLessonReviewDTO dto = null;
@@ -36,7 +36,7 @@ public class ClassLessonReviewAPI {
 		return ResponseEntity.status(500).body(dto);
 	}
 	
-	@GetMapping("/public/api/class-lesson-review")
+	@GetMapping("/api/class-lesson-review")
 	@CrossOriginsList
 	public ResponseEntity<List<ClassLessonReviewDTO>> getList(@RequestParam("topicId") Long id){
 		return ResponseEntity.status(500).body(new ArrayList<>());

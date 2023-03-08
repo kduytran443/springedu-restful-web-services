@@ -42,7 +42,7 @@ public class UserEntity {
 
 	@Column
 	private int brithYear;
-	
+
 	@Column
 	private String avatar;
 
@@ -59,9 +59,8 @@ public class UserEntity {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<CommentEntity> comments;
 
-	@OneToOne
-	@JoinColumn(name = "question_bank_id")
-	private QuestionBankEntity questionBank;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<QuestionBankEntity> questionBanks;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<SubmittedExerciseEntity> submittedExercises;
@@ -71,7 +70,7 @@ public class UserEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<ReportEntity> reports;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
 	private List<ClassEntity> createdClasses;
 
@@ -187,12 +186,20 @@ public class UserEntity {
 		this.comments = comments;
 	}
 
-	public QuestionBankEntity getQuestionBank() {
-		return questionBank;
+	public List<QuestionBankEntity> getQuestionBanks() {
+		return questionBanks;
 	}
 
-	public void setQuestionBank(QuestionBankEntity questionBank) {
-		this.questionBank = questionBank;
+	public void setQuestionBanks(List<QuestionBankEntity> questionBanks) {
+		this.questionBanks = questionBanks;
+	}
+
+	public List<ClassEntity> getCreatedClasses() {
+		return createdClasses;
+	}
+
+	public void setCreatedClasses(List<ClassEntity> createdClasses) {
+		this.createdClasses = createdClasses;
 	}
 
 	public List<SubmittedExerciseEntity> getSubmittedExercises() {
