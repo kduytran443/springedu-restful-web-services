@@ -58,4 +58,10 @@ public class TopicDTO {
 		this.classLessonReviews = classLessonReviews;
 	}
 
+	@Override
+	public String toString() {
+		return "TopicDTO [id=" + id + ", name=" + name + ", ordinalNumber=" + ordinalNumber + ", visible=" + visible
+				+ ", classId=" + classId + ", classLessonReviews=" + classLessonReviews + "]";
+	}
+
 }

@@ -42,14 +42,21 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 		if(dto.getId() != null) {
 			questionBankEntity = questionBankRepository.findOne(dto.getId());
 			questionBankEntity = questionBankConverter.toEntity(dto, questionBankEntity);
-			questionBankEntity.setStatus(0);
 		}
 		else {
 			questionBankEntity = questionBankConverter.toEntity(dto);
 			questionBankEntity.setUser(userRepository.findOne(userId));
+			questionBankEntity.setStatus(1);
 		}
 		questionBankEntity = questionBankRepository.save(questionBankEntity);
 		return questionBankConverter.toDTO(questionBankEntity);
+	}
+
+	@Override
+	public void delete(Long id) {
+		QuestionBankEntity questionBankEntity = questionBankRepository.findOne(id);
+		questionBankEntity.setStatus(0);
+		questionBankEntity = questionBankRepository.save(questionBankEntity);
 	}
 	
 }

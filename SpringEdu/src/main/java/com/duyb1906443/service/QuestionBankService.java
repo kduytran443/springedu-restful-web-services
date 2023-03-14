@@ -8,5 +8,6 @@ public interface QuestionBankService {
 
 	List<QuestionBankDTO> findAllByUserId(Long userId);
 	QuestionBankDTO save(QuestionBankDTO dto, Long userId);
+	void delete(Long id);
 	
 }

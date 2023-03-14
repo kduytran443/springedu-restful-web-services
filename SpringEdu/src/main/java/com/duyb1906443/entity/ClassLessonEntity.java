@@ -3,6 +3,7 @@ package com.duyb1906443.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,13 +31,12 @@ public class ClassLessonEntity {
 	@Column
 	private Timestamp createdDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "topic_id")
 	private TopicEntity topic;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "textdata_id")
-	private TextDataEntity textData;
+	@Column(columnDefinition = "NTEXT")
+	private String content;
 
 	@OneToMany
 	@JoinTable(name = "class_lesson_file", joinColumns = @JoinColumn(name = "class_lesson_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
@@ -51,6 +51,14 @@ public class ClassLessonEntity {
 
 	public void setOrdinalNumber(int ordinalNumber) {
 		this.ordinalNumber = ordinalNumber;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Long getId() {
@@ -85,26 +93,12 @@ public class ClassLessonEntity {
 		this.topic = topic;
 	}
 
-	public TextDataEntity getTextData() {
-		return textData;
-	}
-
-	public void setTextData(TextDataEntity textData) {
-		this.textData = textData;
-	}
-
 	public List<FileEntity> getFiles() {
 		return files;
 	}
 
 	public void setFiles(List<FileEntity> files) {
 		this.files = files;
-	}
-
-	@Override
-	public String toString() {
-		return "ClassLessonEntity [id=" + id + ", name=" + name + ", createdDate=" + createdDate + ", topic=" + topic
-				+ ", textData=" + textData + ", files=" + files + ", ordinalNumber=" + ordinalNumber + "]";
 	}
 
 }

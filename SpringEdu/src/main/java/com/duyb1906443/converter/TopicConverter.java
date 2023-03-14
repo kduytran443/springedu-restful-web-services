@@ -20,7 +20,7 @@ public class TopicConverter implements IConverterToDTO<TopicEntity, TopicDTO>, I
 		TopicDTO dto = new TopicDTO();
 		if(entity.getId() != null) dto.setId(entity.getId());
 		dto.setClassId(entity.getClassEntity().getId());
-		dto.setClassLessonReviews(classLessonReviewConverter.toDTOList(entity.getClassLessons()));
+		if(entity.getClassLessons() != null) dto.setClassLessonReviews(classLessonReviewConverter.toDTOList(entity.getClassLessons()));
 		dto.setName(entity.getName());
 		dto.setVisible(entity.getVisible());
 		dto.setOrdinalNumber(entity.getOrdinalNumber());

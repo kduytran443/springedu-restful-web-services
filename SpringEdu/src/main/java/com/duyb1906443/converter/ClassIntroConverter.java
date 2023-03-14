@@ -23,21 +23,30 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		ClassIntroDTO dto = new ClassIntroDTO();
 		if (entity.getId() != null)
 			dto.setId(entity.getId());
-		dto.setBackgroundImage(entity.getBackgroundImage().getData());
+		dto.setBackgroundImage(entity.getBackground());
 		dto.setCategoryCode(entity.getCategory().getCode());
 		dto.setCategoryName(entity.getCategory().getName());
-		dto.setClassSchedule(classScheduleConverter.toDTO(entity.getClassSchedule()));
+		
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setName(entity.getName());
 		dto.setStatus(entity.getStatus());
-		dto.setTextData(entity.getTextData().getContent());
+		dto.setTextData(entity.getContent());
 		dto.setVideo(entity.getVideo().getData());
 		dto.setVisiable(entity.getVisiable());
 		dto.setUserAvatar(entity.getCreator().getAvatar());
 		dto.setUsername(entity.getCreator().getUsername());
 		dto.setUserFullname(entity.getCreator().getFullname());
 		dto.setFee(entity.getFee());
-		dto.setDiscount(discountConverter.toDTO(entity.getDiscount()));
+		dto.setStartTime(entity.getStartTime());
+		dto.setEndTime(entity.getEndTime());
+		
+		if(entity.getClassSchedules() != null) {
+			System.out.println(entity.getClassSchedules().size() + " lịch");
+			dto.setClassSchedules(classScheduleConverter.toDTOList(entity.getClassSchedules()));
+		}
+		
+		dto.setDiscount(null);
+		
 		return dto;
 	}
 

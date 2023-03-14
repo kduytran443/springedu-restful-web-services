@@ -32,9 +32,8 @@ public class SubmittedExerciseEntity {
 	@Column
 	private float mark;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "text_data_id")
-	private TextDataEntity textData;
+	@Column
+	private String content;
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "submitted_exercise_file", joinColumns = @JoinColumn(name = "submitted_exercise_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
@@ -47,9 +46,6 @@ public class SubmittedExerciseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_excercise_id")
 	private ClassExcerciseEntity classExcercise;
-
-	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
-	private List<AnswerChoiceQuestionEntity> answerChoiceQuestions;
 
 	public Long getId() {
 		return id;
@@ -75,12 +71,12 @@ public class SubmittedExerciseEntity {
 		this.mark = mark;
 	}
 
-	public TextDataEntity getTextData() {
-		return textData;
+	public String getContent() {
+		return content;
 	}
 
-	public void setTextData(TextDataEntity textData) {
-		this.textData = textData;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public List<FileEntity> getFiles() {
@@ -105,14 +101,6 @@ public class SubmittedExerciseEntity {
 
 	public void setClassExcercise(ClassExcerciseEntity classExcercise) {
 		this.classExcercise = classExcercise;
-	}
-
-	public List<AnswerChoiceQuestionEntity> getAnswerChoiceQuestions() {
-		return answerChoiceQuestions;
-	}
-
-	public void setAnswerChoiceQuestions(List<AnswerChoiceQuestionEntity> answerChoiceQuestions) {
-		this.answerChoiceQuestions = answerChoiceQuestions;
 	}
 
 }

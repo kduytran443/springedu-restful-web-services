@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,14 @@ public class TopicAPI {
 			return ResponseEntity.status(200).body(dto);
 		}
 		return ResponseEntity.status(500).body(dto);
+	}
+	
+	@DeleteMapping("/api/topic")
+	@CrossOriginsList
+	public ResponseEntity<TopicDTO> deleteTopic(@RequestBody TopicDTO topicDTO){
+		System.out.println("topicDTO "+topicDTO);
+		topicService.delete(topicDTO);
+		return ResponseEntity.status(200).body(new TopicDTO());
 	}
 	
 }

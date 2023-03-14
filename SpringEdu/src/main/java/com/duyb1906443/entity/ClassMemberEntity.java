@@ -35,9 +35,12 @@ public class ClassMemberEntity implements Serializable {
 
 	@Column
 	private Timestamp createdDate;
-	
+
 	@Column(columnDefinition = "tinyint")
-	private int accepted;
+	private int memberAccepted;
+
+	@Column(columnDefinition = "tinyint")
+	private int classAccepted;
 
 	@Column(nullable = true)
 	private float fee;
@@ -45,10 +48,34 @@ public class ClassMemberEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "class_role_id")
 	private ClassRoleEntity classRole;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "discount_id", nullable = true)
 	private DiscountEntity discount;
+
+	public int getMemberAccepted() {
+		return memberAccepted;
+	}
+
+	public void setMemberAccepted(int memberAccepted) {
+		this.memberAccepted = memberAccepted;
+	}
+
+	public int getClassAccepted() {
+		return classAccepted;
+	}
+
+	public void setClassAccepted(int classAccepted) {
+		this.classAccepted = classAccepted;
+	}
+
+	public DiscountEntity getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(DiscountEntity discount) {
+		this.discount = discount;
+	}
 
 	public ClassMemberId getClassMemberId() {
 		return classMemberId;

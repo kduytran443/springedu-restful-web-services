@@ -1,7 +1,7 @@
 package com.duyb1906443.converter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,9 @@ public class ClassLessonConverter implements IConverterToDTO<ClassLessonEntity, 
 		dto.setName(entity.getName());
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setOrdinalNumber(entity.getOrdinalNumber());
-		if(entity.getTextData() != null) dto.setTextData(entity.getTextData().getContent());
+		if(entity.getContent() != null) {
+			dto.setTextData(entity.getContent());
+		}
 		dto.setTopicId(entity.getTopic().getId());
 		dto.setTopicName(entity.getTopic().getName());
 		if(entity.getFiles() != null) dto.setFiles(fileConverter.toDTOList(entity.getFiles()));
@@ -32,19 +34,18 @@ public class ClassLessonConverter implements IConverterToDTO<ClassLessonEntity, 
 
 	@Override
 	public List<ClassLessonDTO> toDTOList(List<ClassLessonEntity> entities) {
-		List<ClassLessonDTO> dtos = new ArrayList<>();
-
-		for (ClassLessonEntity classLessonEntity : entities) {
-			dtos.add(toDTO(classLessonEntity));
-		}
-
-		return dtos;
+		return entities.stream().map(entity -> toDTO(entity)).collect(Collectors.toList());
 	}
 
 	public ClassLessonEntity toEntity(ClassLessonDTO dto, ClassLessonEntity entity) {
 		if (dto.getId() != null)
 			entity.setId(dto.getId());
 		entity.setName(dto.getName());
+		if(dto.getTextData() != null) {
+			entity.setContent(dto.getTextData());
+		}
+		entity.setName(dto.getName());
+		entity.setOrdinalNumber(dto.getOrdinalNumber());
 		return entity;
 	}
 
@@ -54,16 +55,15 @@ public class ClassLessonConverter implements IConverterToDTO<ClassLessonEntity, 
 		if (dto.getId() != null)
 			entity.setId(dto.getId());
 		entity.setName(dto.getName());
+		if(dto.getTextData() != null) {
+			entity.setContent(dto.getTextData());
+		}
 		return entity;
 	}
 
 	@Override
 	public List<ClassLessonEntity> toEntityList(List<ClassLessonDTO> dtos) {
-		List<ClassLessonEntity> entities = new ArrayList<>();
-		for (ClassLessonDTO classLessonDTO : dtos) {
-			entities.add(toEntity(classLessonDTO));
-		}
-		return entities;
+		return dtos.stream().map(dto -> toEntity(dto)).collect(Collectors.toList());
 	}
 
 }

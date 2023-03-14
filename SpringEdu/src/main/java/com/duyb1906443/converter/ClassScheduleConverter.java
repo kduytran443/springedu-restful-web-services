@@ -2,6 +2,7 @@ package com.duyb1906443.converter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -18,20 +19,18 @@ public class ClassScheduleConverter implements IConverterToDTO<ClassScheduleEnti
 		ClassScheduleDTO dto = new ClassScheduleDTO();
 		if (entity.getId() != null)
 			dto.setId(entity.getId());
-		dto.setStartTime(entity.getStartTime());
-		dto.setEndTime(entity.getEndTime());
+		dto.setDateCode(entity.getWeeklyClassSchedule().getCode());
+		dto.setDateName(entity.getWeeklyClassSchedule().getName());
+		dto.setEndHours(entity.getEndHours());
+		dto.setEndMinutes(entity.getEndMinutes());
+		dto.setStartHours(entity.getStartHours());
+		dto.setStartMinutes(entity.getStartMinutes());
 		return dto;
 	}
 
 	@Override
 	public List<ClassScheduleDTO> toDTOList(List<ClassScheduleEntity> entities) {
-		List<ClassScheduleDTO> dtos = new ArrayList<ClassScheduleDTO>();
-
-		for (ClassScheduleEntity classScheduleEntity : entities) {
-			dtos.add(toDTO(classScheduleEntity));
-		}
-
-		return dtos;
+		return entities.stream().map(entity -> toDTO(entity)).collect(Collectors.toList());
 	}
 
 }

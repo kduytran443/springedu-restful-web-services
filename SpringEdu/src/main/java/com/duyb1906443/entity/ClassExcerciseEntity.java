@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -52,8 +53,31 @@ public class ClassExcerciseEntity {
 	@OneToMany(mappedBy = "classExcercise", fetch = FetchType.LAZY)
 	private List<SubmittedExerciseEntity> submittedExercises;
 
-	@OneToMany(mappedBy = "classExcercise", fetch = FetchType.LAZY)
-	private List<ChoiceQuestionOfClassExcerciseEntity> ChoiceQuestionOfClassExcercises;
+	@ManyToOne
+	@JoinColumn(name = "question_bank_id")
+	private QuestionBankEntity questionBank;
+
+	@OneToOne(mappedBy = "classExcercise")
+	private QuizEntity quiz;
+	
+	@OneToOne(mappedBy = "classExcercise")
+	private ConstructedResponseTestEntity constructedResponseTests;
+
+	public QuizEntity getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(QuizEntity quiz) {
+		this.quiz = quiz;
+	}
+
+	public QuestionBankEntity getQuestionBank() {
+		return questionBank;
+	}
+
+	public void setQuestionBank(QuestionBankEntity questionBank) {
+		this.questionBank = questionBank;
+	}
 
 	public Long getId() {
 		return id;
@@ -133,15 +157,6 @@ public class ClassExcerciseEntity {
 
 	public void setSubmittedExercises(List<SubmittedExerciseEntity> submittedExercises) {
 		this.submittedExercises = submittedExercises;
-	}
-
-	public List<ChoiceQuestionOfClassExcerciseEntity> getChoiceQuestionOfClassExcercises() {
-		return ChoiceQuestionOfClassExcercises;
-	}
-
-	public void setChoiceQuestionOfClassExcercises(
-			List<ChoiceQuestionOfClassExcerciseEntity> choiceQuestionOfClassExcercises) {
-		ChoiceQuestionOfClassExcercises = choiceQuestionOfClassExcercises;
 	}
 
 }

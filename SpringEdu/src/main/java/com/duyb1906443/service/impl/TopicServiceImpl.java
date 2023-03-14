@@ -76,4 +76,9 @@ public class TopicServiceImpl implements TopicService {
 		return topicConverter.toDTO(topicEntity);
 	}
 
+	@Override
+	public void delete(TopicDTO topicDTO) {
+		topicRepository.delete(topicDTO.getId());
+	}
+
 }

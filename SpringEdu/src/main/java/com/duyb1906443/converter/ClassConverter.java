@@ -3,7 +3,6 @@ package com.duyb1906443.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.duyb1906443.dto.ClassDTO;
@@ -18,8 +17,8 @@ public class ClassConverter
 		ClassDTO dto = new ClassDTO();
 		dto.setAccepted(entity.getAccepted());
 		dto.setAvatar(entity.getAvatar());
-		if (entity.getBackgroundImage().getId() != null)
-			dto.setBackgroundImage(entity.getBackgroundImage().getId());
+		if (entity.getBackground() != null)
+			dto.setBackground(entity.getBackground());
 		if (entity.getVideo().getId() != null)
 			dto.setVideo(entity.getVideo().getId());
 		if (entity.getId() != null)

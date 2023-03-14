@@ -11,9 +11,9 @@ public class ClassDTO {
 	private String avatar;
 	private Integer accepted;
 	private CategoryDTO category;
-	private Long backgroundImage;
+	private String background;
 	private Long video;
-	private Long fee;
+	private Float fee;
 	private String shortDescription;
 	private Long creatorId;
 
@@ -33,11 +33,11 @@ public class ClassDTO {
 		this.shortDescription = shortDescription;
 	}
 
-	public Long getFee() {
+	public Float getFee() {
 		return fee;
 	}
 
-	public void setFee(Long fee) {
+	public void setFee(Float fee) {
 		this.fee = fee;
 	}
 
@@ -105,12 +105,12 @@ public class ClassDTO {
 		this.category = category;
 	}
 
-	public Long getBackgroundImage() {
-		return backgroundImage;
+	public String getBackground() {
+		return background;
 	}
 
-	public void setBackgroundImage(Long backgroundImage) {
-		this.backgroundImage = backgroundImage;
+	public void setBackground(String background) {
+		this.background = background;
 	}
 
 	public Long getVideo() {

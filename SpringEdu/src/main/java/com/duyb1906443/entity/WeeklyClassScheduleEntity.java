@@ -1,10 +1,14 @@
 package com.duyb1906443.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +24,17 @@ public class WeeklyClassScheduleEntity {
 
 	@Column(columnDefinition = "nvarchar(32)")
 	private String name;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "weeklyClassSchedule")
+	private List<ClassScheduleEntity> classSchedule;
+
+	public List<ClassScheduleEntity> getClassSchedule() {
+		return classSchedule;
+	}
+
+	public void setClassSchedule(List<ClassScheduleEntity> classSchedule) {
+		this.classSchedule = classSchedule;
+	}
 
 	public Long getId() {
 		return id;

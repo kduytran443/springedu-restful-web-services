@@ -1,15 +1,14 @@
 package com.duyb1906443.entity;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,12 +38,9 @@ public class FileEntity {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
 	private ChoiceAnswerEntity choiceAnswers;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "backgroundImage")
-	private ClassEntity classEntityWithBackgroundImage;
-
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "video")
-	private ClassEntity classEntityWithVideo;
-
+	private ClassEntity classEntityVideo;
+	
 	public Long getId() {
 		return id;
 	}
@@ -99,22 +95,6 @@ public class FileEntity {
 
 	public void setChoiceAnswers(ChoiceAnswerEntity choiceAnswers) {
 		this.choiceAnswers = choiceAnswers;
-	}
-
-	public ClassEntity getClassEntityWithBackgroundImage() {
-		return classEntityWithBackgroundImage;
-	}
-
-	public void setClassEntityWithBackgroundImage(ClassEntity classEntityWithBackgroundImage) {
-		this.classEntityWithBackgroundImage = classEntityWithBackgroundImage;
-	}
-
-	public ClassEntity getClassEntityWithVideo() {
-		return classEntityWithVideo;
-	}
-
-	public void setClassEntityWithVideo(ClassEntity classEntityWithVideo) {
-		this.classEntityWithVideo = classEntityWithVideo;
 	}
 
 }

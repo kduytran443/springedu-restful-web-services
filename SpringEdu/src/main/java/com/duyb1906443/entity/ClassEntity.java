@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -45,18 +46,26 @@ public class ClassEntity {
 	private String shortDescription;
 
 	@Column
-	private Long fee;
+	private Timestamp startTime;
+
+	@Column
+	private Timestamp endTime;
+
+	@Column
+	private String background;
+
+	@Column(nullable = true)
+	private Float fee;
+
+	@Column(columnDefinition = "NTEXT")
+	private String content;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_id")
 	private MeetingEntity meeting;
 
-	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
-	private List<CommentEntity> comments;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "class_schedule_id")
-	private ClassScheduleEntity classSchedule;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
+	private List<ClassScheduleEntity> classSchedules;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
 	private List<TopicEntity> topics;
@@ -72,14 +81,6 @@ public class ClassEntity {
 	private CategoryEntity category;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "text_data_id")
-	private TextDataEntity textData;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "background_id")
-	private FileEntity backgroundImage;
-
-	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "video_id")
 	private FileEntity video;
 
@@ -90,16 +91,61 @@ public class ClassEntity {
 	@JoinColumn(name = "creator_id")
 	private UserEntity creator;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "discount_id")
-	private DiscountEntity discount;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
+	private List<DiscountEntity> discounts;
 
-	public DiscountEntity getDiscount() {
-		return discount;
+	@ManyToMany(mappedBy = "classEntities")
+	private List<QuestionBankEntity> questionBanks;
+
+	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
+	private List<CommentEntity> comments;
+
+	public String getBackground() {
+		return background;
 	}
 
-	public void setDiscount(DiscountEntity discount) {
-		this.discount = discount;
+	public void setBackground(String background) {
+		this.background = background;
+	}
+
+	public List<QuestionBankEntity> getQuestionBanks() {
+		return questionBanks;
+	}
+
+	public void setQuestionBanks(List<QuestionBankEntity> questionBanks) {
+		this.questionBanks = questionBanks;
+	}
+
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
+
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+
+	public List<DiscountEntity> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(List<DiscountEntity> discounts) {
+		this.discounts = discounts;
 	}
 
 	public UserEntity getCreator() {
@@ -182,20 +228,24 @@ public class ClassEntity {
 		this.meeting = meeting;
 	}
 
-	public List<CommentEntity> getComments() {
-		return comments;
+	public String getContent() {
+		return content;
 	}
 
-	public void setComments(List<CommentEntity> comments) {
-		this.comments = comments;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public ClassScheduleEntity getClassSchedule() {
-		return classSchedule;
+	public List<ClassScheduleEntity> getClassSchedules() {
+		return classSchedules;
 	}
 
-	public void setClassSchedule(ClassScheduleEntity classSchedule) {
-		this.classSchedule = classSchedule;
+	public void setClassSchedules(List<ClassScheduleEntity> classSchedules) {
+		this.classSchedules = classSchedules;
+	}
+
+	public void setFee(Float fee) {
+		this.fee = fee;
 	}
 
 	public List<TopicEntity> getTopics() {
@@ -230,22 +280,6 @@ public class ClassEntity {
 		this.category = category;
 	}
 
-	public TextDataEntity getTextData() {
-		return textData;
-	}
-
-	public void setTextData(TextDataEntity textData) {
-		this.textData = textData;
-	}
-
-	public FileEntity getBackgroundImage() {
-		return backgroundImage;
-	}
-
-	public void setBackgroundImage(FileEntity backgroundImage) {
-		this.backgroundImage = backgroundImage;
-	}
-
 	public FileEntity getVideo() {
 		return video;
 	}
@@ -262,22 +296,12 @@ public class ClassEntity {
 		this.shortDescription = shortDescription;
 	}
 
-	public Long getFee() {
+	public Float getFee() {
 		return fee;
 	}
 
-	public void setFee(Long fee) {
+	public void setFee(float fee) {
 		this.fee = fee;
-	}
-
-	@Override
-	public String toString() {
-		return "ClassEntity [id=" + id + ", name=" + name + ", visiable=" + visiable + ", status=" + status
-				+ ", createdDate=" + createdDate + ", avatar=" + avatar + ", accepted=" + accepted
-				+ ", shortDescription=" + shortDescription + ", meeting=" + meeting + ", comments=" + comments
-				+ ", classSchedule=" + classSchedule + ", topics=" + topics + ", classExcercises=" + classExcercises
-				+ ", messages=" + messages + ", category=" + category + ", textData=" + textData + ", backgroundImage="
-				+ backgroundImage + ", video=" + video + ", reports=" + reports + ", creator=" + creator + "]";
 	}
 
 }

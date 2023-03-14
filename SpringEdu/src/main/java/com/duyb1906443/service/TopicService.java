@@ -10,4 +10,6 @@ public interface TopicService {
 	
 	TopicDTO save(TopicDTO topicDTO);
 	
+	void delete(TopicDTO topicDTO);
+	
 }

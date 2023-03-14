@@ -26,6 +26,7 @@ public class FileAPI {
 	@CrossOriginsList
 	public ResponseEntity<?> uploadFileOnClassLesson(@RequestParam(name = "classLessonId") Long classLessonId,
 			@RequestBody FileDTO fileDTO) {
+		System.out.println("classLessonId "+classLessonId);
 		fileService.uploadFileOnClassLesson(fileDTO, classLessonId);
 		return ResponseEntity.status(200).build();
 	}

@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,9 +35,13 @@ public class QuestionBankEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "questionBank")
 	private List<ChoiceQuestionEntity> choiceQuestions;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "questionBank")
-	private List<ConstructedResponseTestEntity> constructedResponseTest;
+	
+	@ManyToMany
+	@JoinTable(name = "question_bank_class", joinColumns = @JoinColumn(name = "question_bank_id"), inverseJoinColumns = @JoinColumn(name = "class_id"))
+	private List<ClassEntity> classEntities;
+	
+	@OneToMany(mappedBy = "questionBank", fetch = FetchType.LAZY)
+	private List<ClassExcerciseEntity> classExcercises;
 
 	public Integer getStatus() {
 		return status;
@@ -51,14 +57,6 @@ public class QuestionBankEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<ConstructedResponseTestEntity> getConstructedResponseTest() {
-		return constructedResponseTest;
-	}
-
-	public void setConstructedResponseTest(List<ConstructedResponseTestEntity> constructedResponseTest) {
-		this.constructedResponseTest = constructedResponseTest;
 	}
 
 	public Long getId() {

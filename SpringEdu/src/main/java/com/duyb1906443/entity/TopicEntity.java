@@ -34,7 +34,7 @@ public class TopicEntity {
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "topic")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "topic", orphanRemoval = true)
 	private List<ClassLessonEntity> classLessons;
 
 	public Long getId() {

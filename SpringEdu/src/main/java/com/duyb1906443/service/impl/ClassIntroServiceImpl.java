@@ -13,7 +13,6 @@ import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.repository.ReviewRepository;
 import com.duyb1906443.repository.UserRepository;
 import com.duyb1906443.service.ClassIntroService;
-import com.duyb1906443.service.ClassScheduleWeeklyClassScheduleService;
 
 @Service
 public class ClassIntroServiceImpl implements ClassIntroService {
@@ -23,9 +22,6 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 
 	@Autowired
 	private ReviewRepository reviewRepository;
-
-	@Autowired
-	private ClassScheduleWeeklyClassScheduleService classScheduleWeeklyClassScheduleService;
 
 	@Autowired
 	private ClassIntroConverter classIntroConverter;
@@ -41,7 +37,6 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 		ClassEntity classEntity = classRepository.findOne(classId);
 		ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(classEntity);
 		classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));
-		classIntroDTO.setClassScheduleWeeklyClassSchedule(classScheduleWeeklyClassScheduleService.findAllByClassId(classId));
 		return classIntroDTO;
 	}
 
@@ -50,12 +45,11 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 		ClassEntity classEntity = classRepository.findOne(classId);
 		ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(classEntity);
 		classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));
-		classIntroDTO.setClassScheduleWeeklyClassSchedule(classScheduleWeeklyClassScheduleService.findAllByClassId(classId));
 		
 		UserEntity userEntity = userRepository.findOne(userId);
 		
 		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity); 
-		classIntroDTO.setUserRoleCode(classMemberEntity.getClassRole().getCode());
+		if(classMemberEntity != null) classIntroDTO.setUserRoleCode(classMemberEntity.getClassRole().getCode());
 		
 		return classIntroDTO;
 	}

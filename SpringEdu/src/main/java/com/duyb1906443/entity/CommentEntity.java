@@ -1,7 +1,9 @@
 package com.duyb1906443.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -30,12 +33,9 @@ public class CommentEntity {
 	@Column(columnDefinition = "tinyint default '0'")
 	private Integer privateMode;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_comment_id", nullable = true)
-	private CommentEntity parentComment;
-
-	@OneToOne(mappedBy = "parentComment")
-	private CommentEntity comment;
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "parent_id")
+	private List<CommentEntity> replies;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
@@ -77,20 +77,12 @@ public class CommentEntity {
 		this.privateMode = privateMode;
 	}
 
-	public CommentEntity getParentComment() {
-		return parentComment;
+	public List<CommentEntity> getReplies() {
+		return replies;
 	}
 
-	public void setParentComment(CommentEntity parentComment) {
-		this.parentComment = parentComment;
-	}
-
-	public CommentEntity getComment() {
-		return comment;
-	}
-
-	public void setComment(CommentEntity comment) {
-		this.comment = comment;
+	public void setReplies(List<CommentEntity> replies) {
+		this.replies = replies;
 	}
 
 	public ClassEntity getClassEntity() {

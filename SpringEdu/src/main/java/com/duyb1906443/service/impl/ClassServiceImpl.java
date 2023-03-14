@@ -22,7 +22,6 @@ import com.duyb1906443.repository.UserRepository;
 import com.duyb1906443.service.ClassService;
 import com.duyb1906443.service.MeetingService;
 
-
 @Service
 public class ClassServiceImpl implements ClassService {
 
@@ -31,19 +30,19 @@ public class ClassServiceImpl implements ClassService {
 
 	@Autowired
 	private ClassRepository classRepository;
-	
+
 	@Autowired
 	private FileRepository fileRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private MeetingRepository meetingRepository;
-	
+
 	@Autowired
 	private MeetingService meetingService;
 
@@ -54,26 +53,25 @@ public class ClassServiceImpl implements ClassService {
 		if (classDTO.getId() != null) {
 
 			ClassEntity oldClassEntity = classRepository.findOne(classDTO.getId());
-			
+
 			classEntity = classConverter.toEntity(classDTO, oldClassEntity);
 		} else {
 			classEntity = classConverter.toEntity(classDTO);
-			
-			FileEntity backgroundImage = fileRepository.findOne(1L);
 			FileEntity video = fileRepository.findOne(2L);
-			
-			classEntity.setBackgroundImage(backgroundImage);
+
+			if (classDTO.getBackground() != null)
+				classEntity.setBackground(classDTO.getBackground());
 			classEntity.setVideo(video);
-			
+
 			CategoryEntity category = categoryRepository.findOne(classDTO.getCategory().getId());
 			classEntity.setCategory(category);
-			
+
 			Date date = new Date();
 			classEntity.setCreatedDate(new Timestamp(date.getTime()));
-			
+
 			UserEntity user = userRepository.findOne(classDTO.getCreatorId());
 			classEntity.setCreator(user);
-			
+
 			MeetingDTO meetingDTO = meetingService.save(new MeetingDTO());
 			MeetingEntity meetingEntity = meetingRepository.findOne(meetingDTO.getId());
 			classEntity.setMeeting(meetingEntity);

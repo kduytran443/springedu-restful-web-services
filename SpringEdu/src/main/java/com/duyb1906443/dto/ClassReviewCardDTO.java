@@ -1,5 +1,7 @@
 package com.duyb1906443.dto;
 
+import java.util.List;
+
 public class ClassReviewCardDTO {
 	private Long id;
 	private String name;
@@ -8,11 +10,20 @@ public class ClassReviewCardDTO {
 	private Integer accepted;
 	private float stars;
 	private String shortDescription;
-	private Long fee;
+	private Float fee;
 	private DiscountDTO discount;
 	private String userFullname;
 	private String username;
 	private String userAvatar;
+	private List<DiscountDTO> discounts;
+
+	public List<DiscountDTO> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(List<DiscountDTO> discounts) {
+		this.discounts = discounts;
+	}
 
 	public String getUserFullname() {
 		return userFullname;
@@ -46,11 +57,11 @@ public class ClassReviewCardDTO {
 		this.discount = discount;
 	}
 
-	public Long getFee() {
+	public Float getFee() {
 		return fee;
 	}
 
-	public void setFee(Long fee) {
+	public void setFee(Float fee) {
 		this.fee = fee;
 	}
 

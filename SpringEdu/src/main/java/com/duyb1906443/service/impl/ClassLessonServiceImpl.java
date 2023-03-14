@@ -10,7 +10,6 @@ import com.duyb1906443.converter.ClassLessonConverter;
 import com.duyb1906443.dto.ClassLessonDTO;
 import com.duyb1906443.entity.ClassLessonEntity;
 import com.duyb1906443.repository.ClassLessonRepository;
-import com.duyb1906443.repository.TextDataRepository;
 import com.duyb1906443.repository.TopicRepository;
 import com.duyb1906443.service.ClassLessonService;
 
@@ -22,9 +21,6 @@ public class ClassLessonServiceImpl implements ClassLessonService {
 
 	@Autowired
 	private TopicRepository topicRepository;
-
-	@Autowired
-	private TextDataRepository textDataRepository;
 
 	@Autowired
 	private ClassLessonConverter classLessonConverter;
@@ -43,14 +39,14 @@ public class ClassLessonServiceImpl implements ClassLessonService {
 		if (classLessonDTO.getId() != null) {
 			ClassLessonEntity oldClassLessonEntity = classLessonRepository.findOne(classLessonDTO.getId());
 			classLessonEntity = classLessonConverter.toEntity(classLessonDTO, oldClassLessonEntity);
-			classLessonEntity.getTextData().setContent(classLessonDTO.getTextData());
 		} else {
 			classLessonEntity = classLessonConverter.toEntity(classLessonDTO);
 			Date date = new Date();
 			classLessonEntity.setCreatedDate(new Timestamp(date.getTime()));
 		}
-		classLessonEntity.setTopic(topicRepository.findOne(classLessonDTO.getTopicId()));
-
+		if(classLessonDTO.getTopicId() != null) {
+			classLessonEntity.setTopic(topicRepository.findOne(classLessonDTO.getTopicId()));
+		}
 		classLessonEntity = classLessonRepository.save(classLessonEntity);
 
 		return classLessonConverter.toDTO(classLessonEntity);

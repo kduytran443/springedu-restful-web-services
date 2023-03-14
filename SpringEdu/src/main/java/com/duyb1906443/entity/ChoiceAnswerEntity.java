@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -32,12 +33,15 @@ public class ChoiceAnswerEntity {
 	@JoinColumn(name = "choice_question_id")
 	private ChoiceQuestionEntity choiceQuestion;
 
+	@Column(columnDefinition = "nvarchar(322)")
+	private String type;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "file_id", nullable = true)
 	private FileEntity file;
 
-	@OneToMany(mappedBy = "choiceAnswer", fetch = FetchType.LAZY)
-	private List<AnswerChoiceQuestionEntity> answerChoiceQuestions;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "choiceAnswers")
+	private List<DrawQuizEntity> drawQuizzes;
 
 	public Long getId() {
 		return id;
@@ -79,12 +83,20 @@ public class ChoiceAnswerEntity {
 		this.file = file;
 	}
 
-	public List<AnswerChoiceQuestionEntity> getAnswerChoiceQuestions() {
-		return answerChoiceQuestions;
+	public String getType() {
+		return type;
 	}
 
-	public void setAnswerChoiceQuestions(List<AnswerChoiceQuestionEntity> answerChoiceQuestions) {
-		this.answerChoiceQuestions = answerChoiceQuestions;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<DrawQuizEntity> getDrawQuizzes() {
+		return drawQuizzes;
+	}
+
+	public void setDrawQuizzes(List<DrawQuizEntity> drawQuizzes) {
+		this.drawQuizzes = drawQuizzes;
 	}
 
 }

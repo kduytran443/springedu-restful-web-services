@@ -26,7 +26,7 @@ public class ClassReviewCardConverter implements IConverterToDTO<ClassEntity, Cl
 		dto.setAccepted(entity.getAccepted());
 		dto.setShortDescription(entity.getShortDescription());
 		dto.setFee(entity.getFee());
-		dto.setDiscount(discountConverter.toDTO(entity.getDiscount()));
+		dto.setDiscounts(discountConverter.toDTOList(entity.getDiscounts()));
 		return dto;
 	}
 

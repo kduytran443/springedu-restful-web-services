@@ -18,11 +18,28 @@ public class ClassIntroDTO {
 	private String username;
 	private String userFullname;
 	private float stars;
-	private Long fee;
-	private ClassScheduleDTO classSchedule;
-	private List<ClassScheduleWeeklyClassScheduleDTO> classScheduleWeeklyClassSchedule;
-	private DiscountDTO discount;
+	private float fee;
+	private List<ClassScheduleDTO> classSchedules;
+	private List<DiscountDTO> discounts;
 	private String userRoleCode;
+	private Timestamp startTime;
+	private Timestamp endTime;
+
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
 
 	public String getUserRoleCode() {
 		return userRoleCode;
@@ -32,29 +49,36 @@ public class ClassIntroDTO {
 		this.userRoleCode = userRoleCode;
 	}
 
-	public DiscountDTO getDiscount() {
-		return discount;
+	public List<DiscountDTO> getDiscount() {
+		return discounts;
 	}
 
-	public void setDiscount(DiscountDTO discount) {
-		this.discount = discount;
+	public void setDiscount(List<DiscountDTO> discounts) {
+		this.discounts = discounts;
 	}
 
-	public Long getFee() {
+	public float getFee() {
 		return fee;
 	}
 
-	public void setFee(Long fee) {
+	public void setFee(float fee) {
 		this.fee = fee;
 	}
 
-	public List<ClassScheduleWeeklyClassScheduleDTO> getClassScheduleWeeklyClassSchedule() {
-		return classScheduleWeeklyClassSchedule;
+	public List<ClassScheduleDTO> getClassSchedules() {
+		return classSchedules;
 	}
 
-	public void setClassScheduleWeeklyClassSchedule(
-			List<ClassScheduleWeeklyClassScheduleDTO> classScheduleWeeklyClassSchedule) {
-		this.classScheduleWeeklyClassSchedule = classScheduleWeeklyClassSchedule;
+	public void setClassSchedules(List<ClassScheduleDTO> classSchedules) {
+		this.classSchedules = classSchedules;
+	}
+
+	public List<DiscountDTO> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(List<DiscountDTO> discounts) {
+		this.discounts = discounts;
 	}
 
 	public String getUserFullname() {
@@ -167,14 +191,6 @@ public class ClassIntroDTO {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public ClassScheduleDTO getClassSchedule() {
-		return classSchedule;
-	}
-
-	public void setClassSchedule(ClassScheduleDTO classSchedule) {
-		this.classSchedule = classSchedule;
 	}
 
 }

@@ -11,6 +11,7 @@ import com.duyb1906443.entity.UserEntity;
 public interface ClassMemberRepository extends JpaRepository<ClassMemberEntity, Long> {
 	
 	List<ClassMemberEntity> findAllByClassEntity(ClassEntity classEntity);
+	List<ClassMemberEntity> findAllByUser(UserEntity user);
 	ClassMemberEntity findOneByClassEntityAndUser(ClassEntity classEntity, UserEntity user);
 	
 }

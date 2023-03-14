@@ -59,10 +59,10 @@ public class CategoryAPI {
 		return ResponseEntity.status(500).build();
 	}
 
-	@DeleteMapping("/api/category/{categoryId}")
+	@DeleteMapping("/api/category")
 	@CrossOriginsList
-	public ResponseEntity<?> deleteCategory(@PathVariable("categoryId") Long id) {
-		categoryService.delete(id);
+	public ResponseEntity<?> deleteCategory(@RequestBody CategoryDTO categoryDTO) {
+		categoryService.delete(categoryDTO.getId());
 		return ResponseEntity.status(200).build();
 	}
 

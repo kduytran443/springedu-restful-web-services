@@ -1,16 +1,13 @@
 package com.duyb1906443.entity;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,14 +18,33 @@ public class ClassScheduleEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	private Timestamp startTime;
+	@Column(columnDefinition = "tinyint default 0")
+	private int startHours;
 
-	@Column
-	private Timestamp endTime;
+	@Column(columnDefinition = "tinyint default 0")
+	private int startMinutes;
 
-	@OneToOne(mappedBy = "classSchedule", fetch = FetchType.LAZY)
+	@Column(columnDefinition = "tinyint default 0")
+	private int endHours;
+
+	@Column(columnDefinition = "tinyint default 0")
+	private int endMinutes;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
+
+	@ManyToOne
+	@JoinColumn(name = "weekly_class_schedule_id")
+	private WeeklyClassScheduleEntity weeklyClassSchedule;
+
+	public WeeklyClassScheduleEntity getWeeklyClassSchedule() {
+		return weeklyClassSchedule;
+	}
+
+	public void setWeeklyClassSchedule(WeeklyClassScheduleEntity weeklyClassSchedule) {
+		this.weeklyClassSchedule = weeklyClassSchedule;
+	}
 
 	public Long getId() {
 		return id;
@@ -38,20 +54,36 @@ public class ClassScheduleEntity {
 		this.id = id;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+	public int getStartHours() {
+		return startHours;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public void setStartHours(int startHours) {
+		this.startHours = startHours;
 	}
 
-	public Timestamp getEndTime() {
-		return endTime;
+	public int getStartMinutes() {
+		return startMinutes;
 	}
 
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+	public void setStartMinutes(int startMinutes) {
+		this.startMinutes = startMinutes;
+	}
+
+	public int getEndHours() {
+		return endHours;
+	}
+
+	public void setEndHours(int endHours) {
+		this.endHours = endHours;
+	}
+
+	public int getEndMinutes() {
+		return endMinutes;
+	}
+
+	public void setEndMinutes(int endMinutes) {
+		this.endMinutes = endMinutes;
 	}
 
 	public ClassEntity getClassEntity() {
@@ -60,12 +92,6 @@ public class ClassScheduleEntity {
 
 	public void setClassEntity(ClassEntity classEntity) {
 		this.classEntity = classEntity;
-	}
-
-	@Override
-	public String toString() {
-		return "ClassScheduleEntity [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", classEntity="
-				+ classEntity + "]";
 	}
 
 }

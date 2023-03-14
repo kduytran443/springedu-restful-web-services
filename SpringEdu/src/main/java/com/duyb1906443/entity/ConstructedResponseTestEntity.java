@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,23 +29,31 @@ public class ConstructedResponseTestEntity {
 	@Column(columnDefinition = "NTEXT")
 	private String content;
 
-	@OneToMany(mappedBy = "constructedResponseTest")
-	private List<ConstructedResponseMarkEntity> constructedResponseMarks;
+	@Column
+	private float mark;
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "constructed_response_test_file", joinColumns = @JoinColumn(name = "constructed_response_test_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
 	private List<FileEntity> fileEntity;
 
-	@ManyToOne
-	@JoinColumn(name = "constructed_response_test_id")
-	private QuestionBankEntity questionBank;
+	@OneToOne
+	@JoinColumn(name = "class_excercise_id")
+	private ClassExcerciseEntity classExcercise;
 
-	public QuestionBankEntity getQuestionBank() {
-		return questionBank;
+	public ClassExcerciseEntity getClassExcercise() {
+		return classExcercise;
 	}
 
-	public void setQuestionBank(QuestionBankEntity questionBank) {
-		this.questionBank = questionBank;
+	public void setClassExcercise(ClassExcerciseEntity classExcercise) {
+		this.classExcercise = classExcercise;
+	}
+
+	public float getMark() {
+		return mark;
+	}
+
+	public void setMark(float mark) {
+		this.mark = mark;
 	}
 
 	public Long getId() {
@@ -69,14 +78,6 @@ public class ConstructedResponseTestEntity {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public List<ConstructedResponseMarkEntity> getConstructedResponseMarks() {
-		return constructedResponseMarks;
-	}
-
-	public void setConstructedResponseMarks(List<ConstructedResponseMarkEntity> constructedResponseMarks) {
-		this.constructedResponseMarks = constructedResponseMarks;
 	}
 
 	public List<FileEntity> getFileEntity() {

@@ -21,7 +21,6 @@ public class ClassLessonAPI {
 	@Autowired
 	private ClassLessonService classLessonService;
 
-	/* Nho xoa public vi day la API cho Hoc Vien */
 	@GetMapping("/api/class-lesson/{classLessonId}")
 	@CrossOriginsList
 	public ResponseEntity<ClassLessonDTO> getLessons(@PathVariable("classLessonId") Long classLessonId) {
@@ -56,8 +55,9 @@ public class ClassLessonAPI {
 	@DeleteMapping("/api/class-lesson")
 	@CrossOriginsList
 	public ResponseEntity<?> deleteLesson(@RequestBody ClassLessonDTO classLessonDTO){
+		System.out.println("Xóa "+classLessonDTO.getId());
 		classLessonService.delete(classLessonDTO.getId());
-		return ResponseEntity.status(200).build();
+		return ResponseEntity.status(200).body(new ClassLessonDTO());
 	}
 
 }

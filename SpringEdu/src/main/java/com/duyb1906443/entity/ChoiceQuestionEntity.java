@@ -36,8 +36,8 @@ public class ChoiceQuestionEntity {
 	@JoinColumn(name = "file_id", nullable = true)
 	private FileEntity file;
 
-	@OneToMany(mappedBy = "choiceQuestion", fetch = FetchType.LAZY)
-	private List<ChoiceQuestionOfClassExcerciseEntity> ChoiceQuestionOfClassExcercises;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "choiceQuestion")
+	private List<DrawQuizEntity> drawQuizzes;
 
 	public Long getId() {
 		return id;
@@ -79,13 +79,12 @@ public class ChoiceQuestionEntity {
 		this.file = file;
 	}
 
-	public List<ChoiceQuestionOfClassExcerciseEntity> getChoiceQuestionOfClassExcercises() {
-		return ChoiceQuestionOfClassExcercises;
+	public List<DrawQuizEntity> getDrawQuizzes() {
+		return drawQuizzes;
 	}
 
-	public void setChoiceQuestionOfClassExcercises(
-			List<ChoiceQuestionOfClassExcerciseEntity> choiceQuestionOfClassExcercises) {
-		ChoiceQuestionOfClassExcercises = choiceQuestionOfClassExcercises;
+	public void setDrawQuizzes(List<DrawQuizEntity> drawQuizzes) {
+		this.drawQuizzes = drawQuizzes;
 	}
 
 }

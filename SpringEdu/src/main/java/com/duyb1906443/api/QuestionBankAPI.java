@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -62,6 +63,13 @@ public class QuestionBankAPI {
 			return ResponseEntity.status(200).body(dto);
 		}
 		return ResponseEntity.status(500).build();
+	}
+
+	@DeleteMapping("/api/question-bank")
+	@CrossOriginsList
+	public ResponseEntity<?> deleteQuestionBank(@RequestBody QuestionBankDTO questionBankDTO) {
+		questionBankService.delete(questionBankDTO.getId());
+		return ResponseEntity.status(200).build();
 	}
 
 }

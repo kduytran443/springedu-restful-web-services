@@ -41,7 +41,11 @@ public class FileServiceImpl implements FileService {
 		fileDTO.setId(null);
 		fileEntity = fileRepository.save(fileEntity);
 		
+		System.out.println("classLessonId "+classId);
+		
 		List<FileEntity> files = classLessonEntity.getFiles();
+		
+		System.out.println("files "+files.size());
 		files.add(fileEntity);
 		classLessonEntity.setFiles(files);
 		
