@@ -1,8 +1,6 @@
 package com.duyb1906443.entity;
 
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,9 +35,6 @@ public class FileEntity {
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
 	private ChoiceAnswerEntity choiceAnswers;
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "video")
-	private ClassEntity classEntityVideo;
 	
 	public Long getId() {
 		return id;

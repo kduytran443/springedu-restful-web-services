@@ -28,7 +28,7 @@ public class FileAPI {
 			@RequestBody FileDTO fileDTO) {
 		System.out.println("classLessonId "+classLessonId);
 		fileService.uploadFileOnClassLesson(fileDTO, classLessonId);
-		return ResponseEntity.status(200).build();
+		return ResponseEntity.status(200).body(new FileDTO());
 	}
 
 	@GetMapping("/api/file")

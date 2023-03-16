@@ -8,5 +8,8 @@ public interface ReviewService {
 	
 	List<ReviewDTO> findAllByClassId(Long classId);
 	float getAvgReviewRatingByClassId(Long classId);
+	ReviewDTO createReview(ReviewDTO reviewDTO);
+	ReviewDTO editReview(ReviewDTO reviewDTO);
+	ReviewDTO getReviewByUserAndClass(ReviewDTO reviewDTO);
 	
 }

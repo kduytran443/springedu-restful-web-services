@@ -19,8 +19,8 @@ public class ClassConverter
 		dto.setAvatar(entity.getAvatar());
 		if (entity.getBackground() != null)
 			dto.setBackground(entity.getBackground());
-		if (entity.getVideo().getId() != null)
-			dto.setVideo(entity.getVideo().getId());
+		if (entity.getVideo() != null)
+			dto.setVideoData(entity.getVideo());
 		if (entity.getId() != null)
 			dto.setId(entity.getId());
 		dto.setName(entity.getName());

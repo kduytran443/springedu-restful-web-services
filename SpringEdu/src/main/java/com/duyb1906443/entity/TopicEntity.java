@@ -2,6 +2,7 @@ package com.duyb1906443.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +35,7 @@ public class TopicEntity {
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "topic", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ClassLessonEntity> classLessons;
 
 	public Long getId() {

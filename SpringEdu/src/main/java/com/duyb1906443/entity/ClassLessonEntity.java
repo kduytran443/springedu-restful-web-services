@@ -31,7 +31,7 @@ public class ClassLessonEntity {
 	@Column
 	private Timestamp createdDate;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "topic_id")
 	private TopicEntity topic;
 

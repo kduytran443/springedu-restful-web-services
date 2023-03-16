@@ -26,6 +26,8 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setMemberAccepted(entity.getMemberAccepted());
 		dto.setClassAccepted(entity.getClassAccepted());
+		dto.setClassName(entity.getClassEntity().getName());
+		dto.setClassAvatar(entity.getClassEntity().getAvatar());
 		if(entity.getDiscount() != null) {
 			dto.setDiscount(entity.getDiscount().getDiscountPercent());
 			dto.setDiscountId(entity.getDiscount().getId());

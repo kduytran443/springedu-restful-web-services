@@ -31,7 +31,7 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		dto.setName(entity.getName());
 		dto.setStatus(entity.getStatus());
 		dto.setTextData(entity.getContent());
-		dto.setVideo(entity.getVideo().getData());
+		dto.setVideo(entity.getVideo());
 		dto.setVisiable(entity.getVisiable());
 		dto.setUserAvatar(entity.getCreator().getAvatar());
 		dto.setUsername(entity.getCreator().getUsername());

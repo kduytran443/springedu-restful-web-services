@@ -60,6 +60,9 @@ public class ClassEntity {
 	@Column(columnDefinition = "NTEXT")
 	private String content;
 
+	@Column(columnDefinition = "nvarchar(512)")
+	private String video;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_id")
 	private MeetingEntity meeting;
@@ -80,10 +83,6 @@ public class ClassEntity {
 	@JoinColumn(name = "category_id")
 	private CategoryEntity category;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "video_id")
-	private FileEntity video;
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "classEntity")
 	private List<ReportEntity> reports;
 
@@ -99,6 +98,14 @@ public class ClassEntity {
 
 	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
 	private List<CommentEntity> comments;
+
+	public void setVideo(String video) {
+		this.video = video;
+	}
+
+	public String getVideo() {
+		return video;
+	}
 
 	public String getBackground() {
 		return background;
@@ -278,14 +285,6 @@ public class ClassEntity {
 
 	public void setCategory(CategoryEntity category) {
 		this.category = category;
-	}
-
-	public FileEntity getVideo() {
-		return video;
-	}
-
-	public void setVideo(FileEntity video) {
-		this.video = video;
 	}
 
 	public String getShortDescription() {

@@ -44,6 +44,41 @@ public class ClassMemberAPI {
 		return ResponseEntity.status(200).body(Collections.emptyList());
 	}
 
+	@GetMapping("/public/api/class-member/invited")
+	@CrossOriginsList
+	public ResponseEntity<List<ClassMemberDTO>> getInvitedClassMembersByClassId(
+			@RequestParam(name = "classId", required = false) Long classId, @RequestParam(name = "username", required = false) String username) {
+		List<ClassMemberDTO> classMembers = null;
+		if(classId != null) { //tìm theo lớp
+			classMembers = classMemberService.findAllInvitedMemberByClassId(classId);
+		}
+		else { //tìm theo username
+			classMembers = classMemberService.findAllInvitedMemberByUsername(username);
+		}
+		
+		if (classMembers != null) {
+			return ResponseEntity.status(200).body(classMembers);
+		}
+		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+	@GetMapping("/public/api/class-member/request")
+	@CrossOriginsList
+	public ResponseEntity<List<ClassMemberDTO>> getRequestClassMembersByClassId(
+			@RequestParam(name = "classId", required = false) Long classId, @RequestParam(name = "username", required = false) String username) {
+		List<ClassMemberDTO> classMembers = null;
+		if(classId != null) { //tìm theo lớp
+			classMembers = classMemberService.findAllRequestMemberByClassId(classId);
+		}
+		else { //tìm theo username
+			classMembers = classMemberService.findAllRequestMemberByUsername(username);
+		}
+		
+		if (classMembers != null) {
+			return ResponseEntity.status(200).body(classMembers);
+		}
+		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+
 	@PostMapping("/api/class-member")
 	@CrossOriginsList
 	public ResponseEntity<ClassMemberDTO> postClassMember(@RequestBody ClassMemberDTO classMemberDTO) {
@@ -55,6 +90,26 @@ public class ClassMemberAPI {
 			return ResponseEntity.status(200).body(dto);
 		}
 
+		return ResponseEntity.status(500).build();
+	}
+
+	@PostMapping("/api/class-member/accept")
+	@CrossOriginsList
+	public ResponseEntity<ClassMemberDTO> acceptClassMember(@RequestBody ClassMemberDTO classMemberDTO) {
+		ClassMemberDTO dto = classMemberService.acceptRequest(classMemberDTO);
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new ClassMemberDTO());
+	}
+	
+	@PostMapping("/api/class-member/invite")
+	@CrossOriginsList
+	public ResponseEntity<ClassMemberDTO> inviteClassMember(@RequestBody ClassMemberDTO classMemberDTO) {
+		ClassMemberDTO dto = classMemberService.save(classMemberDTO);
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
 		return ResponseEntity.status(500).build();
 	}
 
@@ -77,7 +132,7 @@ public class ClassMemberAPI {
 
 		classMemberService.delete(classMemberDTO);
 
-		return ResponseEntity.status(200).build();
+		return ResponseEntity.status(200).body(new ClassMemberDTO());
 	}
 
 }

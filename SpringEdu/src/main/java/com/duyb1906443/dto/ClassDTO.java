@@ -16,6 +16,24 @@ public class ClassDTO {
 	private Float fee;
 	private String shortDescription;
 	private Long creatorId;
+	private String videoData;
+	private String content;
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getVideoData() {
+		return videoData;
+	}
+
+	public void setVideoData(String videoData) {
+		this.videoData = videoData;
+	}
 
 	public Long getCreatorId() {
 		return creatorId;

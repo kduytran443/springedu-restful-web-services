@@ -25,10 +25,10 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 
 	@Autowired
 	private ClassIntroConverter classIntroConverter;
-	
+
 	@Autowired
 	private ClassMemberRepository classMemberRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -36,7 +36,9 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 	public ClassIntroDTO findOneByClassId(Long classId) {
 		ClassEntity classEntity = classRepository.findOne(classId);
 		ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(classEntity);
-		classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));
+		if(reviewRepository.getAvgReviewRatingByClassId(classId) != null) {
+			classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));			
+		}
 		return classIntroDTO;
 	}
 
@@ -44,14 +46,44 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 	public ClassIntroDTO findOneByClassIdAndUserId(Long classId, Long userId) {
 		ClassEntity classEntity = classRepository.findOne(classId);
 		ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(classEntity);
-		classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));
-		
+		if(reviewRepository.getAvgReviewRatingByClassId(classId) != null) {
+			classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));			
+		}
+
 		UserEntity userEntity = userRepository.findOne(userId);
-		
-		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity); 
-		if(classMemberEntity != null) classIntroDTO.setUserRoleCode(classMemberEntity.getClassRole().getCode());
-		
+
+		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity,
+				userEntity);
+		if (classMemberEntity != null && classMemberEntity.getClassAccepted() == 1
+				&& classMemberEntity.getMemberAccepted() == 1)
+			classIntroDTO.setUserRoleCode(classMemberEntity.getClassRole().getCode());
+
 		return classIntroDTO;
+	}
+
+	@Override
+	public ClassIntroDTO changeDateOfClass(ClassIntroDTO classIntroDTO) {
+		ClassEntity classEntity = classRepository.findOne(classIntroDTO.getId());
+		classEntity.setStartTime(classIntroDTO.getStartTime());
+		classEntity.setEndTime(classIntroDTO.getEndTime());
+		classEntity = classRepository.save(classEntity);
+		return classIntroConverter.toDTO(classEntity);
+	}
+
+	@Override
+	public ClassIntroDTO changeClassStatus(ClassIntroDTO classIntroDTO) {
+		ClassEntity classEntity = classRepository.findOne(classIntroDTO.getId());
+		classEntity.setStatus(classIntroDTO.getStatus());
+		classEntity = classRepository.save(classEntity);
+		return classIntroConverter.toDTO(classEntity);
+	}
+
+	@Override
+	public ClassIntroDTO changeClassVisible(ClassIntroDTO classIntroDTO) {
+		ClassEntity classEntity = classRepository.findOne(classIntroDTO.getId());
+		classEntity.setVisiable(classIntroDTO.getVisiable());
+		classEntity = classRepository.save(classEntity);
+		return classIntroConverter.toDTO(classEntity);
 	}
 
 }

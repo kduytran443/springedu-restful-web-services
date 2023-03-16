@@ -82,4 +82,8 @@ public class UserService implements UserDetailsService {
     	return userConverter.toDTO(userRepository.findOne(id));
     }
     
+    public UserDTO findOneByUsername(String username) {
+    	return userConverter.toDTO(userRepository.findOneByUsername(username));
+    }
+    
 }

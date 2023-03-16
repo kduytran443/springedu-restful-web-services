@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -75,4 +76,39 @@ public class ClassAPI {
 		return ResponseEntity.status(500).build();
 	}
 
+	@PutMapping("/api/class/time")
+	@CrossOriginsList
+	public ResponseEntity<?> changeClassTime(@RequestBody ClassIntroDTO classIntroDTO) {
+		ClassIntroDTO dto = classIntroService.changeDateOfClass(classIntroDTO);
+
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+
+		return ResponseEntity.status(500).body(new ClassIntroDTO());
+	}
+
+	@PutMapping("/api/class/status")
+	@CrossOriginsList
+	public ResponseEntity<?> changeClassStatus(@RequestBody ClassIntroDTO classIntroDTO) {
+		ClassIntroDTO dto = classIntroService.changeClassStatus(classIntroDTO);
+
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+
+		return ResponseEntity.status(500).body(new ClassIntroDTO());
+	}
+
+	@PutMapping("/api/class/visible")
+	@CrossOriginsList
+	public ResponseEntity<?> changeClassVisible(@RequestBody ClassIntroDTO classIntroDTO) {
+		ClassIntroDTO dto = classIntroService.changeClassVisible(classIntroDTO);
+
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+
+		return ResponseEntity.status(500).body(new ClassIntroDTO());
+	}
 }

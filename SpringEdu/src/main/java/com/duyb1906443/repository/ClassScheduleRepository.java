@@ -6,4 +6,6 @@ import com.duyb1906443.entity.ClassScheduleEntity;
 
 public interface ClassScheduleRepository extends JpaRepository<ClassScheduleEntity, Long> {
 	
+	
+	
 }

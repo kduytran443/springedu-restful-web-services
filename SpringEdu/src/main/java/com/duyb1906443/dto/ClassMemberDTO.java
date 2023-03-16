@@ -7,8 +7,10 @@ public class ClassMemberDTO {
 	private String username;
 	private String fullname;
 	private String avatar;
+	private String classAvatar;
 	private String email;
 	private Long classId;
+	private String className;
 	private String classRole;
 	private float fee;
 	private Timestamp createdDate;
@@ -16,6 +18,22 @@ public class ClassMemberDTO {
 	private int classAccepted;
 	private int discount;
 	private Long discountId;
+
+	public String getClassAvatar() {
+		return classAvatar;
+	}
+
+	public void setClassAvatar(String classAvatar) {
+		this.classAvatar = classAvatar;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
 
 	public Long getDiscountId() {
 		return discountId;

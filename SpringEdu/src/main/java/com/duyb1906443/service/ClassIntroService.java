@@ -6,5 +6,8 @@ public interface ClassIntroService {
 	
 	ClassIntroDTO findOneByClassId(Long classId);
 	ClassIntroDTO findOneByClassIdAndUserId(Long classId, Long userId);
+	ClassIntroDTO changeDateOfClass(ClassIntroDTO classIntroDTO);
+	ClassIntroDTO changeClassStatus(ClassIntroDTO classIntroDTO);
+	ClassIntroDTO changeClassVisible(ClassIntroDTO classIntroDTO);
 	
 }
