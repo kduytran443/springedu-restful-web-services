@@ -44,6 +44,7 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 
 	@Autowired
 	private DiscountRepository discountRepository;
+	
 
 	@Override
 	public List<ClassMemberDTO> findAllByClassId(Long classId) {
@@ -186,6 +187,16 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 		classMemberEntity.setMemberAccepted(1);
 		classMemberEntity = classMemberRepository.save(classMemberEntity);
 		return classMemberConverter.toDTO(classMemberEntity);
+	}
+
+	@Override
+	public Integer countAllMember(Long classId) {
+		ClassEntity classEntity = classRepository.findOne(classId);
+		List<ClassMemberEntity> classMemberEntities = classMemberRepository.findAllByClassEntity(classEntity);
+		List<ClassMemberEntity> filterMembers = classMemberEntities.stream()
+				.filter(member -> (member.getMemberAccepted() == 1 && member.getClassAccepted() == 1))
+				.collect(Collectors.toList());
+		return filterMembers.size();
 	}
 
 }

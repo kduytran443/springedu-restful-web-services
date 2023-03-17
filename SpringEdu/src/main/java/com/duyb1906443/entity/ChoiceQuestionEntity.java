@@ -39,6 +39,28 @@ public class ChoiceQuestionEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "choiceQuestion")
 	private List<DrawQuizEntity> drawQuizzes;
 
+	@Column(columnDefinition = "NTEXT")
+	private String content;
+
+	@Column(columnDefinition = "tinyint")
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public Long getId() {
 		return id;
 	}

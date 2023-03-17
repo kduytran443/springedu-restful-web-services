@@ -22,14 +22,24 @@ public class TopicAPI {
 	@Autowired
 	private TopicService topicService;
 	
-	@GetMapping("/api/topic/{classId}")
+	@GetMapping("/api/topic/class/{classId}")
 	@CrossOriginsList
-	public ResponseEntity<List<TopicDTO>> getTopics(@PathVariable("classId") Long classId){
+	public ResponseEntity<List<TopicDTO>> getTopicsByClass(@PathVariable("classId") Long classId){
 		List<TopicDTO> dtos = topicService.findAllByClassId(classId);
 		if(dtos != null) {
 			return ResponseEntity.status(200).body(dtos);
 		}
 		return ResponseEntity.status(500).body(dtos);
+	}
+	
+	@GetMapping("/api/topic/{topicId}")
+	@CrossOriginsList
+	public ResponseEntity<TopicDTO> getTopicById(@PathVariable("topicId") Long topicId){
+		TopicDTO dto = topicService.findOneById(topicId);
+		if(dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new TopicDTO());
 	}
 	
 	@PostMapping("/api/topic")

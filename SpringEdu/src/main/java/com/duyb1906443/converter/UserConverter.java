@@ -13,7 +13,7 @@ public class UserConverter implements IConverterToDTO<UserEntity, UserDTO>, ICon
 	@Override
 	public UserEntity toEntity(UserDTO dto) {
 		UserEntity userEntity = new UserEntity();
-		userEntity.setBrithYear(dto.getBrithYear());
+		userEntity.setBirthYear(dto.getBirthYear());
 		userEntity.setEmail(dto.getEmail());
 		userEntity.setFullname(dto.getFullname());
 		userEntity.setGender(dto.getGender());
@@ -30,7 +30,7 @@ public class UserConverter implements IConverterToDTO<UserEntity, UserDTO>, ICon
 	@Override
 	public UserDTO toDTO(UserEntity entity) {
 		UserDTO userDTO = new UserDTO();
-		userDTO.setBrithYear(entity.getBrithYear());
+		userDTO.setBirthYear(entity.getBirthYear());
 		userDTO.setEmail(entity.getEmail());
 		userDTO.setFullname(entity.getFullname());
 		userDTO.setGender(entity.getGender());

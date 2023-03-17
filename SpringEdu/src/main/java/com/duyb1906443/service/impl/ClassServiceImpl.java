@@ -60,6 +60,7 @@ public class ClassServiceImpl implements ClassService {
 		ClassEntity classEntity = new ClassEntity();
 
 		if (classDTO.getId() != null) {
+			System.out.println("Sửa nè");
 
 			ClassEntity oldClassEntity = classRepository.findOne(classDTO.getId());
 

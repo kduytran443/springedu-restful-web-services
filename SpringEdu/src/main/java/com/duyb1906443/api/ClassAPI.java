@@ -39,6 +39,14 @@ public class ClassAPI {
 		return ResponseEntity.status(200).body(classReviewCardService.findAll());
 	}
 
+	@GetMapping("/api/class-review")
+	@CrossOriginsList
+	public ResponseEntity<List<ClassReviewCardDTO>> getClassReviewCardsByUser() {
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+				.getUser().getId();
+		return ResponseEntity.status(200).body(classReviewCardService.findAllByUser(userId));
+	}
+
 	@GetMapping("/public/api/class-review/{categoryCode}")
 	@CrossOriginsList
 	public ResponseEntity<List<ClassReviewCardDTO>> getClassReviewCards(
@@ -74,6 +82,18 @@ public class ClassAPI {
 		}
 
 		return ResponseEntity.status(500).build();
+	}
+
+	@PutMapping("/api/class")
+	@CrossOriginsList
+	public ResponseEntity<?> putClass(@RequestBody ClassDTO classDTO) {
+		ClassDTO dto = classService.save(classDTO);
+
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+
+		return ResponseEntity.status(500).body(new ClassDTO());
 	}
 
 	@PutMapping("/api/class/time")

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.duyb1906443.converter.QuestionBankConverter;
 import com.duyb1906443.dto.QuestionBankDTO;
+import com.duyb1906443.entity.ClassEntity;
 import com.duyb1906443.entity.QuestionBankEntity;
 import com.duyb1906443.entity.UserEntity;
+import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.repository.QuestionBankRepository;
 import com.duyb1906443.repository.UserRepository;
 import com.duyb1906443.service.QuestionBankService;
@@ -24,6 +26,9 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 	
 	@Autowired
 	private QuestionBankRepository questionBankRepository;
+	
+	@Autowired
+	private ClassRepository classRepository;
 	
 	@Override
 	public List<QuestionBankDTO> findAllByUserId(Long userId) {
@@ -57,6 +62,24 @@ public class QuestionBankServiceImpl implements QuestionBankService{
 		QuestionBankEntity questionBankEntity = questionBankRepository.findOne(id);
 		questionBankEntity.setStatus(0);
 		questionBankEntity = questionBankRepository.save(questionBankEntity);
+	}
+
+	@Override
+	public List<QuestionBankDTO> findAllByClassId(Long classId) {
+		ClassEntity classEntity = classRepository.findOne(classId);
+		
+		List<QuestionBankEntity> questionBankEntities = classEntity.getQuestionBanks();
+		
+		return questionBankConverter.toDTOList(questionBankEntities);
+	}
+
+	@Override
+	public QuestionBankDTO findOneById(Long questionBankId) {
+		QuestionBankEntity questionBankEntity = questionBankRepository.findOne(questionBankId);
+		if(questionBankEntity != null) {
+			return questionBankConverter.toDTO(questionBankEntity);			
+		}
+		return null;
 	}
 	
 }

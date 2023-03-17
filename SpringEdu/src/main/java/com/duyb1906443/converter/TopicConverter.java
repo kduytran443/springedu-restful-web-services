@@ -39,8 +39,6 @@ public class TopicConverter implements IConverterToDTO<TopicEntity, TopicDTO>, I
 	public TopicEntity toEntity(TopicDTO dto, TopicEntity entity) {
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setOrdinalNumber(dto.getOrdinalNumber());
-		entity.setVisible(dto.getVisible());
 		return entity;
 	}
 

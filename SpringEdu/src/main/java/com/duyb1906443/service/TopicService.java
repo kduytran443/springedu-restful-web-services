@@ -9,6 +9,7 @@ public interface TopicService {
 	List<TopicDTO> findAllByClassId(Long classId);
 	
 	TopicDTO save(TopicDTO topicDTO);
+	TopicDTO findOneById(Long id);
 	
 	void delete(TopicDTO topicDTO);
 	

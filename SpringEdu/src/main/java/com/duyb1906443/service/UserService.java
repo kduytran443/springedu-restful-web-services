@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -79,11 +80,35 @@ public class UserService implements UserDetailsService {
     }
     
     public UserDTO findOneById(Long id) {
+    	UserEntity userEntity = userRepository.findOne(id);
+    	if(userEntity.getStatus() == 0) {
+    		return null;
+    	}
     	return userConverter.toDTO(userRepository.findOne(id));
     }
     
     public UserDTO findOneByUsername(String username) {
     	return userConverter.toDTO(userRepository.findOneByUsername(username));
+    }
+    
+    public UserDTO save(UserDTO userDTO) {
+    	Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
+    	UserEntity userEntity =  userRepository.findOne(userId);
+    	if(userDTO.getAvatar() != null) userEntity.setAvatar(userDTO.getAvatar());
+    	if(userDTO.getBirthYear() != null) userEntity.setBirthYear(userDTO.getBirthYear());
+    	if(userDTO.getFullname() != null) userEntity.setFullname(userDTO.getFullname());
+    	if(userDTO.getGender() != null) userEntity.setGender(userDTO.getGender());
+    	if(userDTO.getPhoneNumber() != null) userEntity.setPhoneNumber(userDTO.getPhoneNumber());
+    	
+    	userEntity = userRepository.save(userEntity);
+    	
+    	return userConverter.toDTO(userEntity);
+    }
+    
+    public void delete(String username) {
+    	UserEntity userEntity =  userRepository.findOneByUsername(username);
+    	userEntity.setStatus(0);
+    	userEntity = userRepository.save(userEntity);
     }
     
 }

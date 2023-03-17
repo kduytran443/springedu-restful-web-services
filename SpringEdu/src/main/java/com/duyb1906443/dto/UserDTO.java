@@ -5,9 +5,9 @@ public class UserDTO {
 	private String username;
 	private String fullname;
 	private String email;
-	private int phoneNumber;
+	private Integer phoneNumber;
 	private String gender;
-	private int brithYear;
+	private Integer birthYear;
 	private String password;
 	private String role;
 	private String avatar;
@@ -72,14 +72,6 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public int getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public String getGender() {
 		return gender;
 	}
@@ -88,12 +80,20 @@ public class UserDTO {
 		this.gender = gender;
 	}
 
-	public int getBrithYear() {
-		return brithYear;
+	public Integer getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setBrithYear(int brithYear) {
-		this.brithYear = brithYear;
+	public void setPhoneNumber(Integer phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Integer getBirthYear() {
+		return birthYear;
+	}
+
+	public void setBirthYear(Integer birthYear) {
+		this.birthYear = birthYear;
 	}
 
 	public String getRole() {
@@ -102,13 +102,6 @@ public class UserDTO {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "UserDTO [id=" + id + ", username=" + username + ", fullname=" + fullname + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", brithYear=" + brithYear + ", password="
-				+ password + ", role=" + role + ", avatar=" + avatar + ", jwt=" + jwt + "]";
 	}
 
 }

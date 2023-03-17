@@ -49,7 +49,7 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 		if(reviewRepository.getAvgReviewRatingByClassId(classId) != null) {
 			classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));			
 		}
-
+		
 		UserEntity userEntity = userRepository.findOne(userId);
 
 		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity,

@@ -63,6 +63,9 @@ public class ClassEntity {
 	@Column(columnDefinition = "nvarchar(512)")
 	private String video;
 
+	@Column(columnDefinition = "nvarchar(120)", nullable = true)
+	private String paypalAccount;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "meeting_id")
 	private MeetingEntity meeting;
@@ -98,6 +101,14 @@ public class ClassEntity {
 
 	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
 	private List<CommentEntity> comments;
+
+	public String getPaypalAccount() {
+		return paypalAccount;
+	}
+
+	public void setPaypalAccount(String paypalAccount) {
+		this.paypalAccount = paypalAccount;
+	}
 
 	public void setVideo(String video) {
 		this.video = video;

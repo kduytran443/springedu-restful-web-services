@@ -3,8 +3,26 @@ package com.duyb1906443.dto;
 public class ChoiceAnswerDTO {
 	private Long id;
 	private String content;
-	private int correct;
+	private Integer correct;
 	private FileDTO file;
+	private String type;
+	private Long choiceQuestionId;
+
+	public Long getChoiceQuestionId() {
+		return choiceQuestionId;
+	}
+
+	public void setChoiceQuestionId(Long choiceQuestionId) {
+		this.choiceQuestionId = choiceQuestionId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public FileDTO getFile() {
 		return file;
@@ -30,11 +48,11 @@ public class ChoiceAnswerDTO {
 		this.content = content;
 	}
 
-	public int getCorrect() {
+	public Integer getCorrect() {
 		return correct;
 	}
 
-	public void setCorrect(int correct) {
+	public void setCorrect(Integer correct) {
 		this.correct = correct;
 	}
 

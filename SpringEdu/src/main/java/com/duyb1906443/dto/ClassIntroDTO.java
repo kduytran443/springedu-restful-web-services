@@ -24,6 +24,24 @@ public class ClassIntroDTO {
 	private String userRoleCode;
 	private Timestamp startTime;
 	private Timestamp endTime;
+	private String avatar;
+	private Long categoryId;
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
 
 	public Timestamp getStartTime() {
 		return startTime;

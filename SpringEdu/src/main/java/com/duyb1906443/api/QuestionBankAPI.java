@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,27 @@ public class QuestionBankAPI {
 				.getUser().getId();
 
 		List<QuestionBankDTO> dtos = questionBankService.findAllByUserId(userId);
+
+		if (dtos != null) {
+			return ResponseEntity.status(200).body(dtos);
+		}
+		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+	@GetMapping("/api/question-bank/{questionBankId}")
+	@CrossOriginsList
+	public ResponseEntity<?> getQuestionBanksById(@PathVariable("questionBankId") Long questionBankId) {
+		QuestionBankDTO dto = questionBankService.findOneById(questionBankId);
+
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new QuestionBankDTO());
+	}
+	
+	@GetMapping("/api/question-bank/class/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<?> getQuestionBanksByClassId(@PathVariable("classId") Long classId) {
+		List<QuestionBankDTO> dtos = questionBankService.findAllByClassId(classId);
 
 		if (dtos != null) {
 			return ResponseEntity.status(200).body(dtos);

@@ -16,5 +16,6 @@ public interface ClassMemberService {
 	ClassMemberDTO save(ClassMemberDTO classMemberDTO);
 	void delete(ClassMemberDTO classMemberDTO);
 	ClassMemberDTO acceptRequest(ClassMemberDTO classMemberDTO);
+	Integer countAllMember(Long classId);
 	
 }

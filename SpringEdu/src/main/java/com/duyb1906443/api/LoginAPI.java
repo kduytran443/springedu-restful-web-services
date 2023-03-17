@@ -62,13 +62,12 @@ public class LoginAPI {
                         loginRequest.getPassword()
                 )
         );
-
+        
         // Nếu không xảy ra exception tức là thông tin hợp lệ
         
         // Set thông tin authentication vào Security Context
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
+        
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
         UserDTO userDTO = userService.findOneById(((CustomUserDetails) authentication.getPrincipal()).getUser().getId());

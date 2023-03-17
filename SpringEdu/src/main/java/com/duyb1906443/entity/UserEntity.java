@@ -30,23 +30,23 @@ public class UserEntity {
 	@Column(columnDefinition = "nvarchar(24)")
 	private String fullname;
 
-	@Column
+	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Column
-	private int phoneNumber;
+	@Column(nullable = false, unique = true)
+	private Integer phoneNumber;
 
 	@Column
 	private String gender;
 
 	@Column
-	private int brithYear;
+	private Integer birthYear;
 
 	@Column
 	private String avatar;
 
 	@Column(columnDefinition = "tinyint default '1'")
-	private int status;
+	private Integer status;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -72,6 +72,10 @@ public class UserEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
 	private List<ClassEntity> createdClasses;
+
+	public Integer getPhoneNumber() {
+		return phoneNumber;
+	}
 
 	public List<ReportEntity> getReports() {
 		return reports;
@@ -137,14 +141,6 @@ public class UserEntity {
 		this.email = email;
 	}
 
-	public int getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public String getGender() {
 		return gender;
 	}
@@ -153,12 +149,20 @@ public class UserEntity {
 		this.gender = gender;
 	}
 
-	public int getBrithYear() {
-		return brithYear;
+	public Integer getBirthYear() {
+		return birthYear;
 	}
 
-	public void setBrithYear(int brithYear) {
-		this.brithYear = brithYear;
+	public void setBirthYear(Integer birthYear) {
+		this.birthYear = birthYear;
+	}
+
+	public void setPhoneNumber(Integer phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public List<RoleEntity> getRoles() {

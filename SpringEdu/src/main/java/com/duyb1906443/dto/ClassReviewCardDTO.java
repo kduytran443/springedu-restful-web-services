@@ -16,6 +16,15 @@ public class ClassReviewCardDTO {
 	private String username;
 	private String userAvatar;
 	private List<DiscountDTO> discounts;
+	private Integer memberCount;
+
+	public Integer getMemberCount() {
+		return memberCount;
+	}
+
+	public void setMemberCount(Integer memberCount) {
+		this.memberCount = memberCount;
+	}
 
 	public List<DiscountDTO> getDiscounts() {
 		return discounts;

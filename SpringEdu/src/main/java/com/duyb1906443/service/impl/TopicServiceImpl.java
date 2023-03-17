@@ -33,6 +33,7 @@ public class TopicServiceImpl implements TopicService {
 		
 		List<TopicDTO> topicDTOs = topicConverter.toDTOList(classEntity.getTopics());
 		
+		/*
 		Collections.sort(topicDTOs, new Comparator<TopicDTO>() {
 			@Override
 			public int compare(TopicDTO o1, TopicDTO o2) {
@@ -45,6 +46,7 @@ public class TopicServiceImpl implements TopicService {
 				return 0;
 			}
 		});
+		*/
 		
 		return topicDTOs;
 	}
@@ -79,6 +81,15 @@ public class TopicServiceImpl implements TopicService {
 	@Override
 	public void delete(TopicDTO topicDTO) {
 		topicRepository.delete(topicDTO.getId());
+	}
+
+	@Override
+	public TopicDTO findOneById(Long id) {
+		TopicEntity topicEntity = topicRepository.findOne(id);
+		if(topicEntity != null) {
+			return topicConverter.toDTO(topicEntity);
+		}
+		return null;
 	}
 
 }
