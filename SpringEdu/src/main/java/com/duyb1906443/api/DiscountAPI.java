@@ -23,6 +23,7 @@ public class DiscountAPI {
 	@Autowired
 	private DiscountService discountService;
 	
+	//Tìm danh sách giảm giá theo lớp học
 	@GetMapping("/public/api/discount/class/{classId}")
 	@CrossOriginsList
 	public ResponseEntity<List<DiscountDTO>> getDiscountsByClass(@PathVariable("classId") Long classId){
