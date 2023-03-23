@@ -11,5 +11,7 @@ public interface QuestionBankService {
 	List<QuestionBankDTO> findAllByClassId(Long classId);
 	QuestionBankDTO save(QuestionBankDTO dto, Long userId);
 	void delete(Long id);
+	QuestionBankDTO saveToClass(Long classId, QuestionBankDTO questionBankDTO);
+	void deleteFromClass(Long classId, QuestionBankDTO questionBankDTO);
 	
 }

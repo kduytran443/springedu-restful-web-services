@@ -22,10 +22,10 @@ public class QuizEntity {
 	private Long id;
 
 	@Column
-	private int numberOfQuestion;
+	private Integer numberOfQuestion;
 
 	@Column
-	private float mark;
+	private Float mark;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_excercise_id")
@@ -42,19 +42,19 @@ public class QuizEntity {
 		this.id = id;
 	}
 
-	public int getNumberOfQuestion() {
+	public Integer getNumberOfQuestion() {
 		return numberOfQuestion;
 	}
 
-	public void setNumberOfQuestion(int numberOfQuestion) {
+	public void setNumberOfQuestion(Integer numberOfQuestion) {
 		this.numberOfQuestion = numberOfQuestion;
 	}
 
-	public float getMark() {
+	public Float getMark() {
 		return mark;
 	}
 
-	public void setMark(float mark) {
+	public void setMark(Float mark) {
 		this.mark = mark;
 	}
 

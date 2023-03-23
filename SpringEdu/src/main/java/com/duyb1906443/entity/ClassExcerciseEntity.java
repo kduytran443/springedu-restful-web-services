@@ -37,10 +37,13 @@ public class ClassExcerciseEntity {
 	private Timestamp endTime;
 
 	@Column
-	private float mark;
+	private Float mark;
 
 	@Column(columnDefinition = "tinyint")
-	private int effective;
+	private Integer effective;
+
+	@Column
+	private Integer status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
@@ -57,11 +60,50 @@ public class ClassExcerciseEntity {
 	@JoinColumn(name = "question_bank_id")
 	private QuestionBankEntity questionBank;
 
+	@Column(nullable = true)
+	private Integer timeLimit;
+
 	@OneToOne(mappedBy = "classExcercise")
 	private QuizEntity quiz;
-	
+
 	@OneToOne(mappedBy = "classExcercise")
 	private ConstructedResponseTestEntity constructedResponseTests;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getTimeLimit() {
+		return timeLimit;
+	}
+
+	public void setTimeLimit(Integer timeLimit) {
+		this.timeLimit = timeLimit;
+	}
+
+	public ConstructedResponseTestEntity getConstructedResponseTests() {
+		return constructedResponseTests;
+	}
+
+	public void setConstructedResponseTests(ConstructedResponseTestEntity constructedResponseTests) {
+		this.constructedResponseTests = constructedResponseTests;
+	}
+
+	public Float getMark() {
+		return mark;
+	}
+
+	public void setMark(Float mark) {
+		this.mark = mark;
+	}
+
+	public void setEffective(Integer effective) {
+		this.effective = effective;
+	}
 
 	public QuizEntity getQuiz() {
 		return quiz;
@@ -119,20 +161,8 @@ public class ClassExcerciseEntity {
 		this.endTime = endTime;
 	}
 
-	public float getMark() {
-		return mark;
-	}
-
-	public void setMark(float mark) {
-		this.mark = mark;
-	}
-
-	public int getEffective() {
+	public Integer getEffective() {
 		return effective;
-	}
-
-	public void setEffective(int effective) {
-		this.effective = effective;
 	}
 
 	public ClassEntity getClassEntity() {

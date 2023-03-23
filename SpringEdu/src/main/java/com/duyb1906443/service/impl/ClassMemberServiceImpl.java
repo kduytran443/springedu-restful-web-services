@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.duyb1906443.converter.ClassConverter;
 import com.duyb1906443.converter.ClassMemberConverter;
 import com.duyb1906443.dto.ClassMemberDTO;
 import com.duyb1906443.entity.ClassEntity;
@@ -74,9 +73,9 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 
 		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity,
 				userEntity);
-
+		
 		System.out.println(userEntity.getUsername() + "  - class: " + classEntity.getName());
-
+		
 		if (classMemberEntity == null) { // tạo mới
 			System.out.println("Null nè");
 			classMemberEntity = classMemberConverter.toEntity(classMemberDTO);
@@ -101,8 +100,10 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 		} else {
 			classMemberEntity = classMemberConverter.toEntity(classMemberDTO, classMemberEntity);
 
-			ClassRoleEntity classRoleEntity = classRoleRepository.findOneByCode(classMemberDTO.getClassRole());
-			classMemberEntity.setClassRole(classRoleEntity);
+			if(classMemberDTO.getClassRole() != null) {
+				ClassRoleEntity classRoleEntity = classRoleRepository.findOneByCode(classMemberDTO.getClassRole());
+				classMemberEntity.setClassRole(classRoleEntity);				
+			}
 
 			if (classMemberDTO.getDiscountId() != null) {
 				DiscountEntity discountEntity = discountRepository.findOne(classMemberDTO.getDiscountId());
@@ -197,6 +198,17 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 				.filter(member -> (member.getMemberAccepted() == 1 && member.getClassAccepted() == 1))
 				.collect(Collectors.toList());
 		return filterMembers.size();
+	}
+
+	@Override
+	public ClassMemberDTO findOneByUserAndClass(Long userId, Long classId) {
+		UserEntity userEntity = userRepository.findOne(userId);
+		ClassEntity classEntity = classRepository.findOne(classId);
+		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity);
+		if(classMemberEntity != null) {
+			return classMemberConverter.toDTO(classMemberEntity);
+		}
+		return null;
 	}
 
 }

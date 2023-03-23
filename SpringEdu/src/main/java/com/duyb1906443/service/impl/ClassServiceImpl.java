@@ -76,6 +76,8 @@ public class ClassServiceImpl implements ClassService {
 			if (classDTO.getBackground() != null)
 				classEntity.setBackground(classDTO.getBackground());
 			
+			classEntity.setAccepted(0);
+			
 			CategoryEntity category = categoryRepository.findOne(classDTO.getCategory().getId());
 			classEntity.setCategory(category);
 			

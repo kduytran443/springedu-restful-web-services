@@ -35,13 +35,29 @@ public class QuestionBankEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "questionBank")
 	private List<ChoiceQuestionEntity> choiceQuestions;
-	
+
 	@ManyToMany
 	@JoinTable(name = "question_bank_class", joinColumns = @JoinColumn(name = "question_bank_id"), inverseJoinColumns = @JoinColumn(name = "class_id"))
 	private List<ClassEntity> classEntities;
-	
+
 	@OneToMany(mappedBy = "questionBank", fetch = FetchType.LAZY)
 	private List<ClassExcerciseEntity> classExcercises;
+
+	public List<ClassEntity> getClassEntities() {
+		return classEntities;
+	}
+
+	public void setClassEntities(List<ClassEntity> classEntities) {
+		this.classEntities = classEntities;
+	}
+
+	public List<ClassExcerciseEntity> getClassExcercises() {
+		return classExcercises;
+	}
+
+	public void setClassExcercises(List<ClassExcerciseEntity> classExcercises) {
+		this.classExcercises = classExcercises;
+	}
 
 	public Integer getStatus() {
 		return status;

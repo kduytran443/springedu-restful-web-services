@@ -10,6 +10,24 @@ public class ChoiceQuestionDTO {
 	private String questionBankName;
 	private FileDTO file;
 	private String content;
+	private Integer status;
+	private Integer answerQuantity;
+
+	public Integer getAnswerQuantity() {
+		return answerQuantity;
+	}
+
+	public void setAnswerQuantity(Integer answerQuantity) {
+		this.answerQuantity = answerQuantity;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public String getQuestionBankName() {
 		return questionBankName;

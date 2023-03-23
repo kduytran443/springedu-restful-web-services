@@ -13,6 +13,7 @@ public interface ClassMemberService {
 	List<ClassMemberDTO> findAllByUsername(String username);
 	List<ClassMemberDTO> findAllRequestMemberByUsername(String username);
 	List<ClassMemberDTO> findAllInvitedMemberByUsername(String username);
+	ClassMemberDTO findOneByUserAndClass(Long userId, Long classId);
 	ClassMemberDTO save(ClassMemberDTO classMemberDTO);
 	void delete(ClassMemberDTO classMemberDTO);
 	ClassMemberDTO acceptRequest(ClassMemberDTO classMemberDTO);

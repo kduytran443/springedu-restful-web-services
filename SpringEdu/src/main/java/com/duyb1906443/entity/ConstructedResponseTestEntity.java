@@ -34,7 +34,7 @@ public class ConstructedResponseTestEntity {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "constructed_response_test_file", joinColumns = @JoinColumn(name = "constructed_response_test_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
-	private List<FileEntity> fileEntity;
+	private List<FileEntity> files;
 
 	@OneToOne
 	@JoinColumn(name = "class_excercise_id")
@@ -80,12 +80,12 @@ public class ConstructedResponseTestEntity {
 		this.content = content;
 	}
 
-	public List<FileEntity> getFileEntity() {
-		return fileEntity;
+	public List<FileEntity> getFiles() {
+		return files;
 	}
 
-	public void setFileEntity(List<FileEntity> fileEntity) {
-		this.fileEntity = fileEntity;
+	public void setFiles(List<FileEntity> files) {
+		this.files = files;
 	}
 
 }

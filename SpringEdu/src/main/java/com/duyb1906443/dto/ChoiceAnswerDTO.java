@@ -7,6 +7,15 @@ public class ChoiceAnswerDTO {
 	private FileDTO file;
 	private String type;
 	private Long choiceQuestionId;
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public Long getChoiceQuestionId() {
 		return choiceQuestionId;

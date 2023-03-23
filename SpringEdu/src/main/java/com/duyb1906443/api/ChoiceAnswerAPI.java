@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.duyb1906443.annotation.CrossOriginsList;
 import com.duyb1906443.dto.ChoiceAnswerDTO;
+import com.duyb1906443.dto.DrawQuizDTO;
 import com.duyb1906443.service.ChoiceAnswerService;
 
 @RestController
@@ -70,6 +71,16 @@ public class ChoiceAnswerAPI {
 	public ResponseEntity<ChoiceAnswerDTO> deleteChoiceAnswer(@RequestBody ChoiceAnswerDTO choiceAnswerDTO) {
 		choiceAnswerService.delete(choiceAnswerDTO);
 		return ResponseEntity.status(200).body(new ChoiceAnswerDTO());
+	}
+	
+	@GetMapping("/api/choice-answer/draw-quiz/{drawQuizId}")
+	@CrossOriginsList
+	public ResponseEntity<List<ChoiceAnswerDTO>> getDrawQuizChoiceAnswers(@PathVariable("drawQuizId") Long drawQuizId) {
+		List<ChoiceAnswerDTO> dtos = choiceAnswerService.findAllByDrawQuizId(drawQuizId);
+		if (dtos != null) {
+			return ResponseEntity.status(200).body(dtos);
+		}
+		return ResponseEntity.status(500).body(Collections.emptyList());
 	}
 	
 }

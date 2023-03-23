@@ -2,10 +2,12 @@ package com.duyb1906443.converter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import com.duyb1906443.dto.QuestionBankDTO;
+import com.duyb1906443.entity.ChoiceQuestionEntity;
 import com.duyb1906443.entity.QuestionBankEntity;
 
 @Component
@@ -46,6 +48,14 @@ public class QuestionBankConverter implements IConverterToDTO<QuestionBankEntity
 		if(entity.getId() != null) dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		if(entity.getStatus() != null) dto.setStatus(entity.getStatus());
+		if(entity.getUser() != null) {
+			dto.setUserId(entity.getUser().getId());
+			dto.setUsername(entity.getUser().getUsername());
+		}
+		if(entity.getChoiceQuestions() != null) {
+			List<ChoiceQuestionEntity> choiceQuestionEntities = entity.getChoiceQuestions().stream().filter(question -> question.getStatus() == 1).collect(Collectors.toList());
+			dto.setQuestionQuantity(choiceQuestionEntities.size());
+		}
 		return dto;
 	}
 

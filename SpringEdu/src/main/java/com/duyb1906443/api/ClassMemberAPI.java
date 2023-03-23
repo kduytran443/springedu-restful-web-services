@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +43,19 @@ public class ClassMemberAPI {
 			return ResponseEntity.status(200).body(classMembers);
 		}
 		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+	
+	@GetMapping("/public/api/class-member/class/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<ClassMemberDTO> getClassMembersByClassIdAndUserId(@PathVariable("classId") Long classId) {
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
+		
+		ClassMemberDTO classMember = classMemberService.findOneByUserAndClass(userId, classId);
+		
+		if (classMember != null) {
+			return ResponseEntity.status(200).body(classMember);
+		}
+		return ResponseEntity.status(500).body(new ClassMemberDTO());
 	}
 
 	@GetMapping("/public/api/class-member/invited")
@@ -113,10 +127,22 @@ public class ClassMemberAPI {
 		return ResponseEntity.status(500).build();
 	}
 
+	@PutMapping("/api/class-member/waiting-list")
+	@CrossOriginsList
+	public ResponseEntity<ClassMemberDTO> sendToWatingList(@RequestBody ClassMemberDTO classMemberDTO) {
+		ClassMemberDTO dto = classMemberService.save(classMemberDTO);
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new ClassMemberDTO());
+	}
+
 	@PutMapping("/api/class-member")
 	@CrossOriginsList
 	public ResponseEntity<ClassMemberDTO> putClassMember(@RequestBody ClassMemberDTO classMemberDTO) {
-
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
+		classMemberDTO.setUserId(userId);
+		System.out.println("Đăng ký");
 		ClassMemberDTO dto = classMemberService.save(classMemberDTO);
 
 		if (dto != null) {

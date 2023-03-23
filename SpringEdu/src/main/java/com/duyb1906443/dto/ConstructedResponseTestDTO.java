@@ -6,7 +6,25 @@ public class ConstructedResponseTestDTO {
 	private Long id;
 	private String name;
 	private String content;
-	private List<FileDTO> fileEntity;
+	private List<FileDTO> files;
+	private Float mark;
+	private Long classExcerciseId;
+
+	public Long getClassExcerciseId() {
+		return classExcerciseId;
+	}
+
+	public void setClassExcerciseId(Long classExcerciseId) {
+		this.classExcerciseId = classExcerciseId;
+	}
+
+	public Float getMark() {
+		return mark;
+	}
+
+	public void setMark(Float mark) {
+		this.mark = mark;
+	}
 
 	public Long getId() {
 		return id;
@@ -32,12 +50,12 @@ public class ConstructedResponseTestDTO {
 		this.content = content;
 	}
 
-	public List<FileDTO> getFileEntity() {
-		return fileEntity;
+	public List<FileDTO> getFiles() {
+		return files;
 	}
 
-	public void setFileEntity(List<FileDTO> fileEntity) {
-		this.fileEntity = fileEntity;
+	public void setFiles(List<FileDTO> files) {
+		this.files = files;
 	}
 
 }

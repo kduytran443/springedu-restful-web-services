@@ -59,7 +59,7 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 	public ClassMemberEntity toEntity(ClassMemberDTO dto, ClassMemberEntity entity) {
 		entity.setClassAccepted(dto.getClassAccepted());
 		entity.setMemberAccepted(dto.getMemberAccepted());
-		entity.setCreatedDate(dto.getCreatedDate());
+		if(dto.getCreatedDate() != null) entity.setCreatedDate(dto.getCreatedDate());
 		entity.setFee(dto.getFee());
 		return entity;
 	}

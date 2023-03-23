@@ -1,6 +1,7 @@
 package com.duyb1906443.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,8 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 		List<ChoiceQuestionEntity> choiceQuestionEntities = questionBankEntity.getChoiceQuestions();
 
 		if (choiceQuestionEntities != null) {
+			choiceQuestionEntities = choiceQuestionEntities.stream()
+					.filter(choiceQuestion -> choiceQuestion.getStatus() == 1).collect(Collectors.toList());
 			return choiceQuestionConverter.toDTOList(choiceQuestionEntities);
 		}
 
@@ -40,7 +43,6 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 
 	@Override
 	public ChoiceQuestionDTO findOneById(Long id) {
-
 		ChoiceQuestionEntity choiceQuestionEntity = choiceQuestionRepository.findOne(id);
 
 		if (choiceQuestionEntity != null) {
@@ -53,22 +55,21 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 	@Override
 	public ChoiceQuestionDTO save(ChoiceQuestionDTO choiceQuestionDTO) {
 		ChoiceQuestionEntity choiceQuestionEntity = null;
-		if(choiceQuestionDTO.getId() != null) {
+		if (choiceQuestionDTO.getId() != null) {
 			choiceQuestionEntity = choiceQuestionRepository.findOne(choiceQuestionDTO.getId());
 			choiceQuestionEntity.setName(choiceQuestionDTO.getName());
-		}
-		else {
+		} else {
 			choiceQuestionEntity = choiceQuestionConverter.toEntity(choiceQuestionDTO);
 			QuestionBankEntity questionBankEntity = questionBankRepository.findOne(choiceQuestionDTO.getQuestionBank());
 			choiceQuestionEntity.setQuestionBank(questionBankEntity);
 			choiceQuestionEntity.setStatus(1);
 		}
-		
-		if(choiceQuestionEntity != null) {
+
+		if (choiceQuestionEntity != null) {
 			choiceQuestionEntity = choiceQuestionRepository.save(choiceQuestionEntity);
 			return choiceQuestionConverter.toDTO(choiceQuestionEntity);
 		}
-		
+
 		return null;
 	}
 

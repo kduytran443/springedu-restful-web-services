@@ -4,9 +4,27 @@ import java.sql.Timestamp;
 
 public class DiscountDTO {
 	private Long id;
-	private int discountPercent;
+	private Integer discountPercent;
 	private Timestamp startDate;
 	private Timestamp endDate;
+	private Long classId;
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Long getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Long classId) {
+		this.classId = classId;
+	}
 
 	public Long getId() {
 		return id;
@@ -16,11 +34,11 @@ public class DiscountDTO {
 		this.id = id;
 	}
 
-	public int getDiscountPercent() {
+	public Integer getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(int discountPercent) {
+	public void setDiscountPercent(Integer discountPercent) {
 		this.discountPercent = discountPercent;
 	}
 
@@ -38,6 +56,12 @@ public class DiscountDTO {
 
 	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
+	}
+
+	@Override
+	public String toString() {
+		return "DiscountDTO [id=" + id + ", discountPercent=" + discountPercent + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", classId=" + classId + ", status=" + status + "]";
 	}
 
 }

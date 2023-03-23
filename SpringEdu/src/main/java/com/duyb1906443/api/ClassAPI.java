@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duyb1906443.annotation.CrossOriginsList;
@@ -37,6 +38,16 @@ public class ClassAPI {
 	@CrossOriginsList
 	public ResponseEntity<List<ClassReviewCardDTO>> getClassReviewCards() {
 		return ResponseEntity.status(200).body(classReviewCardService.findAll());
+	}
+
+	@GetMapping("/public/api/class-review/search")
+	@CrossOriginsList
+	public ResponseEntity<List<ClassReviewCardDTO>> searchClassReviewCards(
+			@RequestParam(name = "value", required = false) String value,
+			@RequestParam(name = "categoryCode", required = false) String categoryCode,
+			@RequestParam(name = "maxFee", required = false) Float maxFee,
+			@RequestParam(name = "rating", required = false) Float rating) {
+		return ResponseEntity.status(200).body(classReviewCardService.search(value, categoryCode, maxFee, rating));
 	}
 
 	@GetMapping("/api/class-review")
@@ -131,4 +142,5 @@ public class ClassAPI {
 
 		return ResponseEntity.status(500).body(new ClassIntroDTO());
 	}
+
 }

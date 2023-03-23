@@ -1,5 +1,6 @@
 package com.duyb1906443.api;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class TopicAPI {
 		if(dtos != null) {
 			return ResponseEntity.status(200).body(dtos);
 		}
-		return ResponseEntity.status(500).body(dtos);
+		return ResponseEntity.status(500).body(Collections.emptyList());
 	}
 	
 	@GetMapping("/api/topic/{topicId}")
@@ -50,7 +51,7 @@ public class TopicAPI {
 		if(dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(dto);
+		return ResponseEntity.status(500).body(new TopicDTO());
 	}
 	
 	@PutMapping("/api/topic")
@@ -60,13 +61,12 @@ public class TopicAPI {
 		if(dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(dto);
+		return ResponseEntity.status(500).body(new TopicDTO());
 	}
 	
 	@DeleteMapping("/api/topic")
 	@CrossOriginsList
 	public ResponseEntity<TopicDTO> deleteTopic(@RequestBody TopicDTO topicDTO){
-		System.out.println("topicDTO "+topicDTO);
 		topicService.delete(topicDTO);
 		return ResponseEntity.status(200).body(new TopicDTO());
 	}

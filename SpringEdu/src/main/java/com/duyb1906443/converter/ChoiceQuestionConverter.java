@@ -35,6 +35,8 @@ public class ChoiceQuestionConverter implements IConverterToDTO<ChoiceQuestionEn
 		dto.setName(entity.getName());
 		dto.setQuestionBank(entity.getQuestionBank().getId());
 		dto.setQuestionBankName(entity.getQuestionBank().getName());
+		dto.setStatus(entity.getStatus());
+		if(entity.getChoiceAnswers() != null) dto.setAnswerQuantity(entity.getChoiceAnswers().size());
 		
 		return dto;
 	}

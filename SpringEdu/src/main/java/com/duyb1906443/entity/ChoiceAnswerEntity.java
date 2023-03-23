@@ -43,6 +43,17 @@ public class ChoiceAnswerEntity {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "choiceAnswers")
 	private List<DrawQuizEntity> drawQuizzes;
 
+	@Column(columnDefinition = "tinyint")
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public Long getId() {
 		return id;
 	}

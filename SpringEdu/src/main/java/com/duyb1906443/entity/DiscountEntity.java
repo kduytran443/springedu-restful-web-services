@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +23,7 @@ public class DiscountEntity {
 	private Long id;
 
 	@Column
-	private int discountPercent;
+	private Integer discountPercent;
 
 	@Column
 	private Timestamp startDate;
@@ -32,12 +31,23 @@ public class DiscountEntity {
 	@Column
 	private Timestamp endDate;
 
+	@Column
+	private Integer status;
+
 	@ManyToOne
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
 	private List<ClassMemberEntity> classMember;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;
@@ -47,11 +57,11 @@ public class DiscountEntity {
 		this.id = id;
 	}
 
-	public int getDiscountPercent() {
+	public Integer getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(int discountPercent) {
+	public void setDiscountPercent(Integer discountPercent) {
 		this.discountPercent = discountPercent;
 	}
 

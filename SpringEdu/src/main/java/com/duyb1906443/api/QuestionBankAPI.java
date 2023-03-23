@@ -2,6 +2,7 @@ package com.duyb1906443.api;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,15 @@ public class QuestionBankAPI {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getUser().getId();
 
-		List<QuestionBankDTO> dtos = questionBankService.findAllByUserId(userId);
+		List<QuestionBankDTO> dtos = questionBankService.findAllByUserId(userId).stream()
+				.filter(questionBank -> questionBank.getStatus() == 1).collect(Collectors.toList());
 
 		if (dtos != null) {
 			return ResponseEntity.status(200).body(dtos);
 		}
 		return ResponseEntity.status(200).body(Collections.emptyList());
 	}
+
 	@GetMapping("/api/question-bank/{questionBankId}")
 	@CrossOriginsList
 	public ResponseEntity<?> getQuestionBanksById(@PathVariable("questionBankId") Long questionBankId) {
@@ -48,17 +51,6 @@ public class QuestionBankAPI {
 		}
 		return ResponseEntity.status(500).body(new QuestionBankDTO());
 	}
-	
-	@GetMapping("/api/question-bank/class/{classId}")
-	@CrossOriginsList
-	public ResponseEntity<?> getQuestionBanksByClassId(@PathVariable("classId") Long classId) {
-		List<QuestionBankDTO> dtos = questionBankService.findAllByClassId(classId);
-
-		if (dtos != null) {
-			return ResponseEntity.status(200).body(dtos);
-		}
-		return ResponseEntity.status(200).body(Collections.emptyList());
-	}
 
 	@PostMapping("/api/question-bank")
 	@CrossOriginsList
@@ -67,7 +59,7 @@ public class QuestionBankAPI {
 				.getUser().getId();
 		questionBankDTO.setId(null);
 		QuestionBankDTO dto = questionBankService.save(questionBankDTO, userId);
-		
+
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
@@ -80,7 +72,7 @@ public class QuestionBankAPI {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getUser().getId();
 		QuestionBankDTO dto = questionBankService.save(questionBankDTO, userId);
-		
+
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
@@ -91,7 +83,38 @@ public class QuestionBankAPI {
 	@CrossOriginsList
 	public ResponseEntity<?> deleteQuestionBank(@RequestBody QuestionBankDTO questionBankDTO) {
 		questionBankService.delete(questionBankDTO.getId());
-		return ResponseEntity.status(200).build();
+		return ResponseEntity.status(200).body(new QuestionBankDTO());
 	}
 
+	@GetMapping("/api/question-bank/class/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<?> getQuestionBanksByClassId(@PathVariable("classId") Long classId) {
+		List<QuestionBankDTO> dtos = questionBankService.findAllByClassId(classId);
+
+		if (dtos != null) {
+			return ResponseEntity.status(200).body(dtos);
+		}
+		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+
+	@PostMapping("/api/question-bank/class/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<?> postQuestionBankToClass(@PathVariable("classId") Long classId,
+			@RequestBody QuestionBankDTO questionBankDTO) {
+		QuestionBankDTO dto = questionBankService.saveToClass(classId, questionBankDTO);
+
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+
+		return ResponseEntity.status(500).body(new QuestionBankDTO());
+	}
+
+	@DeleteMapping("/api/question-bank/class/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<?> deleteQuestionBankFromClass(@PathVariable("classId") Long classId,
+			@RequestBody QuestionBankDTO questionBankDTO) {
+		questionBankService.deleteFromClass(classId, questionBankDTO);
+		return ResponseEntity.status(200).body(new QuestionBankDTO());
+	}
 }

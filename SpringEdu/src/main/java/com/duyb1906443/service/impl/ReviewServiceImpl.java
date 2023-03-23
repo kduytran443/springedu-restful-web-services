@@ -52,8 +52,12 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public float getAvgReviewRatingByClassId(Long classId) {
-		return reviewRepository.getAvgReviewRatingByClassId(classId);
+	public Float getAvgReviewRatingByClassId(Long classId) {
+		Float avg = reviewRepository.getAvgReviewRatingByClassId(classId);
+		if(avg != null) {
+			return avg;
+		}
+		return null;
 	}
 
 	@Override
@@ -118,8 +122,11 @@ public class ReviewServiceImpl implements ReviewService {
 		UserEntity userEntity = userRepository.findOne(reviewDTO.getUserId());
 
 		ReviewEntity reviewEntity = reviewRepository.findOneByClassEntityAndUser(classEntity, userEntity);
-
-		return reviewConverter.toDTO(reviewEntity);
+		
+		if(reviewEntity != null) {
+			return reviewConverter.toDTO(reviewEntity);			
+		}
+		return null;
 	}
 
 }

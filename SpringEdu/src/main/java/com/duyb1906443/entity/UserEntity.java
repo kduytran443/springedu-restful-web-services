@@ -42,7 +42,7 @@ public class UserEntity {
 	@Column
 	private Integer birthYear;
 
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String avatar;
 
 	@Column(columnDefinition = "tinyint default '1'")

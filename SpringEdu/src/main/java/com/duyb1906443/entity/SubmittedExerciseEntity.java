@@ -1,8 +1,6 @@
 package com.duyb1906443.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,7 +27,10 @@ public class SubmittedExerciseEntity {
 	private Timestamp submitTime;
 
 	@Column
-	private float mark;
+	private Timestamp startTime;
+
+	@Column
+	private Float mark;
 
 	@Column
 	private String content;
@@ -46,6 +46,47 @@ public class SubmittedExerciseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_excercise_id")
 	private ClassExcerciseEntity classExcercise;
+
+	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
+	private List<DrawQuizEntity> drawQuizzes;
+
+	@Column
+	private Float quizMark;
+
+	@Column
+	private Float constructedResponseMark;
+
+	public Float getQuizMark() {
+		return quizMark;
+	}
+
+	public void setQuizMark(Float quizMark) {
+		this.quizMark = quizMark;
+	}
+
+	public Float getConstructedResponseMark() {
+		return constructedResponseMark;
+	}
+
+	public void setConstructedResponseMark(Float constructedResponseMark) {
+		this.constructedResponseMark = constructedResponseMark;
+	}
+
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public List<DrawQuizEntity> getDrawQuizzes() {
+		return drawQuizzes;
+	}
+
+	public void setDrawQuizzes(List<DrawQuizEntity> drawQuizzes) {
+		this.drawQuizzes = drawQuizzes;
+	}
 
 	public Long getId() {
 		return id;
@@ -63,11 +104,11 @@ public class SubmittedExerciseEntity {
 		this.submitTime = submitTime;
 	}
 
-	public float getMark() {
+	public Float getMark() {
 		return mark;
 	}
 
-	public void setMark(float mark) {
+	public void setMark(Float mark) {
 		this.mark = mark;
 	}
 

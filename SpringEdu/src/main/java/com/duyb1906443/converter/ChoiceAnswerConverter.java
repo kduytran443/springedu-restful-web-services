@@ -27,6 +27,7 @@ public class ChoiceAnswerConverter implements IConverterToEntity<ChoiceAnswerEnt
 		}
 		dto.setId(entity.getId());
 		dto.setType(entity.getType());
+		dto.setStatus(entity.getStatus());
 		return dto;
 	}
 

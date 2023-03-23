@@ -1,7 +1,10 @@
 package com.duyb1906443.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duyb1906443.annotation.CrossOriginsList;
+import com.duyb1906443.dto.ClassReviewCardDTO;
 import com.duyb1906443.dto.UserDTO;
+import com.duyb1906443.entity.CustomUserDetails;
 import com.duyb1906443.service.UserService;
 
 @RestController
@@ -37,6 +42,13 @@ public class UserAPI {
 			return ResponseEntity.status(200).body(dto);			
 		}
 		return ResponseEntity.status(500).body(new UserDTO());
+	}
+
+	@PutMapping("/api/user/avatar")
+	@CrossOriginsList
+	public ResponseEntity<?> updateUserAvatar(@RequestBody UserDTO userDTO) {
+		userService.updateAvatar(userDTO.getAvatar());
+		return ResponseEntity.status(200).body(new UserDTO());
 	}
 	
 	@DeleteMapping("/api/user/{username}")
