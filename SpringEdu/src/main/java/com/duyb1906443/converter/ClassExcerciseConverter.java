@@ -52,20 +52,14 @@ public class ClassExcerciseConverter implements IConverterToDTO<ClassExcerciseEn
 		dto.setName(entity.getName());
 		dto.setStartTime(entity.getStartTime());
 		dto.setTimeLimit(entity.getTimeLimit());
+		dto.setMark(entity.getMark());
 
 		if(entity.getQuiz() != null) {
 			dto.setIsQuizTest(1);
-			dto.setMark(entity.getQuiz().getMark());
 			dto.setQuizNumberOfQuestion(entity.getQuiz().getNumberOfQuestion());
 		}
 		if(entity.getConstructedResponseTests() != null) {
 			dto.setIsConstructedResponseTest(1);
-			if(entity.getQuiz() != null) {
-				dto.setMark(dto.getMark() + entity.getConstructedResponseTests().getMark());
-			}
-			else {
-				dto.setMark(entity.getConstructedResponseTests().getMark());
-			}
 		}
 		
 		return dto;

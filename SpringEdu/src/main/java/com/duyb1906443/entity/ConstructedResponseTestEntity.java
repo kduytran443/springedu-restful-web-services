@@ -29,9 +29,6 @@ public class ConstructedResponseTestEntity {
 	@Column(columnDefinition = "NTEXT")
 	private String content;
 
-	@Column
-	private float mark;
-
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "constructed_response_test_file", joinColumns = @JoinColumn(name = "constructed_response_test_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
 	private List<FileEntity> files;
@@ -46,14 +43,6 @@ public class ConstructedResponseTestEntity {
 
 	public void setClassExcercise(ClassExcerciseEntity classExcercise) {
 		this.classExcercise = classExcercise;
-	}
-
-	public float getMark() {
-		return mark;
-	}
-
-	public void setMark(float mark) {
-		this.mark = mark;
 	}
 
 	public Long getId() {

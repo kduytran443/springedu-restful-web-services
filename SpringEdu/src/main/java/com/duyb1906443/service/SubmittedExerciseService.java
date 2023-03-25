@@ -9,10 +9,12 @@ public interface SubmittedExerciseService {
 	List<SubmittedExerciseDTO> findAllByClassExcercise(Long classExcerciseId);
 
 	SubmittedExerciseDTO findOneById(Long id);
+	SubmittedExerciseDTO grade(Long id, Float grade);
 
 	SubmittedExerciseDTO save(SubmittedExerciseDTO submittedExerciseDTO);
 	SubmittedExerciseDTO submit(SubmittedExerciseDTO submittedExerciseDTO);
 	List<SubmittedExerciseDTO> findAllByClassExerciseIdAndUserId(Long classExerciseId, Long userId);
+	List<SubmittedExerciseDTO> findAllByClassIdAndUserId(Long classId, Long userId);
 
 	void delete(SubmittedExerciseDTO submittedExerciseDTO);
 

@@ -15,6 +15,15 @@ public class SubmittedExerciseDTO {
 	private List<DrawQuizDTO> drawQuizzes;
 	private Float quizMark;
 	private Float constructedResponseMark;
+	private String userAvatar;
+
+	public String getUserAvatar() {
+		return userAvatar;
+	}
+
+	public void setUserAvatar(String userAvatar) {
+		this.userAvatar = userAvatar;
+	}
 
 	public Long getId() {
 		return id;

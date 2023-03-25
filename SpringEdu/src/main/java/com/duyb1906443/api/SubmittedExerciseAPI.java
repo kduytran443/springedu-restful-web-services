@@ -29,8 +29,20 @@ public class SubmittedExerciseAPI {
 
 	@GetMapping("/api/submitted-exercise/class-exercise/{classExerciseId}")
 	@CrossOriginsList
-	public ResponseEntity<?> getSubmittedExercisesByClassId(@PathVariable("classExerciseId") Long classExerciseId) {
+	public ResponseEntity<?> getSubmittedExercisesByClassExerciseId(@PathVariable("classExerciseId") Long classExerciseId) {
 		List<SubmittedExerciseDTO> dtos = submittedExerciseService.findAllByClassExcercise(classExerciseId);
+		if (dtos != null) {
+			return ResponseEntity.status(200).body(dtos);
+		}
+		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+
+	@GetMapping("/api/submitted-exercise/class/user/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<?> getSubmittedExercisesByUserAndClassId(@PathVariable("classId") Long classExerciseId) {
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+				.getUser().getId();
+		List<SubmittedExerciseDTO> dtos = submittedExerciseService.findAllByClassIdAndUserId(classExerciseId, userId);
 		if (dtos != null) {
 			return ResponseEntity.status(200).body(dtos);
 		}
@@ -91,6 +103,16 @@ public class SubmittedExerciseAPI {
 				.getUser().getId();
 		submittedExerciseDTO.setUserId(userId);
 		SubmittedExerciseDTO dto = submittedExerciseService.save(submittedExerciseDTO);
+		if (dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new SubmittedExerciseDTO());
+	}
+
+	@PutMapping("/api/submitted-exercise/grade/{submittedExerciseId}/{grade}")
+	@CrossOriginsList
+	public ResponseEntity<?> grade(@PathVariable("submittedExerciseId") Long submittedExerciseId, @PathVariable("grade") Float grade) {
+		SubmittedExerciseDTO dto = submittedExerciseService.grade(submittedExerciseId, grade);
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}

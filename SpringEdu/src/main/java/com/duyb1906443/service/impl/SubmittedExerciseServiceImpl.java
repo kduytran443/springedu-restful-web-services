@@ -1,6 +1,7 @@
 package com.duyb1906443.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,12 +13,14 @@ import com.duyb1906443.converter.SubmittedExerciseConverter;
 import com.duyb1906443.dto.SubmittedExerciseDTO;
 import com.duyb1906443.entity.ChoiceAnswerEntity;
 import com.duyb1906443.entity.ChoiceQuestionEntity;
+import com.duyb1906443.entity.ClassEntity;
 import com.duyb1906443.entity.ClassExcerciseEntity;
 import com.duyb1906443.entity.DrawQuizEntity;
 import com.duyb1906443.entity.SubmittedExerciseEntity;
 import com.duyb1906443.entity.UserEntity;
 import com.duyb1906443.repository.ChoiceAnswerRepository;
 import com.duyb1906443.repository.ClassExcerciseRepository;
+import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.repository.DrawQuizRepository;
 import com.duyb1906443.repository.SubmittedExerciseRepository;
 import com.duyb1906443.repository.UserRepository;
@@ -43,6 +46,9 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 
 	@Autowired
 	private ChoiceAnswerRepository choiceAnswerRepository;
+
+	@Autowired
+	private ClassRepository classRepository;
 
 	@Override
 	public List<SubmittedExerciseDTO> findAllByClassExcercise(Long classExcerciseId) {
@@ -85,7 +91,6 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 
 			UserEntity userEntity = userRepository.findOne(submittedExerciseDTO.getUserId());
 			submittedExerciseEntity.setUser(userEntity);
-
 		}
 
 		if (submittedExerciseEntity != null) {
@@ -120,8 +125,9 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 		SubmittedExerciseEntity submittedExerciseEntity = submittedExerciseRepository
 				.findOne(submittedExerciseDTO.getId());
 		Date date = new Date();
+
 		submittedExerciseEntity.setSubmitTime(new Timestamp(date.getTime()));
-		
+
 		if (submittedExerciseEntity.getClassExcercise().getQuiz() != null) { // is quiz
 			int correctCounter = 0;
 			List<DrawQuizEntity> drawQuizEntities = drawQuizRepository
@@ -132,30 +138,60 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 				List<ChoiceAnswerEntity> answerEntities = drawQuizEntity.getChoiceAnswers().stream()
 						.filter(entity -> entity.getChoiceQuestion().getId() == choiceQuestionEntity.getId())
 						.collect(Collectors.toList());
-				
-				if(answerEntities != null && answerEntities.size() > 0) {
-					correctCounter += 1;					
+
+				if (answerEntities != null && answerEntities.size() > 0) {
+					correctCounter += 1;
 				}
-				
+
 				for (ChoiceAnswerEntity entity : answerEntities) {
-					if(entity.getCorrect() == 0) {
+					if (entity.getCorrect() == 0) {
 						correctCounter -= 1;
 						break;
 					}
 				}
 			}
-			
-			int totalQuestion = submittedExerciseEntity.getClassExcercise().getQuiz().getNumberOfQuestion();
-			
-			float correctPercent = (float) correctCounter / totalQuestion;
-			
-			float obtainMark = correctPercent * submittedExerciseEntity.getClassExcercise().getQuiz().getMark();
-			submittedExerciseEntity.setQuizMark(obtainMark);
-		}
-		
-		submittedExerciseEntity = submittedExerciseRepository.save(submittedExerciseEntity);
 
+			int totalQuestion = submittedExerciseEntity.getClassExcercise().getQuiz().getNumberOfQuestion();
+
+			float correctPercent = (float) correctCounter / totalQuestion;
+
+			float obtainMark = correctPercent * submittedExerciseEntity.getClassExcercise().getMark();
+			submittedExerciseEntity.setMark(obtainMark);
+		} else {
+			submittedExerciseEntity.setContent(submittedExerciseDTO.getContent());
+		}
+
+		submittedExerciseEntity = submittedExerciseRepository.save(submittedExerciseEntity);
 		return submittedExerciseConverter.toDTO(submittedExerciseEntity);
+	}
+
+	@Override
+	public SubmittedExerciseDTO grade(Long id, Float grade) {
+		SubmittedExerciseEntity submittedExerciseEntity = submittedExerciseRepository.findOne(id);
+
+		submittedExerciseEntity.setMark(grade);
+
+		submittedExerciseEntity = submittedExerciseRepository.save(submittedExerciseEntity);
+		return submittedExerciseConverter.toDTO(submittedExerciseEntity);
+	}
+
+	@Override
+	public List<SubmittedExerciseDTO> findAllByClassIdAndUserId(Long classId, Long userId) {
+
+		UserEntity userEntity = userRepository.findOne(userId);
+		ClassEntity classEntity = classRepository.findOne(classId);
+		List<ClassExcerciseEntity> classExcerciseEntities = classEntity.getClassExcercises();
+		
+		List<SubmittedExerciseEntity> submittedExerciseEntities = new ArrayList<>();
+		
+		for (ClassExcerciseEntity classExcerciseEntity : classExcerciseEntities) {
+			List<SubmittedExerciseEntity> entities =  submittedExerciseRepository.findAllByUserAndClassExcercise(userEntity, classExcerciseEntity);
+			if(entities!=null) {
+				submittedExerciseEntities.addAll(entities);				
+			}
+		}
+
+		return submittedExerciseConverter.toDTOList(submittedExerciseEntities);
 	}
 
 }

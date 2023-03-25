@@ -32,7 +32,7 @@ public class SubmittedExerciseEntity {
 	@Column
 	private Float mark;
 
-	@Column
+	@Column(columnDefinition = "NTEXT")
 	private String content;
 
 	@OneToMany(fetch = FetchType.LAZY)
@@ -49,28 +49,6 @@ public class SubmittedExerciseEntity {
 
 	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
 	private List<DrawQuizEntity> drawQuizzes;
-
-	@Column
-	private Float quizMark;
-
-	@Column
-	private Float constructedResponseMark;
-
-	public Float getQuizMark() {
-		return quizMark;
-	}
-
-	public void setQuizMark(Float quizMark) {
-		this.quizMark = quizMark;
-	}
-
-	public Float getConstructedResponseMark() {
-		return constructedResponseMark;
-	}
-
-	public void setConstructedResponseMark(Float constructedResponseMark) {
-		this.constructedResponseMark = constructedResponseMark;
-	}
 
 	public Timestamp getStartTime() {
 		return startTime;

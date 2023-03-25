@@ -39,6 +39,9 @@ public class ClassExcerciseEntity {
 	@Column
 	private Float mark;
 
+	@Column
+	private Float requiredMark;
+
 	@Column(columnDefinition = "tinyint")
 	private Integer effective;
 
@@ -68,6 +71,14 @@ public class ClassExcerciseEntity {
 
 	@OneToOne(mappedBy = "classExcercise")
 	private ConstructedResponseTestEntity constructedResponseTests;
+
+	public Float getRequiredMark() {
+		return requiredMark;
+	}
+
+	public void setRequiredMark(Float requiredMark) {
+		this.requiredMark = requiredMark;
+	}
 
 	public Integer getStatus() {
 		return status;

@@ -24,9 +24,6 @@ public class QuizEntity {
 	@Column
 	private Integer numberOfQuestion;
 
-	@Column
-	private Float mark;
-
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_excercise_id")
 	private ClassExcerciseEntity classExcercise;
@@ -48,14 +45,6 @@ public class QuizEntity {
 
 	public void setNumberOfQuestion(Integer numberOfQuestion) {
 		this.numberOfQuestion = numberOfQuestion;
-	}
-
-	public Float getMark() {
-		return mark;
-	}
-
-	public void setMark(Float mark) {
-		this.mark = mark;
 	}
 
 	public ClassExcerciseEntity getClassExcercise() {

@@ -14,12 +14,10 @@ public class QuizConverter implements IConverterToDTO<QuizEntity, QuizDTO>, ICon
 	@Override
 	public QuizEntity toEntity(QuizDTO dto) {
 		QuizEntity entity = new QuizEntity();
-		entity.setMark(dto.getMark());
 		entity.setNumberOfQuestion(dto.getNumberOfQuestion());
 		return entity;
 	}
 	public QuizEntity toEntity(QuizDTO dto, QuizEntity entity) {
-		entity.setMark(dto.getMark());
 		entity.setNumberOfQuestion(dto.getNumberOfQuestion());
 		return entity;
 	}
@@ -35,7 +33,7 @@ public class QuizConverter implements IConverterToDTO<QuizEntity, QuizDTO>, ICon
 		
 		dto.setClassExcerciseId(entity.getClassExcercise().getId());
 		dto.setId(entity.getId());
-		dto.setMark(entity.getMark());
+		dto.setMark(entity.getClassExcercise().getMark());
 		dto.setNumberOfQuestion(entity.getNumberOfQuestion());
 		
 		return dto;

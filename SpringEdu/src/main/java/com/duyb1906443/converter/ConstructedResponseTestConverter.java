@@ -21,14 +21,11 @@ public class ConstructedResponseTestConverter
 	public ConstructedResponseTestEntity toEntity(ConstructedResponseTestDTO dto) {
 		ConstructedResponseTestEntity entity = new ConstructedResponseTestEntity();
 		entity.setContent(dto.getContent());
-		entity.setName(dto.getName());
-		entity.setMark(dto.getMark());
 		return entity;
 	}
 	public ConstructedResponseTestEntity toEntity(ConstructedResponseTestDTO dto, ConstructedResponseTestEntity entity) {
 		entity.setContent(dto.getContent());
 		entity.setName(dto.getName());
-		entity.setMark(dto.getMark());
 		return entity;
 	}
 
@@ -46,7 +43,7 @@ public class ConstructedResponseTestConverter
 			dto.setFiles(fileConverter.toDTOList(entity.getFiles()));
 		}
 		dto.setId(entity.getId());
-		dto.setMark(entity.getMark());
+		dto.setMark(entity.getClassExcercise().getMark());
 		dto.setName(entity.getName());
 		
 		return dto;

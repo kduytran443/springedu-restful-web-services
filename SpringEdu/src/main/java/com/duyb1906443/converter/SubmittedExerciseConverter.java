@@ -19,23 +19,18 @@ public class SubmittedExerciseConverter implements IConverterToDTO<SubmittedExer
 	@Override
 	public SubmittedExerciseEntity toEntity(SubmittedExerciseDTO dto) {
 		SubmittedExerciseEntity entity = new SubmittedExerciseEntity();
-
-		if (dto.getConstructedResponseMark() != null)
-			entity.setConstructedResponseMark(dto.getConstructedResponseMark());
 		
+		if(dto.getMark() != null) entity.setMark(dto.getMark());
 		if(dto.getContent() != null) entity.setContent(dto.getContent());
-		if(dto.getQuizMark() != null) entity.setQuizMark(dto.getQuizMark());
 		if(dto.getStartTime() != null) entity.setStartTime(dto.getStartTime());
 		if(dto.getSubmitTime() != null) entity.setSubmitTime(dto.getSubmitTime());
 		
 		return entity;
 	}
 	public SubmittedExerciseEntity toEntity(SubmittedExerciseDTO dto, SubmittedExerciseEntity entity) {
-		if (dto.getConstructedResponseMark() != null)
-			entity.setConstructedResponseMark(dto.getConstructedResponseMark());
-		
+
+		if(dto.getMark() != null) entity.setMark(dto.getMark());
 		if(dto.getContent() != null) entity.setContent(dto.getContent());
-		if(dto.getQuizMark() != null) entity.setQuizMark(dto.getQuizMark());
 		if(dto.getStartTime() != null) entity.setStartTime(dto.getStartTime());
 		if(dto.getSubmitTime() != null) entity.setSubmitTime(dto.getSubmitTime());
 		
@@ -53,14 +48,14 @@ public class SubmittedExerciseConverter implements IConverterToDTO<SubmittedExer
 		
 		dto.setClassExcercise(classExcerciseConverter.toDTO(entity.getClassExcercise()));
 		
-		dto.setConstructedResponseMark(entity.getConstructedResponseMark());
 		dto.setContent(entity.getContent());
 		dto.setId(entity.getId());
-		dto.setQuizMark(entity.getQuizMark());
 		dto.setStartTime(entity.getStartTime());
 		dto.setSubmitTime(entity.getSubmitTime());
 		dto.setUserId(entity.getUser().getId());
 		dto.setUsername(entity.getUser().getUsername());
+		dto.setUserAvatar(entity.getUser().getAvatar());
+		dto.setMark(entity.getMark());
 		
 		return dto;
 	}

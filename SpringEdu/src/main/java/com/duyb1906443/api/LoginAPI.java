@@ -54,7 +54,6 @@ public class LoginAPI {
 	@PostMapping("/api/login")
 	@CrossOriginsList
 	public UserDTO login(@RequestBody LoginRequestDTO loginRequest) {
-		System.out.println(loginRequest);
 		// Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -80,7 +79,6 @@ public class LoginAPI {
 	@CrossOriginsList
 	public ResponseEntity<?> getUserFromJWT() {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
-		System.out.println("id "+userId);
 		UserDTO userDTO = userService.findOneById(userId);
 		
 		System.out.println("/api/user userDTO "+userDTO);
@@ -89,7 +87,6 @@ public class LoginAPI {
 	}
 	@GetMapping("/home")
 	public MessageDTO test() {
-		System.out.println("USERNAME: "+SecurityContextHolder.getContext().getAuthentication().getName());
 		return new MessageDTO("SUCCESFULL");
 	}
 	
@@ -104,7 +101,6 @@ public class LoginAPI {
 	@CrossOriginsList
 	public UserDTO signUp(@RequestBody UserDTO userDTO) {
 		
-		System.out.println(userDTO);
 		return userService.signUp(userDTO);
 	}
 	
@@ -119,7 +115,6 @@ public class LoginAPI {
 		
 		mailService.sendMail(null, userDTO.getEmail(), subject, content);
 		
-		System.out.println(userDTO);
 		return userDTO;
 	}
 	
