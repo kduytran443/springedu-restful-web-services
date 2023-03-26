@@ -73,6 +73,28 @@ public class UserEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
 	private List<ClassEntity> createdClasses;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<NotificationEntity> notifications;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<UserNotificationEntity> userNotifications;
+
+	public List<NotificationEntity> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<NotificationEntity> notifications) {
+		this.notifications = notifications;
+	}
+
+	public List<UserNotificationEntity> getUserNotifications() {
+		return userNotifications;
+	}
+
+	public void setUserNotifications(List<UserNotificationEntity> userNotifications) {
+		this.userNotifications = userNotifications;
+	}
+
 	public Integer getPhoneNumber() {
 		return phoneNumber;
 	}

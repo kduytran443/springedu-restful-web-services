@@ -85,17 +85,6 @@ public class LoginAPI {
 		
 		return ResponseEntity.status(200).body(userDTO);
 	}
-	@GetMapping("/home")
-	public MessageDTO test() {
-		return new MessageDTO("SUCCESFULL");
-	}
-	
-	@PostMapping("/api/logout")
-	@CrossOriginsList
-	public MessageDTO logout() throws ServletException {
-		SecurityContextHolder.clearContext();
-		return new MessageDTO("Logout successfully!");
-	}
 	
 	@PostMapping("/api/sign-up")
 	@CrossOriginsList
@@ -116,6 +105,13 @@ public class LoginAPI {
 		mailService.sendMail(null, userDTO.getEmail(), subject, content);
 		
 		return userDTO;
+	}
+
+	@PostMapping("/api/logout")
+	@CrossOriginsList
+	public String logout() throws ServletException {
+		SecurityContextHolder.clearContext();
+		return new String("Logout successfully!");
 	}
 	
 }

@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().authorizeRequests().antMatchers("/api/sign-up", "/verify").permitAll()
+				.antMatchers("/ws/**").permitAll()
 				.antMatchers("/api/login").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
 				.antMatchers("/public/**").permitAll().anyRequest().authenticated().and().csrf().disable();
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

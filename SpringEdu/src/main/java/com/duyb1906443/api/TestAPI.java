@@ -11,27 +11,25 @@ import com.duyb1906443.dto.MessageDTO;
 
 @RestController
 public class TestAPI {
-	
+
 	@PreAuthorize("@testAPISecurityService.isAllowed(#id)")
 	@GetMapping("/api/testing/{id}")
 	public MessageDTO getAPI(@PathVariable long id) {
-		
-		
-		
-		return new MessageDTO("Thành công rồi!");
+
+		return new MessageDTO();
 	}
-	
+
 	@PostMapping("/api/testing")
 	public String postAPI() {
 		return "success";
 	}
-	
+
 }
 
 @Service(value = "testAPISecurityService")
 class TestAPISecurityService {
 	public boolean isAllowed(long id) {
-        System.out.println("ID cực mạnh: "+id);
-        return id == 1;
-    }
+		System.out.println("ID cực mạnh: " + id);
+		return id == 1;
+	}
 }
