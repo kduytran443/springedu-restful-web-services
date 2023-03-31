@@ -25,12 +25,12 @@ public class ClassExcerciseConverter implements IConverterToDTO<ClassExcerciseEn
 		return entity;
 	}
 	public ClassExcerciseEntity toEntity(ClassExcerciseDTO dto, ClassExcerciseEntity entity) {
-		entity.setEffective(dto.getEffective());
-		entity.setStartTime(dto.getStartTime());
-		entity.setEndTime(dto.getEndTime());
-		entity.setMark(dto.getMark());
-		entity.setName(dto.getName());
-		entity.setTimeLimit(dto.getTimeLimit());
+		if(dto.getEffective() != null) entity.setEffective(dto.getEffective());
+		if(dto.getStartTime() != null) entity.setStartTime(dto.getStartTime());
+		if(dto.getEndTime() != null) entity.setEndTime(dto.getEndTime());
+		if(dto.getMark() != null) entity.setMark(dto.getMark());
+	 	if(dto.getName() != null) entity.setName(dto.getName());
+		if(dto.getTimeLimit() != null) entity.setTimeLimit(dto.getTimeLimit());
 		return entity;
 	}
 
@@ -56,6 +56,7 @@ public class ClassExcerciseConverter implements IConverterToDTO<ClassExcerciseEn
 
 		if(entity.getQuiz() != null) {
 			dto.setIsQuizTest(1);
+			dto.setQuestionBankId(entity.getQuestionBank().getId());
 			dto.setQuizNumberOfQuestion(entity.getQuiz().getNumberOfQuestion());
 		}
 		if(entity.getConstructedResponseTests() != null) {

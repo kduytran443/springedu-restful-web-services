@@ -56,15 +56,24 @@ public class ChoiceAnswerServiceImpl implements ChoiceAnswerService {
 	@Override
 	public ChoiceAnswerDTO save(ChoiceAnswerDTO choiceAnswerDTO) {
 		ChoiceAnswerEntity choiceAnswerEntity = null;
-
 		if (choiceAnswerDTO.getId() != null) {
 			choiceAnswerEntity = choiceAnswerRepository.findOne(choiceAnswerDTO.getId());
-			if (choiceAnswerDTO.getContent() != null)
-				choiceAnswerEntity.setContent(choiceAnswerDTO.getContent());
+			if(choiceAnswerDTO.getType() != null) choiceAnswerEntity.setType(choiceAnswerDTO.getType());
+
 			if (choiceAnswerDTO.getType() != null)
 				choiceAnswerEntity.setType(choiceAnswerDTO.getType());
 			if (choiceAnswerDTO.getCorrect() != null)
 				choiceAnswerEntity.setCorrect(choiceAnswerDTO.getCorrect());
+			if (choiceAnswerDTO.getType().equals("text")) {
+				choiceAnswerEntity.setContent(choiceAnswerDTO.getContent());
+			} else if (choiceAnswerDTO.getType().equals("audio") || choiceAnswerDTO.getType().equals("image")) {
+				FileEntity fileEntity = new FileEntity();
+				fileEntity.setData(choiceAnswerDTO.getContent());
+				
+				fileEntity = fileRepository.save(fileEntity);
+				
+				choiceAnswerEntity.setFile(fileEntity);
+			}
 		} else {
 			choiceAnswerEntity = choiceAnswerConverter.toEntity(choiceAnswerDTO);
 			choiceAnswerEntity.setStatus(1);
@@ -73,7 +82,6 @@ public class ChoiceAnswerServiceImpl implements ChoiceAnswerService {
 						.findOne(choiceAnswerDTO.getChoiceQuestionId());
 				choiceAnswerEntity.setChoiceQuestion(choiceQuestionEntity);
 			}
-			System.out.println("choiceAnswerDTO.getType() - " + choiceAnswerDTO.getType());
 			if (choiceAnswerDTO.getType().equals("text")) {
 				choiceAnswerEntity.setContent(choiceAnswerDTO.getContent());
 			} else if (choiceAnswerDTO.getType().equals("audio")) {

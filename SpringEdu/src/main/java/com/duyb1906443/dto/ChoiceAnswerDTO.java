@@ -65,4 +65,10 @@ public class ChoiceAnswerDTO {
 		this.correct = correct;
 	}
 
+	@Override
+	public String toString() {
+		return "ChoiceAnswerDTO [id=" + id + ", correct=" + correct + ", file=" + file
+				+ ", type=" + type + ", choiceQuestionId=" + choiceQuestionId + ", status=" + status + "]";
+	}
+
 }

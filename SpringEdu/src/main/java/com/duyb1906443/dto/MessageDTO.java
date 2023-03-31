@@ -1,8 +1,19 @@
 package com.duyb1906443.dto;
 
+import java.util.List;
+
 public class MessageDTO {
 	private String content;
 	private MessageType type;
+	private List<Long> receivers;
+
+	public List<Long> getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(List<Long> receivers) {
+		this.receivers = receivers;
+	}
 
 	public enum MessageType {
 		NOTIFICATION

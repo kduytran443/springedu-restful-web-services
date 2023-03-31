@@ -57,7 +57,8 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 		ChoiceQuestionEntity choiceQuestionEntity = null;
 		if (choiceQuestionDTO.getId() != null) {
 			choiceQuestionEntity = choiceQuestionRepository.findOne(choiceQuestionDTO.getId());
-			choiceQuestionEntity.setName(choiceQuestionDTO.getName());
+			if(choiceQuestionDTO.getName() != null) choiceQuestionEntity.setName(choiceQuestionDTO.getName());
+			if(choiceQuestionDTO.getContent() != null) choiceQuestionEntity.setContent(choiceQuestionDTO.getContent());
 		} else {
 			choiceQuestionEntity = choiceQuestionConverter.toEntity(choiceQuestionDTO);
 			QuestionBankEntity questionBankEntity = questionBankRepository.findOne(choiceQuestionDTO.getQuestionBank());

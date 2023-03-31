@@ -136,7 +136,8 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 				ChoiceQuestionEntity choiceQuestionEntity = drawQuizEntity.getChoiceQuestion();
 
 				List<ChoiceAnswerEntity> answerEntities = drawQuizEntity.getChoiceAnswers().stream()
-						.filter(entity -> entity.getChoiceQuestion().getId() == choiceQuestionEntity.getId())
+						.filter(entity -> entity.getChoiceQuestion().getId() == choiceQuestionEntity.getId()
+								&& entity.getStatus() == 1)
 						.collect(Collectors.toList());
 
 				if (answerEntities != null && answerEntities.size() > 0) {
@@ -180,14 +181,16 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 
 		UserEntity userEntity = userRepository.findOne(userId);
 		ClassEntity classEntity = classRepository.findOne(classId);
-		List<ClassExcerciseEntity> classExcerciseEntities = classEntity.getClassExcercises();
-		
+		List<ClassExcerciseEntity> classExcerciseEntities = classEntity.getClassExcercises().stream()
+				.filter(entity -> entity.getStatus() == 1).collect(Collectors.toList());
+
 		List<SubmittedExerciseEntity> submittedExerciseEntities = new ArrayList<>();
-		
+
 		for (ClassExcerciseEntity classExcerciseEntity : classExcerciseEntities) {
-			List<SubmittedExerciseEntity> entities =  submittedExerciseRepository.findAllByUserAndClassExcercise(userEntity, classExcerciseEntity);
-			if(entities!=null) {
-				submittedExerciseEntities.addAll(entities);				
+			List<SubmittedExerciseEntity> entities = submittedExerciseRepository
+					.findAllByUserAndClassExcercise(userEntity, classExcerciseEntity);
+			if (entities != null) {
+				submittedExerciseEntities.addAll(entities);
 			}
 		}
 

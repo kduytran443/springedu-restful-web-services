@@ -40,7 +40,8 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 		List<ClassExcerciseEntity> classExcerciseEntities = classEntity.getClassExcercises();
 
 		classExcerciseEntities = classExcerciseEntities.stream()
-				.filter(classExcercise -> classExcercise.getStatus() == 1).collect(Collectors.toList());
+				.filter(classExcercise -> classExcercise.getStatus() == 1)
+				.collect(Collectors.toList());
 
 		return classExcerciseConverter.toDTOList(classExcerciseEntities);
 	}

@@ -18,6 +18,15 @@ public class ClassExcerciseDTO {
 	private Integer isQuizTest;
 	private Integer quizNumberOfQuestion;
 	private Integer isConstructedResponseTest;
+	private Integer done;
+
+	public Integer getDone() {
+		return done;
+	}
+
+	public void setDone(Integer done) {
+		this.done = done;
+	}
 
 	public Integer getQuizNumberOfQuestion() {
 		return quizNumberOfQuestion;

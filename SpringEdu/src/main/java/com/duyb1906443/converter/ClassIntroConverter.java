@@ -41,9 +41,9 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		dto.setEndTime(entity.getEndTime());
 		dto.setAvatar(entity.getAvatar());
 		dto.setCategoryId(entity.getCategory().getId());
+		dto.setUserId(entity.getCreator().getId());
 		
 		if(entity.getClassSchedules() != null) {
-			System.out.println(entity.getClassSchedules().size() + " lịch");
 			dto.setClassSchedules(classScheduleConverter.toDTOList(entity.getClassSchedules()));
 		}
 		
