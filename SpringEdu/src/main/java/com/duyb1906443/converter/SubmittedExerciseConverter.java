@@ -47,6 +47,7 @@ public class SubmittedExerciseConverter implements IConverterToDTO<SubmittedExer
 		SubmittedExerciseDTO dto = new SubmittedExerciseDTO();
 		
 		dto.setClassExcercise(classExcerciseConverter.toDTO(entity.getClassExcercise()));
+		dto.setTeacherComment(entity.getTeacherComment());
 		
 		dto.setContent(entity.getContent());
 		dto.setId(entity.getId());

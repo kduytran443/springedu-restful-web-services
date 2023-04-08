@@ -5,16 +5,16 @@ import java.util.List;
 public class TopicDTO {
 	private Long id;
 	private String name;
-	private int ordinalNumber;
-	private int visible;
+	private Integer ordinalNumber;
+	private Integer visible;
 	private Long classId;
 	private List<ClassLessonReviewDTO> classLessonReviews;
 
-	public int getVisible() {
+	public Integer getVisible() {
 		return visible;
 	}
 
-	public void setVisible(int visible) {
+	public void setVisible(Integer visible) {
 		this.visible = visible;
 	}
 
@@ -34,11 +34,11 @@ public class TopicDTO {
 		this.name = name;
 	}
 
-	public int getOrdinalNumber() {
+	public Integer getOrdinalNumber() {
 		return ordinalNumber;
 	}
 
-	public void setOrdinalNumber(int ordinalNumber) {
+	public void setOrdinalNumber(Integer ordinalNumber) {
 		this.ordinalNumber = ordinalNumber;
 	}
 
@@ -63,5 +63,7 @@ public class TopicDTO {
 		return "TopicDTO [id=" + id + ", name=" + name + ", ordinalNumber=" + ordinalNumber + ", visible=" + visible
 				+ ", classId=" + classId + ", classLessonReviews=" + classLessonReviews + "]";
 	}
+	
+	
 
 }

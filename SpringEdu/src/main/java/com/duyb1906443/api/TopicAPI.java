@@ -54,6 +54,16 @@ public class TopicAPI {
 		return ResponseEntity.status(500).body(new TopicDTO());
 	}
 	
+	@PutMapping("/api/topic/ordinal")
+	@CrossOriginsList
+	public ResponseEntity<TopicDTO> putTopicOrdinal(@RequestBody TopicDTO topicDTO){
+		TopicDTO dto = topicService.changeOrdinal(topicDTO);
+		if(dto != null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new TopicDTO());
+	}
+	
 	@PutMapping("/api/topic")
 	@CrossOriginsList
 	public ResponseEntity<TopicDTO> putTopic(@RequestBody TopicDTO topicDTO){

@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class TopicServiceImpl implements TopicService {
 		
 		List<TopicDTO> topicDTOs = topicConverter.toDTOList(classEntity.getTopics());
 		
-		/*
+		
 		Collections.sort(topicDTOs, new Comparator<TopicDTO>() {
 			@Override
 			public int compare(TopicDTO o1, TopicDTO o2) {
@@ -46,41 +48,60 @@ public class TopicServiceImpl implements TopicService {
 				return 0;
 			}
 		});
-		*/
+		
 		
 		return topicDTOs;
 	}
 
 	@Override
 	public TopicDTO save(TopicDTO topicDTO) {
-		TopicEntity topicEntity = new TopicEntity();
+		TopicEntity topicEntity = null;
 		
 		if(topicDTO.getId() != null) {
 			TopicEntity oldTopicEntity = topicRepository.findOne(topicDTO.getId());
 			topicEntity = topicConverter.toEntity(topicDTO, oldTopicEntity);
 		}else {
 			topicEntity = topicConverter.toEntity(topicDTO);
-			topicEntity.setClassEntity(classRepository.findOne(topicDTO.getClassId()));
+			ClassEntity classEntity = classRepository.findOne(topicDTO.getClassId());
+			topicEntity.setClassEntity(classEntity);
 			
-			List<TopicDTO> oldTopicDTOs = findAllByClassId(topicDTO.getClassId());
+			List<TopicEntity> topicEntities = topicRepository.findAllByClassEntity(classEntity);
 			
-			int maxValue = 0;
-			for (TopicDTO dto : oldTopicDTOs) {
-				if(dto.getOrdinalNumber() > maxValue) {
-					maxValue = dto.getOrdinalNumber();
-				}
+			int count = 1;
+			for (TopicEntity entity : topicEntities) {
+				entity.setOrdinalNumber(count++);
+				topicRepository.save(entity);
 			}
-			topicEntity.setOrdinalNumber(maxValue + 1);
+			topicEntity.setOrdinalNumber(count);
 		}
 		
-		topicEntity = topicRepository.save(topicEntity);
+		if(topicEntity != null) {
+			topicEntity = topicRepository.save(topicEntity);
+			return topicConverter.toDTO(topicEntity);			
+		}
 		
-		return topicConverter.toDTO(topicEntity);
+		return null;
 	}
 
 	@Override
 	public void delete(TopicDTO topicDTO) {
-		topicRepository.delete(topicDTO.getId());
+		TopicEntity entity = topicRepository.findOne(topicDTO.getId());
+		Long entityId = entity.getClassEntity().getId();
+		topicRepository.delete(entity);
+
+		ClassEntity classEntity = classRepository.findOne(entityId);
+
+		resetOrdinalNumber(classEntity);
+		
+	}
+	
+	private void resetOrdinalNumber(ClassEntity classEntity) {
+		List<TopicEntity> topicEntities = topicRepository.findAllByClassEntity(classEntity);
+		int count = 1;
+		for (TopicEntity topicEntity : topicEntities) {
+			topicEntity.setOrdinalNumber(count++);
+			topicRepository.save(topicEntity);
+		}
 	}
 
 	@Override
@@ -90,6 +111,26 @@ public class TopicServiceImpl implements TopicService {
 			return topicConverter.toDTO(topicEntity);
 		}
 		return null;
+	}
+
+	@Override
+	public TopicDTO changeOrdinal(TopicDTO topicDTO) {
+		
+		int ordinalNumberNeedToChange = topicDTO.getOrdinalNumber();
+		TopicEntity topicEntity = topicRepository.findOne(topicDTO.getId());
+		int oldOrdinalNumber = topicEntity.getOrdinalNumber();
+		
+		ClassEntity classEntity = classRepository.findOne(topicEntity.getClassEntity().getId());
+		
+		TopicEntity changedTopic = topicRepository.findOneByOrdinalNumberAndClassEntity(ordinalNumberNeedToChange, classEntity);
+		
+		changedTopic.setOrdinalNumber(oldOrdinalNumber);
+		topicEntity.setOrdinalNumber(ordinalNumberNeedToChange);
+		
+		topicRepository.save(changedTopic);
+		topicRepository.save(topicEntity);
+		
+		return topicConverter.toDTO(topicEntity);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.duyb1906443.dto;
 
-
 public class CategoryDTO {
 	private Long id;
 	private String code;
@@ -8,6 +7,7 @@ public class CategoryDTO {
 	private String description;
 	private String image;
 	private String icon;
+	private Integer status;
 
 	public CategoryDTO() {
 	}
@@ -20,6 +20,14 @@ public class CategoryDTO {
 		this.description = description;
 		this.image = image;
 		this.icon = icon;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Override
@@ -75,6 +83,5 @@ public class CategoryDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
 
 }

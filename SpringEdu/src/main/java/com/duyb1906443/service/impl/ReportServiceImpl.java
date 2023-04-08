@@ -1,6 +1,8 @@
 package com.duyb1906443.service.impl;
 
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public List<ReportDTO> findAll() {
-		List<ReportEntity> reportEntities = reportRepository.findAll();
+		List<ReportEntity> reportEntities = reportRepository.findAllByOrderByIdDesc();
 		if (reportEntities != null) {
 			return reportConverter.toDTOList(reportEntities);
 		}
@@ -45,6 +47,13 @@ public class ReportServiceImpl implements ReportService {
 	public List<ReportDTO> findAllByClassId(Long classId) {
 		ClassEntity classEntity = classRepository.findOne(classId);
 		List<ReportEntity> reportEntities = classEntity.getReports();
+		Collections.sort(reportEntities, new Comparator<ReportEntity>() {
+			@Override
+			public int compare(ReportEntity o1, ReportEntity o2) {
+				if(o1.getId() < o2.getId()) return 1;
+				else return -1;
+			}
+		});
 		if (reportEntities != null) {
 			return reportConverter.toDTOList(reportEntities);
 		}

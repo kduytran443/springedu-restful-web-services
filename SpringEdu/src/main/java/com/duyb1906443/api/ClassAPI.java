@@ -40,6 +40,12 @@ public class ClassAPI {
 		return ResponseEntity.status(200).body(classReviewCardService.findAll());
 	}
 
+	@GetMapping("/public/api/class-intro")
+	@CrossOriginsList
+	public ResponseEntity<List<ClassIntroDTO>> getAll() {
+		return ResponseEntity.status(200).body(classIntroService.findAll());
+	}
+
 	@GetMapping("/public/api/class-review/search")
 	@CrossOriginsList
 	public ResponseEntity<List<ClassReviewCardDTO>> searchClassReviewCards(

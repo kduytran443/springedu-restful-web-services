@@ -16,6 +16,15 @@ public class SubmittedExerciseDTO {
 	private Float quizMark;
 	private Float constructedResponseMark;
 	private String userAvatar;
+	private String teacherComment;
+
+	public String getTeacherComment() {
+		return teacherComment;
+	}
+
+	public void setTeacherComment(String teacherComment) {
+		this.teacherComment = teacherComment;
+	}
 
 	public String getUserAvatar() {
 		return userAvatar;

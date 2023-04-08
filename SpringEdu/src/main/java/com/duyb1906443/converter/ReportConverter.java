@@ -39,6 +39,7 @@ public class ReportConverter implements IConverterToDTO<ReportEntity, ReportDTO>
 		dto.setUsername(entity.getUser().getUsername());
 		dto.setUserAvatar(entity.getUser().getAvatar());
 		dto.setChecked(entity.getChecked());
+		dto.setClassStatus(entity.getClassEntity().getStatus());
 		
 		return dto;
 	}

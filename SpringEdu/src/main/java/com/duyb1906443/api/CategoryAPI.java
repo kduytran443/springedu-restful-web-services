@@ -24,6 +24,12 @@ public class CategoryAPI {
 
 	@GetMapping("/public/api/category")
 	@CrossOriginsList
+	public ResponseEntity<List<CategoryDTO>> getCategoriesWithGoodStatus() {
+		return ResponseEntity.status(200).body(categoryService.findAll());
+	}
+
+	@GetMapping("/api/category")
+	@CrossOriginsList
 	public ResponseEntity<List<CategoryDTO>> getCategories() {
 		return ResponseEntity.status(200).body(categoryService.findAll());
 	}
@@ -32,6 +38,12 @@ public class CategoryAPI {
 	@CrossOriginsList
 	public ResponseEntity<CategoryDTO> getCategory(@PathVariable("categoryCode") String categoryCode) {
 		return ResponseEntity.status(200).body(categoryService.findOneByCode(categoryCode));
+	}
+
+	@GetMapping("/api/category/{categoryId}")
+	@CrossOriginsList
+	public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable("categoryId") Long id) {
+		return ResponseEntity.status(200).body(categoryService.findOne(id));
 	}
 
 	@PostMapping("/api/category")
@@ -57,6 +69,13 @@ public class CategoryAPI {
 		}
 
 		return ResponseEntity.status(500).build();
+	}
+
+	@PutMapping("/api/category/unblock")
+	@CrossOriginsList
+	public ResponseEntity<?> unblockCategory(@RequestBody CategoryDTO categoryDTO) {
+		categoryService.unblock(categoryDTO.getId());
+		return ResponseEntity.status(200).build();
 	}
 
 	@DeleteMapping("/api/category")

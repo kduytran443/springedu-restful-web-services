@@ -2,6 +2,7 @@ package com.duyb1906443.service;
 
 import java.util.List;
 
+import com.duyb1906443.dto.ScoreDTO;
 import com.duyb1906443.dto.SubmittedExerciseDTO;
 
 public interface SubmittedExerciseService {
@@ -9,7 +10,7 @@ public interface SubmittedExerciseService {
 	List<SubmittedExerciseDTO> findAllByClassExcercise(Long classExcerciseId);
 
 	SubmittedExerciseDTO findOneById(Long id);
-	SubmittedExerciseDTO grade(Long id, Float grade);
+	SubmittedExerciseDTO grade(ScoreDTO scoreDTO);
 
 	SubmittedExerciseDTO save(SubmittedExerciseDTO submittedExerciseDTO);
 	SubmittedExerciseDTO submit(SubmittedExerciseDTO submittedExerciseDTO);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duyb1906443.converter.SubmittedExerciseConverter;
+import com.duyb1906443.dto.ScoreDTO;
 import com.duyb1906443.dto.SubmittedExerciseDTO;
 import com.duyb1906443.entity.ChoiceAnswerEntity;
 import com.duyb1906443.entity.ChoiceQuestionEntity;
@@ -167,10 +168,11 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 	}
 
 	@Override
-	public SubmittedExerciseDTO grade(Long id, Float grade) {
-		SubmittedExerciseEntity submittedExerciseEntity = submittedExerciseRepository.findOne(id);
+	public SubmittedExerciseDTO grade(ScoreDTO scoreDTO) {
+		SubmittedExerciseEntity submittedExerciseEntity = submittedExerciseRepository.findOne(scoreDTO.getSubmittedExerciseId());
 
-		submittedExerciseEntity.setMark(grade);
+		submittedExerciseEntity.setTeacherComment(scoreDTO.getTeacherComment());
+		submittedExerciseEntity.setMark(scoreDTO.getMark());
 
 		submittedExerciseEntity = submittedExerciseRepository.save(submittedExerciseEntity);
 		return submittedExerciseConverter.toDTO(submittedExerciseEntity);

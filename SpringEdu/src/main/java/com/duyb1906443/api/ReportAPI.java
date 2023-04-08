@@ -58,7 +58,7 @@ public class ReportAPI {
 	public ResponseEntity<ReportDTO> post(@RequestBody ReportDTO reportDTO) {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getUser().getId();
-		reportDTO.setId(userId);
+		reportDTO.setUserId(userId);
 		ReportDTO dto = reportService.save(reportDTO);
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);

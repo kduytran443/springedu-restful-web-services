@@ -1,5 +1,8 @@
 package com.duyb1906443.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,6 +87,24 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 		classEntity.setVisiable(classIntroDTO.getVisiable());
 		classEntity = classRepository.save(classEntity);
 		return classIntroConverter.toDTO(classEntity);
+	}
+
+	@Override
+	public List<ClassIntroDTO> findAll() {
+		
+		List<ClassEntity> classEntity = classRepository.findAll();
+		
+		if(classEntity != null) {
+			return classEntity.stream().map(item -> {
+				ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(item);
+				if(reviewRepository.getAvgReviewRatingByClassId(item.getId()) != null) {
+					classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(item.getId()));			
+				}
+				return classIntroDTO;
+			}).collect(Collectors.toList());
+		}
+		
+		return null;
 	}
 
 }

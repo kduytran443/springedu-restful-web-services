@@ -10,6 +10,7 @@ public interface TopicService {
 	
 	TopicDTO save(TopicDTO topicDTO);
 	TopicDTO findOneById(Long id);
+	TopicDTO changeOrdinal(TopicDTO topicDTO);
 	
 	void delete(TopicDTO topicDTO);
 	

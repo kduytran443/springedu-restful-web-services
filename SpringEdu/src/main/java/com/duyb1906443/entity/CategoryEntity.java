@@ -28,7 +28,7 @@ public class CategoryEntity {
 	@Column(columnDefinition = "NVARCHAR(256)")
 	private String description;
 
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String image;
 
 	@Column

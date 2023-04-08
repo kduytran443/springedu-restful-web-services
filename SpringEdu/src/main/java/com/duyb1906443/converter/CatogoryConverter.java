@@ -43,6 +43,7 @@ public class CatogoryConverter
 		dto.setImage(entity.getImage());
 		dto.setName(entity.getName());
 		dto.setIcon(entity.getIcon());
+		dto.setStatus(entity.getStatus());
 		return dto;
 	}
 

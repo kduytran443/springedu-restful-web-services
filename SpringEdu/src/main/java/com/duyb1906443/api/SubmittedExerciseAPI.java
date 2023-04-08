@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duyb1906443.annotation.CrossOriginsList;
+import com.duyb1906443.dto.ScoreDTO;
 import com.duyb1906443.dto.SubmittedExerciseDTO;
 import com.duyb1906443.entity.CustomUserDetails;
 import com.duyb1906443.service.SubmittedExerciseService;
@@ -109,10 +110,10 @@ public class SubmittedExerciseAPI {
 		return ResponseEntity.status(500).body(new SubmittedExerciseDTO());
 	}
 
-	@PutMapping("/api/submitted-exercise/grade/{submittedExerciseId}/{grade}")
+	@PutMapping("/api/submitted-exercise/grade")
 	@CrossOriginsList
-	public ResponseEntity<?> grade(@PathVariable("submittedExerciseId") Long submittedExerciseId, @PathVariable("grade") Float grade) {
-		SubmittedExerciseDTO dto = submittedExerciseService.grade(submittedExerciseId, grade);
+	public ResponseEntity<?> grade(@RequestBody ScoreDTO scoreDTO) {
+		SubmittedExerciseDTO dto = submittedExerciseService.grade(scoreDTO);
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}

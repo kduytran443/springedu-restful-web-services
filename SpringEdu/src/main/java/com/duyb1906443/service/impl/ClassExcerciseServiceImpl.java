@@ -37,11 +37,16 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 	public List<ClassExcerciseDTO> findAllByClassId(Long classId) {
 		ClassEntity classEntity = classRepository.findOne(classId);
 
-		List<ClassExcerciseEntity> classExcerciseEntities = classEntity.getClassExcercises();
+		List<ClassExcerciseEntity> classExcerciseEntities = classExcerciseRepository
+				.findByClassEntityOrderByIdDesc(classEntity).stream()
+				 .filter(classExcercise -> classExcercise.getStatus() == 1)
+				 .collect(Collectors.toList());
 
-		classExcerciseEntities = classExcerciseEntities.stream()
-				.filter(classExcercise -> classExcercise.getStatus() == 1)
-				.collect(Collectors.toList());
+		/*
+		 * classExcerciseEntities = classExcerciseEntities.stream()
+		 * .filter(classExcercise -> classExcercise.getStatus() == 1)
+		 * .collect(Collectors.toList());
+		 */
 
 		return classExcerciseConverter.toDTOList(classExcerciseEntities);
 	}
@@ -53,7 +58,7 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 
 		if (classExcerciseEntity.getStatus() == 1) {
 			ClassExcerciseDTO classExcerciseDTO = classExcerciseConverter.toDTO(classExcerciseEntity);
-			return classExcerciseDTO; 
+			return classExcerciseDTO;
 		}
 
 		return null;

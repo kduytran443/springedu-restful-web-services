@@ -39,7 +39,10 @@ public class UserService implements UserDetailsService {
 		// Kiểm tra xem user có tồn tại trong database không?
 		UserEntity user = userRepository.findOneByUsername(username);
 		if (user == null) {
-			throw new UsernameNotFoundException(username);
+			throw new RuntimeException("Tài khoản không tồn tại");
+		}
+		if (user.getStatus() == 0) {
+			throw new RuntimeException("Tài khoản đã bị xóa");
 		}
 		return new CustomUserDetails(user);
 	}
@@ -47,8 +50,8 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserById(Long Id) {
 		// Kiểm tra xem user có tồn tại trong database không?
 		UserEntity user = userRepository.findOne(Id);
-		if (user == null) {
-			throw new UsernameNotFoundException("UserId: " + Id);
+		if (user == null || user.getStatus() == 0) {
+			throw new RuntimeException("Tài khoản không tồn tại");
 		}
 		return new CustomUserDetails(user);
 	}
@@ -82,6 +85,35 @@ public class UserService implements UserDetailsService {
 		return userConverter.toDTO(userRepository.save(userEntity));
 	}
 
+	public UserDTO signUpAdmin(UserDTO userDTO) {
+
+		//checkEmailExisted
+		UserEntity userCheckEntity = userRepository.findOneByEmail(userDTO.getEmail());
+		if(userCheckEntity != null) {
+			throw new RuntimeException("Email đã tồn tại");
+		}
+		userCheckEntity = userRepository.findOneByUsername(userDTO.getUsername());
+		if(userCheckEntity != null) {
+			throw new RuntimeException("Username đã tồn tại");
+		}
+		
+		UserEntity userEntity = userConverter.toEntity(userDTO);
+		String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
+		userEntity.setPassword(encodedPassword);
+		
+
+		// Adding USER role code for register
+		List<RoleEntity> roles = new ArrayList<RoleEntity>();
+		roles.add(roleRepository.findOneByCode("ADMIN"));
+		userEntity.setStatus(1);
+		userEntity.setRoles(roles);
+
+		// Make sure id of new user is empty
+		userEntity.setId(null);
+
+		return userConverter.toDTO(userRepository.save(userEntity));
+	}
+
 	public boolean checkEmailsExisted(String email) {
 		UserEntity userEntity = userRepository.findOneByEmail(email);
 		if (userEntity != null) {
@@ -97,6 +129,11 @@ public class UserService implements UserDetailsService {
 		}
 		return userConverter.toDTO(userRepository.findOne(id));
 	}
+
+    public List<UserDTO> findAll(){
+    	List<UserDTO> dtos = userConverter.toDTOList(userRepository.findAll());
+    	return dtos;
+    }
 
 	public UserDTO findOneByUsername(String username) {
 		return userConverter.toDTO(userRepository.findOneByUsername(username));
@@ -128,12 +165,17 @@ public class UserService implements UserDetailsService {
 		userEntity = userRepository.save(userEntity);
 	}
 
+	public void unblock(String username) {
+		UserEntity userEntity = userRepository.findOneByUsername(username);
+		userEntity.setStatus(1);
+		userEntity = userRepository.save(userEntity);
+	}
+
 	public void updateAvatar(String avatar) {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getUser().getId();
 		UserEntity userEntity = userRepository.findOne(userId);
 		userEntity.setAvatar(avatar);
-		System.out.println(avatar);
 		userRepository.save(userEntity);
 	}
 

@@ -12,6 +12,15 @@ public class ReportDTO {
 	private String content;
 	private Timestamp createdDate;
 	private Integer checked;
+	private Integer classStatus;
+
+	public Integer getClassStatus() {
+		return classStatus;
+	}
+
+	public void setClassStatus(Integer classStatus) {
+		this.classStatus = classStatus;
+	}
 
 	public Integer getChecked() {
 		return checked;

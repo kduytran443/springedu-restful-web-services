@@ -68,23 +68,25 @@ public class LoginAPI {
 	public ResponseEntity<?> getUserFromJWT() {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
 		UserDTO userDTO = userService.findOneById(userId);
-		
-		System.out.println("/api/user userDTO "+userDTO);
-		
 		return ResponseEntity.status(200).body(userDTO);
 	}
 	
 	@PostMapping("/api/sign-up")
 	@CrossOriginsList
 	public UserDTO signUp(@RequestBody UserDTO userDTO) {
-		
 		return userService.signUp(userDTO);
+	}
+	
+	@PostMapping("/api/sign-up/admin")
+	@CrossOriginsList
+	public UserDTO signUpAdmin(@RequestBody UserDTO userDTO) {
+		System.out.println("Sign up nè");
+		return userService.signUpAdmin(userDTO);
 	}
 	
 	@PostMapping("/api/verify")
 	@CrossOriginsList
 	public UserDTO verifySignUp(@RequestBody UserDTO userDTO) {
-		
 		MailHolder holder = new MailHolder(userDTO);
 		
 		String subject = "Verify SpringEdu's Account";

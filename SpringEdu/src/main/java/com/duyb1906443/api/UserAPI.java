@@ -1,5 +1,8 @@
 package com.duyb1906443.api;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +31,16 @@ public class UserAPI {
 		}
 		return ResponseEntity.status(500).body(new UserDTO());
 	}
+	
+	@GetMapping("/api/user/all")
+	@CrossOriginsList
+	public ResponseEntity<List<UserDTO>> getAllUser() {
+		List<UserDTO> dtos = userService.findAll();
+		if (dtos != null) {
+			return ResponseEntity.status(200).body(dtos);
+		}
+		return ResponseEntity.status(500).body(Collections.emptyList());
+	}
 
 	@PutMapping("/api/user")
 	@CrossOriginsList
@@ -50,6 +63,13 @@ public class UserAPI {
 	@CrossOriginsList
 	public ResponseEntity<?> deleteUser(@PathVariable("username") String username) {
 		userService.delete(username);
+		return ResponseEntity.status(200).body(new UserDTO());
+	}
+
+	@PutMapping("/api/user/{username}/unblock")
+	@CrossOriginsList
+	public ResponseEntity<?> unblockUser(@PathVariable("username") String username) {
+		userService.unblock(username);
 		return ResponseEntity.status(200).body(new UserDTO());
 	}
 	

@@ -1,6 +1,7 @@
 package com.duyb1906443.converter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -38,6 +39,7 @@ public class UserConverter implements IConverterToDTO<UserEntity, UserDTO>, ICon
 		userDTO.setPhoneNumber(entity.getPhoneNumber());
 		userDTO.setUsername(entity.getUsername());
 		userDTO.setAvatar(entity.getAvatar());
+		userDTO.setStatus(entity.getStatus());
 		if(entity.getRoles() != null) userDTO.setRole(entity.getRoles().get(0).getCode());
 		return userDTO;
 	}
@@ -50,8 +52,7 @@ public class UserConverter implements IConverterToDTO<UserEntity, UserDTO>, ICon
 
 	@Override
 	public List<UserDTO> toDTOList(List<UserEntity> entities) {
-		// TODO Auto-generated method stub
-		return null;
+		return entities.stream().map(entity -> toDTO(entity)).collect(Collectors.toList());
 	}
 
 }

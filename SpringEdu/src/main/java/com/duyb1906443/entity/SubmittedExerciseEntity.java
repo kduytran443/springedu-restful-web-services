@@ -35,6 +35,9 @@ public class SubmittedExerciseEntity {
 	@Column(columnDefinition = "NTEXT")
 	private String content;
 
+	@Column(columnDefinition = "NTEXT")
+	private String teacherComment;
+
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "submitted_exercise_file", joinColumns = @JoinColumn(name = "submitted_exercise_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
 	private List<FileEntity> files;
@@ -49,6 +52,14 @@ public class SubmittedExerciseEntity {
 
 	@OneToMany(mappedBy = "submittedExercise", fetch = FetchType.LAZY)
 	private List<DrawQuizEntity> drawQuizzes;
+
+	public String getTeacherComment() {
+		return teacherComment;
+	}
+
+	public void setTeacherComment(String teacherComment) {
+		this.teacherComment = teacherComment;
+	}
 
 	public Timestamp getStartTime() {
 		return startTime;
