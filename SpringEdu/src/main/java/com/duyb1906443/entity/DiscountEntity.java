@@ -38,9 +38,6 @@ public class DiscountEntity {
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
-	private List<ClassMemberEntity> classMember;
-
 	public Integer getStatus() {
 		return status;
 	}
@@ -87,14 +84,6 @@ public class DiscountEntity {
 
 	public void setClassEntity(ClassEntity classEntity) {
 		this.classEntity = classEntity;
-	}
-
-	public List<ClassMemberEntity> getClassMember() {
-		return classMember;
-	}
-
-	public void setClassMember(List<ClassMemberEntity> classMember) {
-		this.classMember = classMember;
 	}
 
 }

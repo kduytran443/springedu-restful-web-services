@@ -29,11 +29,14 @@ public class DiscountServiceImpl implements DiscountService {
 	@Override
 	public List<DiscountDTO> getAllByClassId(Long classId) {
 		ClassEntity classEntity = classRepository.findOne(classId);
-		List<DiscountEntity> discountEntities = classEntity.getDiscounts().stream()
-				.filter(entity -> entity.getStatus() == 1).collect(Collectors.toList());
-		if (discountEntities != null) {
-			return discountConverter.toDTOList(discountEntities);
+		if(classEntity.getDiscounts() != null) {
+			List<DiscountEntity> discountEntities = classEntity.getDiscounts().stream()
+					.filter(entity -> entity.getStatus() != null && entity.getStatus() == 1).collect(Collectors.toList());
+			if (discountEntities != null) {
+				return discountConverter.toDTOList(discountEntities);
+			}
 		}
+		
 		return null;
 	}
 

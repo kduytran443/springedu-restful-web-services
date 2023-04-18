@@ -26,11 +26,7 @@ public class DiscountConverter implements IConverterToDTO<DiscountEntity, Discou
 
 	@Override
 	public List<DiscountDTO> toDTOList(List<DiscountEntity> entities) {
-		List<DiscountDTO> dtos = new ArrayList<>();
-		for (DiscountEntity discountEntity : entities) {
-			dtos.add(toDTO(discountEntity));
-		}
-		return dtos;
+		return entities.stream().map(item -> toDTO(item)).collect(Collectors.toList());
 	}
 
 	@Override

@@ -1,30 +1,38 @@
 package com.duyb1906443.dto;
 
-import java.util.List;
+import java.sql.Timestamp;
 
 public class MessageDTO {
+	private Long id;
 	private String content;
-	private MessageType type;
-	private List<Long> receivers;
+	private Timestamp date;
+	private UserDTO user;
+	private Long classId;
+	private String type;
+	private Integer status;
 
-	public List<Long> getReceivers() {
-		return receivers;
-	}
-
-	public void setReceivers(List<Long> receivers) {
-		this.receivers = receivers;
-	}
-
-	public enum MessageType {
-		NOTIFICATION
-	}
-
-	public MessageType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(MessageType type) {
+	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -33,6 +41,30 @@ public class MessageDTO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
+	public Long getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Long classId) {
+		this.classId = classId;
 	}
 
 }

@@ -27,6 +27,15 @@ public class ClassIntroDTO {
 	private String avatar;
 	private Long categoryId;
 	private Long userId;
+	private String paypalAccount;
+
+	public String getPaypalAccount() {
+		return paypalAccount;
+	}
+
+	public void setPaypalAccount(String paypalAccount) {
+		this.paypalAccount = paypalAccount;
+	}
 
 	public Long getUserId() {
 		return userId;

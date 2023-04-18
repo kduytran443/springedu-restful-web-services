@@ -26,7 +26,6 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		dto.setBackgroundImage(entity.getBackground());
 		dto.setCategoryCode(entity.getCategory().getCode());
 		dto.setCategoryName(entity.getCategory().getName());
-		
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setName(entity.getName());
 		dto.setStatus(entity.getStatus());
@@ -42,11 +41,11 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		dto.setAvatar(entity.getAvatar());
 		dto.setCategoryId(entity.getCategory().getId());
 		dto.setUserId(entity.getCreator().getId());
+		dto.setPaypalAccount(entity.getPaypalAccount());
 		
 		if(entity.getClassSchedules() != null) {
 			dto.setClassSchedules(classScheduleConverter.toDTOList(entity.getClassSchedules()));
 		}
-		
 		dto.setDiscount(null);
 		
 		return dto;
@@ -55,11 +54,9 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 	@Override
 	public List<ClassIntroDTO> toDTOList(List<ClassEntity> entities) {
 		List<ClassIntroDTO> dtos = new ArrayList<ClassIntroDTO>();
-
 		for (ClassEntity classEntity : entities) {
 			dtos.add(toDTO(classEntity));
 		}
-
 		return dtos;
 	}
 

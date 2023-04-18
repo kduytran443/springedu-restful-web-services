@@ -12,12 +12,19 @@ public class ClassMemberDTO {
 	private Long classId;
 	private String className;
 	private String classRole;
-	private float fee;
 	private Timestamp createdDate;
 	private int memberAccepted;
 	private int classAccepted;
-	private int discount;
-	private Long discountId;
+	private Integer discount;
+	private TransactionDTO transaction;
+
+	public TransactionDTO getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(TransactionDTO transaction) {
+		this.transaction = transaction;
+	}
 
 	public String getClassAvatar() {
 		return classAvatar;
@@ -35,20 +42,8 @@ public class ClassMemberDTO {
 		this.className = className;
 	}
 
-	public Long getDiscountId() {
-		return discountId;
-	}
-
-	public void setDiscountId(Long discountId) {
-		this.discountId = discountId;
-	}
-
-	public float getFee() {
-		return fee;
-	}
-
-	public void setFee(float fee) {
-		this.fee = fee;
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
 	}
 
 	public Timestamp getCreatedDate() {
@@ -75,12 +70,8 @@ public class ClassMemberDTO {
 		this.classAccepted = classAccepted;
 	}
 
-	public int getDiscount() {
+	public Integer getDiscount() {
 		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
 	}
 
 	public Long getClassId() {

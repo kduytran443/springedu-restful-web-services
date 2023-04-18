@@ -7,7 +7,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.duyb1906443.annotation.CrossOriginsList;
-import com.duyb1906443.dto.MessageDTO;
+import com.duyb1906443.dto.SocketMessageDTO;
 
 @Controller
 public class WebsocketController {
@@ -17,14 +17,12 @@ public class WebsocketController {
 	
 	@MessageMapping("/register")
 	@CrossOriginsList
-	public void registerSocket(@Payload MessageDTO messageDTO) throws Exception {
-		System.out.println("register");
+	public void registerSocket(@Payload SocketMessageDTO messageDTO) throws Exception {
 	}
 	
 	@MessageMapping("/notification.send")
 	@CrossOriginsList
-	public void orderProcess(@Payload MessageDTO messageDTO) throws Exception {
-		System.out.println("send notification");
+	public void orderProcess(@Payload SocketMessageDTO messageDTO) throws Exception {
 		template.convertAndSend("/web-socket/notification", messageDTO);
 	}
 	

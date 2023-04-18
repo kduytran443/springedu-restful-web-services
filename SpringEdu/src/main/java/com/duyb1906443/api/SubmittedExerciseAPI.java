@@ -50,6 +50,16 @@ public class SubmittedExerciseAPI {
 		return ResponseEntity.status(200).body(Collections.emptyList());
 	}
 
+	@GetMapping("/api/submitted-exercise/class/user/{classId}/{userId}")
+	@CrossOriginsList
+	public ResponseEntity<?> getSubmittedExercisesByUserAndClassId(@PathVariable("classId") Long classExerciseId, @PathVariable("userId") Long userId) {
+		List<SubmittedExerciseDTO> dtos = submittedExerciseService.findAllByClassIdAndUserId(classExerciseId, userId);
+		if (dtos != null) {
+			return ResponseEntity.status(200).body(dtos);
+		}
+		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+
 	@GetMapping("/api/submitted-exercise/{submittedExerciseId}")
 	@CrossOriginsList
 	public ResponseEntity<?> getSubmittedExerciseById(@PathVariable("submittedExerciseId") Long id) {

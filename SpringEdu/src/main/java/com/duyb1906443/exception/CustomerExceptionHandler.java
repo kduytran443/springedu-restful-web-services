@@ -9,10 +9,5 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class CustomerExceptionHandler {
 	
-	@ExceptionHandler(RuntimeException.class)
-	@ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
-	public ErrorResponse handlerException(RuntimeException exception, WebRequest request) {
-		return new ErrorResponse(HttpStatus.NOT_ACCEPTABLE, exception.getMessage());
-	}
 	
 }

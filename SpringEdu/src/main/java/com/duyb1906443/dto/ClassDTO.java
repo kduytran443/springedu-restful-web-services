@@ -18,6 +18,15 @@ public class ClassDTO {
 	private Long creatorId;
 	private String videoData;
 	private String content;
+	private String paypalAccount;
+
+	public String getPaypalAccount() {
+		return paypalAccount;
+	}
+
+	public void setPaypalAccount(String paypalAccount) {
+		this.paypalAccount = paypalAccount;
+	}
 
 	public String getContent() {
 		return content;

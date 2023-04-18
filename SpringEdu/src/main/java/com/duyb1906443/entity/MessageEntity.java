@@ -22,8 +22,11 @@ public class MessageEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(columnDefinition = "nvarchar(1024)")
+	@Column(columnDefinition = "NTEXT")
 	private String content;
+
+	@Column(columnDefinition = "nvarchar(32)")
+	private String type;
 
 	@Column
 	private Timestamp date;
@@ -35,6 +38,25 @@ public class MessageEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
+
+	@Column(columnDefinition = "tinyint")
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public Long getId() {
 		return id;

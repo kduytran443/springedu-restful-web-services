@@ -3,6 +3,7 @@ package com.duyb1906443.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.duyb1906443.dto.ClassMemberDTO;
@@ -11,7 +12,10 @@ import com.duyb1906443.entity.ClassMemberEntity;
 @Component
 public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, ClassMemberDTO>,
 		IConverterToEntity<ClassMemberEntity, ClassMemberDTO> {
-
+	
+	@Autowired
+	private TransactionConverter transactionConverter;
+	
 	@Override
 	public ClassMemberDTO toDTO(ClassMemberEntity entity) {
 		ClassMemberDTO dto = new ClassMemberDTO();
@@ -22,16 +26,15 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 		dto.setUserId(entity.getUser().getId());
 		dto.setUsername(entity.getUser().getUsername());
 		dto.setClassId(entity.getClassEntity().getId());
-		dto.setFee(entity.getFee());
+		if(entity.getTransaction() != null) {
+			dto.setTransaction(transactionConverter.toDTO(entity.getTransaction()));
+		}
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setMemberAccepted(entity.getMemberAccepted());
 		dto.setClassAccepted(entity.getClassAccepted());
 		dto.setClassName(entity.getClassEntity().getName());
 		dto.setClassAvatar(entity.getClassEntity().getAvatar());
-		if(entity.getDiscount() != null) {
-			dto.setDiscount(entity.getDiscount().getDiscountPercent());
-			dto.setDiscountId(entity.getDiscount().getId());
-		}
+		dto.setDiscount(entity.getDiscountPercent());
 		return dto;
 	}
 
@@ -52,7 +55,6 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 		entity.setClassAccepted(dto.getClassAccepted());
 		entity.setMemberAccepted(dto.getMemberAccepted());
 		entity.setCreatedDate(dto.getCreatedDate());
-		entity.setFee(dto.getFee());
 		return entity;
 	}
 
@@ -60,7 +62,6 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 		entity.setClassAccepted(dto.getClassAccepted());
 		entity.setMemberAccepted(dto.getMemberAccepted());
 		if(dto.getCreatedDate() != null) entity.setCreatedDate(dto.getCreatedDate());
-		entity.setFee(dto.getFee());
 		return entity;
 	}
 

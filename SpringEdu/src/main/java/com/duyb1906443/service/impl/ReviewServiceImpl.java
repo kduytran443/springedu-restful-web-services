@@ -65,12 +65,9 @@ public class ReviewServiceImpl implements ReviewService {
 		ClassEntity classEntity = classRepository.findOne(reviewDTO.getClassId());
 		UserEntity userEntity = userRepository.findOne(reviewDTO.getUserId());
 		
-		System.out.println("reviewDTO.getClassId() "+reviewDTO.getClassId());
-		System.out.println("reviewDTO.getUserId() "+reviewDTO.getUserId());
 		ReviewEntity reviewEntity = reviewRepository.findOneByClassEntityAndUser(classEntity, userEntity);
 
 		if (reviewEntity == null) {
-			System.out.println("Create new!");
 			reviewEntity = new ReviewEntity();
 		}
 

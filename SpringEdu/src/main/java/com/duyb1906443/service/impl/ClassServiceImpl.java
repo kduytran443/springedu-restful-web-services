@@ -60,13 +60,12 @@ public class ClassServiceImpl implements ClassService {
 		ClassEntity classEntity = new ClassEntity();
 
 		if (classDTO.getId() != null) {
-			System.out.println("Sửa nè");
-
 			ClassEntity oldClassEntity = classRepository.findOne(classDTO.getId());
 
 			classEntity = classConverter.toEntity(classDTO, oldClassEntity);
 			classEntity = classRepository.save(classEntity);
 		} else {
+			
 			classEntity = classConverter.toEntity(classDTO);
 			classEntity.setContent(classDTO.getContent());
 			
@@ -75,6 +74,8 @@ public class ClassServiceImpl implements ClassService {
 			
 			if (classDTO.getBackground() != null)
 				classEntity.setBackground(classDTO.getBackground());
+			
+			classEntity.setPaypalAccount(classDTO.getPaypalAccount());
 			
 			classEntity.setAccepted(0);
 			
@@ -101,7 +102,7 @@ public class ClassServiceImpl implements ClassService {
 			ClassRoleEntity classRoleEntity = classRoleRepository.findOne(1L);
 			classMemberEntity.setClassRole(classRoleEntity);
 			classMemberEntity.setCreatedDate(new Timestamp(date.getTime()));
-			classMemberEntity.setFee(classDTO.getFee());
+			
 			classMemberEntity.setMemberAccepted(1);
 			classMemberEntity.setUser(user);
 			

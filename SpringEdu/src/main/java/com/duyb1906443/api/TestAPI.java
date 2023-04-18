@@ -6,17 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.duyb1906443.dto.MessageDTO;
+import com.duyb1906443.dto.SocketMessageDTO;
 
 @RestController
 public class TestAPI {
 
 	@PreAuthorize("@testAPISecurityService.isAllowed(#id)")
 	@GetMapping("/api/testing/{id}")
-	public MessageDTO getAPI(@PathVariable long id) {
+	public SocketMessageDTO getAPI(@PathVariable long id) {
 
-		return new MessageDTO();
+		return new SocketMessageDTO();
 	}
 
 	@PostMapping("/api/testing")

@@ -60,12 +60,12 @@ public class ClassConverter
 			classEntity.setStatus(dto.getStatus());
 		if (dto.getVisiable() != null)
 			classEntity.setVisiable(dto.getVisiable());
+		classEntity.setPaypalAccount(dto.getPaypalAccount());
 
 		return classEntity;
 	}
 
 	public ClassEntity toEntity(ClassDTO dto, ClassEntity classEntity) {
-
 		if (dto.getAccepted() != null)
 			classEntity.setAccepted(dto.getAccepted());
 		if (dto.getAvatar() != null)
@@ -86,7 +86,7 @@ public class ClassConverter
 			classEntity.setVideo(dto.getVideoData());
 		if(dto.getContent() != null)
 			classEntity.setContent(dto.getContent());
-		
+		classEntity.setPaypalAccount(dto.getPaypalAccount());
 		return classEntity;
 	}
 

@@ -10,7 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.duyb1906443.entity.id.ClassMemberId;
@@ -42,16 +42,24 @@ public class ClassMemberEntity implements Serializable {
 	@Column(columnDefinition = "tinyint")
 	private int classAccepted;
 
-	@Column(nullable = true)
-	private float fee;
+	@OneToOne
+	@JoinColumn(name = "transaction_id", nullable = true)
+	private TransactionEntity transaction;
 
 	@ManyToOne
 	@JoinColumn(name = "class_role_id")
 	private ClassRoleEntity classRole;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "discount_id", nullable = true)
-	private DiscountEntity discount;
+	@Column(nullable = true)
+	private Integer discountPercent;
+
+	public TransactionEntity getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(TransactionEntity transaction) {
+		this.transaction = transaction;
+	}
 
 	public int getMemberAccepted() {
 		return memberAccepted;
@@ -69,12 +77,12 @@ public class ClassMemberEntity implements Serializable {
 		this.classAccepted = classAccepted;
 	}
 
-	public DiscountEntity getDiscount() {
-		return discount;
+	public Integer getDiscountPercent() {
+		return discountPercent;
 	}
 
-	public void setDiscount(DiscountEntity discount) {
-		this.discount = discount;
+	public void setDiscountPercent(Integer discountPercent) {
+		this.discountPercent = discountPercent;
 	}
 
 	public ClassMemberId getClassMemberId() {
@@ -107,14 +115,6 @@ public class ClassMemberEntity implements Serializable {
 
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public float getFee() {
-		return fee;
-	}
-
-	public void setFee(float fee) {
-		this.fee = fee;
 	}
 
 	public ClassRoleEntity getClassRole() {

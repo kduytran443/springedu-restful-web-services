@@ -9,17 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duyb1906443.converter.ClassMemberConverter;
+import com.duyb1906443.converter.TransactionConverter;
 import com.duyb1906443.dto.ClassMemberDTO;
 import com.duyb1906443.entity.ClassEntity;
 import com.duyb1906443.entity.ClassMemberEntity;
 import com.duyb1906443.entity.ClassRoleEntity;
-import com.duyb1906443.entity.DiscountEntity;
+import com.duyb1906443.entity.TransactionEntity;
 import com.duyb1906443.entity.UserEntity;
 import com.duyb1906443.entity.id.ClassMemberId;
 import com.duyb1906443.repository.ClassMemberRepository;
 import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.repository.ClassRoleRepository;
-import com.duyb1906443.repository.DiscountRepository;
+import com.duyb1906443.repository.TransactionRepository;
 import com.duyb1906443.repository.UserRepository;
 import com.duyb1906443.service.ClassMemberService;
 
@@ -42,8 +43,10 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 	private ClassMemberConverter classMemberConverter;
 
 	@Autowired
-	private DiscountRepository discountRepository;
-	
+	private TransactionConverter transactionConverter;
+
+	@Autowired
+	private TransactionRepository transactionRepository;
 
 	@Override
 	public List<ClassMemberDTO> findAllByClassId(Long classId) {
@@ -70,14 +73,10 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 
 		ClassEntity classEntity = classRepository.findOne(classMemberDTO.getClassId());
 		UserEntity userEntity = userRepository.findOne(classMemberDTO.getUserId());
-
 		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity,
 				userEntity);
-		
-		System.out.println(userEntity.getUsername() + "  - class: " + classEntity.getName());
-		
+
 		if (classMemberEntity == null) { // tạo mới
-			System.out.println("Null nè");
 			classMemberEntity = classMemberConverter.toEntity(classMemberDTO);
 			classMemberEntity.setClassEntity(classEntity);
 			classMemberEntity.setUser(userEntity);
@@ -89,10 +88,10 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 			Date date = new Date();
 			classMemberEntity.setCreatedDate(new Timestamp(date.getTime()));
 
-			if (classMemberDTO.getDiscountId() != null) {
-				DiscountEntity discountEntity = discountRepository.findOne(classMemberDTO.getDiscountId());
-				classMemberEntity.setDiscount(discountEntity);
+			if (classMemberDTO.getDiscount() != null) {
+				classMemberEntity.setDiscountPercent(classMemberDTO.getDiscount());
 			}
+
 			ClassMemberId classMemberId = new ClassMemberId();
 			classMemberId.setClassId(classEntity.getId());
 			classMemberId.setUserId(userEntity.getId());
@@ -100,19 +99,17 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 		} else {
 			classMemberEntity = classMemberConverter.toEntity(classMemberDTO, classMemberEntity);
 
-			if(classMemberDTO.getClassRole() != null) {
+			if (classMemberDTO.getClassRole() != null) {
 				ClassRoleEntity classRoleEntity = classRoleRepository.findOneByCode(classMemberDTO.getClassRole());
-				classMemberEntity.setClassRole(classRoleEntity);				
+				classMemberEntity.setClassRole(classRoleEntity);
 			}
 
-			if (classMemberDTO.getDiscountId() != null) {
-				DiscountEntity discountEntity = discountRepository.findOne(classMemberDTO.getDiscountId());
-				classMemberEntity.setDiscount(discountEntity);
-			}
 		}
-		classMemberEntity = classMemberRepository.save(classMemberEntity);
-
-		return classMemberConverter.toDTO(classMemberEntity);
+		if (classMemberEntity != null) {
+			classMemberEntity = classMemberRepository.save(classMemberEntity);
+			return classMemberConverter.toDTO(classMemberEntity);
+		}
+		return null;
 	}
 
 	@Override
@@ -204,8 +201,9 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 	public ClassMemberDTO findOneByUserAndClass(Long userId, Long classId) {
 		UserEntity userEntity = userRepository.findOne(userId);
 		ClassEntity classEntity = classRepository.findOne(classId);
-		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity);
-		if(classMemberEntity != null) {
+		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity,
+				userEntity);
+		if (classMemberEntity != null) {
 			return classMemberConverter.toDTO(classMemberEntity);
 		}
 		return null;

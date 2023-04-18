@@ -133,4 +133,14 @@ public class TopicServiceImpl implements TopicService {
 		return topicConverter.toDTO(topicEntity);
 	}
 
+	@Override
+	public TopicDTO changeVisible(TopicDTO topicDTO) {
+		TopicEntity topicEntity = topicRepository.findOne(topicDTO.getId());
+		
+		topicEntity.setVisible(topicDTO.getVisible());
+		topicEntity = topicRepository.save(topicEntity);
+		
+		return topicConverter.toDTO(topicEntity);
+	}
+
 }
