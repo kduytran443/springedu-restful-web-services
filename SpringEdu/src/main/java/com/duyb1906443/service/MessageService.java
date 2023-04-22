@@ -10,5 +10,7 @@ public interface MessageService {
 	MessageDTO findOneById(Long id);
 	MessageDTO save(MessageDTO messageDTO);
 	MessageDTO delete(Long id);
+	Integer getCountUnreadMessageByUserId();
+	Integer getCountUnreadMessageByUserIdAndClassId(Long classId);
 	
 }

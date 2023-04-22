@@ -7,6 +7,16 @@ public class SocketMessageDTO {
 	private MessageType type;
 	private List<Long> receivers;
 
+	private Long classId;
+
+	public Long getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Long classId) {
+		this.classId = classId;
+	}
+
 	public List<Long> getReceivers() {
 		return receivers;
 	}
@@ -16,7 +26,7 @@ public class SocketMessageDTO {
 	}
 
 	public enum MessageType {
-		NOTIFICATION
+		NOTIFICATION, CHAT
 	}
 
 	public MessageType getType() {
@@ -33,6 +43,11 @@ public class SocketMessageDTO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		return "SocketMessageDTO [content=" + content + ", type=" + type + ", receivers=" + receivers + "]";
 	}
 
 }

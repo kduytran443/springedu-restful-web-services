@@ -6,13 +6,14 @@ public class TransactionDTO {
 	private String code;
 	private Long userId;
 	private Long classId;
-	
-	
+	private String username;
+ 
+	public String getUsername() {
+		return username;
+	}
 
-	@Override
-	public String toString() {
-		return "TransactionDTO [id=" + id + ", fee=" + fee + ", code=" + code + ", userId=" + userId + ", classId="
-				+ classId + "]";
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Long getUserId() {

@@ -67,6 +67,9 @@ public class UserEntity {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<MessageEntity> messages;
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<ReadMessageEntity> readMessages;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<ReportEntity> reports;
 
@@ -78,6 +81,14 @@ public class UserEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<UserNotificationEntity> userNotifications;
+
+	public List<ReadMessageEntity> getReadMessages() {
+		return readMessages;
+	}
+
+	public void setReadMessages(List<ReadMessageEntity> readMessages) {
+		this.readMessages = readMessages;
+	}
 
 	public List<NotificationEntity> getNotifications() {
 		return notifications;

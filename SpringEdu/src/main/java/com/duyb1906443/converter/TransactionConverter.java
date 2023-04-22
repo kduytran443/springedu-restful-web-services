@@ -27,14 +27,12 @@ public class TransactionConverter implements IConverterToEntity<TransactionEntit
 	@Override
 	public TransactionDTO toDTO(TransactionEntity entity) {
 		TransactionDTO dto = new TransactionDTO();
-		System.out.println("entity"+entity);
-		System.out.println("dto "+dto);
 		dto.setCode(entity.getCode());
 		dto.setFee(entity.getFee());
 		dto.setId(entity.getId());
 		dto.setClassId(entity.getClassMember().getClassMemberId().getClassId());
 		dto.setUserId(entity.getClassMember().getClassMemberId().getUserId());
-		System.out.println("dto convert" +dto);
+		dto.setUsername(entity.getClassMember().getUser().getUsername());
 		return dto;
 	}
 

@@ -3,6 +3,7 @@ package com.duyb1906443.entity;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +40,9 @@ public class MessageEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
+
+	@OneToMany(mappedBy = "message", fetch = FetchType.LAZY)
+	private List<ReadMessageEntity> readMessages;
 
 	@Column(columnDefinition = "tinyint")
 	private Integer status;
