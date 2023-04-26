@@ -82,6 +82,17 @@ public class UserEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<UserNotificationEntity> userNotifications;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<NoteFolderEntity> noteFolders;
+
+	public List<NoteFolderEntity> getNoteFolders() {
+		return noteFolders;
+	}
+
+	public void setNoteFolders(List<NoteFolderEntity> noteFolders) {
+		this.noteFolders = noteFolders;
+	}
+
 	public List<ReadMessageEntity> getReadMessages() {
 		return readMessages;
 	}

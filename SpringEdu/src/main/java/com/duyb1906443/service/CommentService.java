@@ -6,7 +6,8 @@ import com.duyb1906443.dto.CommentDTO;
 
 public interface CommentService {
 	
-	List<CommentDTO> findAllByClassId(Long classId);
+	List<CommentDTO> findAllByLessonId(Long topicId);
 	CommentDTO save(CommentDTO commentDTO);
+	CommentDTO delete(Long id);
 	
 }

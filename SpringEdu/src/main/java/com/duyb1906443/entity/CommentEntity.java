@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,17 +32,31 @@ public class CommentEntity {
 	@Column(columnDefinition = "tinyint default '0'")
 	private Integer privateMode;
 
-	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	@JoinColumn(name = "parent_id")
+	@OneToMany(mappedBy = "parentComment")
 	private List<CommentEntity> replies;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "class_id")
-	private ClassEntity classEntity;
+	@JoinColumn(name = "parent_id")
+	private CommentEntity parentComment;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "class_lesson_id")
+	private ClassLessonEntity classLesson;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
+
+	@Column(columnDefinition = "tinyint")
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;
@@ -85,12 +98,12 @@ public class CommentEntity {
 		this.replies = replies;
 	}
 
-	public ClassEntity getClassEntity() {
-		return classEntity;
+	public ClassLessonEntity getClassLesson() {
+		return classLesson;
 	}
 
-	public void setClassEntity(ClassEntity classEntity) {
-		this.classEntity = classEntity;
+	public void setClassLesson(ClassLessonEntity classLesson) {
+		this.classLesson = classLesson;
 	}
 
 	public UserEntity getUser() {
@@ -99,6 +112,14 @@ public class CommentEntity {
 
 	public void setUser(UserEntity user) {
 		this.user = user;
+	}
+
+	public CommentEntity getParentComment() {
+		return parentComment;
+	}
+
+	public void setParentComment(CommentEntity parentComment) {
+		this.parentComment = parentComment;
 	}
 
 }

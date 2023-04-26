@@ -1,16 +1,61 @@
 package com.duyb1906443.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class CommentDTO {
 	private Long id;
 	private Long userId;
 	private String userName;
 	private String userAvatar;
-	private Long classId;
-	private String comment;
+	private Long lessonId;
+	private String content;
 	private Timestamp createdDate;
 	private String fullname;
+	private Long parentId;
+	private Integer status;
+	private List<CommentDTO> replies;
+	private Integer privateMode;
+
+	public Integer getPrivateMode() {
+		return privateMode;
+	}
+
+	public void setPrivateMode(Integer privateMode) {
+		this.privateMode = privateMode;
+	}
+
+	public List<CommentDTO> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<CommentDTO> replies) {
+		this.replies = replies;
+	}
+
+	public Long getLessonId() {
+		return lessonId;
+	}
+
+	public void setLessonId(Long lessonId) {
+		this.lessonId = lessonId;
+	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public String getFullname() {
 		return fullname;
@@ -36,20 +81,12 @@ public class CommentDTO {
 		this.userId = userId;
 	}
 
-	public Long getClassId() {
-		return classId;
+	public String getContent() {
+		return content;
 	}
 
-	public void setClassId(Long classId) {
-		this.classId = classId;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getUserName() {

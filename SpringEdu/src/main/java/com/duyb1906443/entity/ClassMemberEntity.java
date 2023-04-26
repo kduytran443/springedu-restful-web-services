@@ -46,9 +46,21 @@ public class ClassMemberEntity implements Serializable {
 	@JoinColumn(name = "transaction_id", nullable = true)
 	private TransactionEntity transaction;
 
+	@OneToOne
+	@JoinColumn(name = "certification_id", nullable = true)
+	private CertificationEntity certification;
+
 	@ManyToOne
 	@JoinColumn(name = "class_role_id")
 	private ClassRoleEntity classRole;
+
+	public CertificationEntity getCertification() {
+		return certification;
+	}
+
+	public void setCertification(CertificationEntity certification) {
+		this.certification = certification;
+	}
 
 	@Column(nullable = true)
 	private Integer discountPercent;

@@ -11,6 +11,16 @@ public class MessageDTO {
 	private String type;
 	private Integer status;
 
+	private Long lessonId;
+
+	public Long getLessonId() {
+		return lessonId;
+	}
+
+	public void setLessonId(Long lessonId) {
+		this.lessonId = lessonId;
+	}
+
 	public String getType() {
 		return type;
 	}

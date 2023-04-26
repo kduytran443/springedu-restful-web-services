@@ -26,7 +26,7 @@ public class SocketMessageDTO {
 	}
 
 	public enum MessageType {
-		NOTIFICATION, CHAT
+		NOTIFICATION, CHAT, COMMENT
 	}
 
 	public MessageType getType() {

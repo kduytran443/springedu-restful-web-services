@@ -9,6 +9,4 @@ import com.duyb1906443.entity.CommentEntity;
 
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 	
-	List<CommentEntity> findAllByClassEntity(ClassEntity classEntity);
-	
 }

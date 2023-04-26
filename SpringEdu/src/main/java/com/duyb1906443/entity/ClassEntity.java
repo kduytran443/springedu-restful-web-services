@@ -99,9 +99,6 @@ public class ClassEntity {
 	@ManyToMany(mappedBy = "classEntities")
 	private List<QuestionBankEntity> questionBanks;
 
-	@OneToMany(mappedBy = "classEntity", fetch = FetchType.LAZY)
-	private List<CommentEntity> comments;
-
 	public String getPaypalAccount() {
 		return paypalAccount;
 	}
@@ -132,14 +129,6 @@ public class ClassEntity {
 
 	public void setQuestionBanks(List<QuestionBankEntity> questionBanks) {
 		this.questionBanks = questionBanks;
-	}
-
-	public List<CommentEntity> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<CommentEntity> comments) {
-		this.comments = comments;
 	}
 
 	public Timestamp getStartTime() {

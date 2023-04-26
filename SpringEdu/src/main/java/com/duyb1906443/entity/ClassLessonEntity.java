@@ -3,7 +3,6 @@ package com.duyb1906443.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -44,6 +42,17 @@ public class ClassLessonEntity {
 
 	@Column
 	private int ordinalNumber;
+
+	@OneToMany(mappedBy = "classLesson", fetch = FetchType.LAZY)
+	private List<CommentEntity> comments;
+
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
 
 	public int getOrdinalNumber() {
 		return ordinalNumber;
