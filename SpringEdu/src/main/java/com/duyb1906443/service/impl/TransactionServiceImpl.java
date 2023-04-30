@@ -44,7 +44,6 @@ public class TransactionServiceImpl implements TransactionService {
 
 		UserEntity userEntity = userRepository.findOne(transactionDTO.getUserId());
 		ClassEntity classEntity = classRepository.findOne(transactionDTO.getClassId());
-		System.out.println(userEntity.getUsername()+" : "+classEntity.getName());
 		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity);
 		
 		ClassMemberId classMemberId = new ClassMemberId();
@@ -54,13 +53,10 @@ public class TransactionServiceImpl implements TransactionService {
 		transactionEntity.setClassMember(classMemberEntity);
 		transactionEntity = transactionRepository.save(transactionEntity);
 		
-		System.out.println("transactionEntity "+transactionEntity.getCode());
 		
 		classMemberEntity.setTransaction(transactionEntity);
 		classMemberEntity = classMemberRepository.save(classMemberEntity);
-		System.out.println("-----entity "+transactionEntity);
 		TransactionDTO dto = transactionConverter.toDTO(classMemberEntity.getTransaction());
-		System.out.println("Middle "+dto.getCode());
 		return dto;
 	}
 

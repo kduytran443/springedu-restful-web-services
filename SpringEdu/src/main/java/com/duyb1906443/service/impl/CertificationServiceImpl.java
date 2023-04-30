@@ -14,6 +14,7 @@ import com.duyb1906443.entity.CertificationEntity;
 import com.duyb1906443.entity.ClassEntity;
 import com.duyb1906443.entity.ClassMemberEntity;
 import com.duyb1906443.entity.UserEntity;
+import com.duyb1906443.entity.id.ClassMemberId;
 import com.duyb1906443.repository.CertificationRepository;
 import com.duyb1906443.repository.ClassMemberRepository;
 import com.duyb1906443.repository.ClassRepository;
@@ -50,6 +51,7 @@ public class CertificationServiceImpl implements CertificationService {
 	@Override
 	public CertificationDTO save(CertificationDTO certificationDTO) {
 		CertificationEntity certificationEntity = null;
+		ClassMemberEntity classMemberEntity = null;
 		if(certificationDTO.getId() != null) {
 			CertificationEntity entity = certificationRepository.findOne(certificationDTO.getId());
 			certificationEntity = certificationConverter.toEntity(certificationDTO, entity);
@@ -58,10 +60,15 @@ public class CertificationServiceImpl implements CertificationService {
 			certificationEntity = certificationConverter.toEntity(certificationDTO);
 
 			ClassEntity classEntity = classRepository.findOne(certificationDTO.getClassDTO().getId());
-			UserEntity userEntity = userRepository.findOne(certificationDTO.getClassDTO().getId());
+			UserEntity userEntity = userRepository.findOne(certificationDTO.getUserId());
 			
-			ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity);
+			classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity, userEntity);
 			certificationEntity.setClassMember(classMemberEntity);
+
+			ClassMemberId classMemberId = new ClassMemberId();
+			classMemberId.setClassId(classEntity.getId());
+			classMemberId.setUserId(userEntity.getId());
+			classMemberEntity.setClassMemberId(classMemberId);
 			
 			Date date = new Date();
 			Timestamp timestamp = new Timestamp(date.getTime());
@@ -70,6 +77,8 @@ public class CertificationServiceImpl implements CertificationService {
 		
 		if(certificationEntity != null) {
 			certificationEntity = certificationRepository.save(certificationEntity);
+			classMemberEntity.setCertification(certificationEntity);
+			classMemberRepository.save(classMemberEntity);
 			return certificationConverter.toDTO(certificationEntity);
 		}
 		

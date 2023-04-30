@@ -2,6 +2,7 @@ package com.duyb1906443.converter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,9 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 	@Autowired
 	private TransactionConverter transactionConverter;
 	
+	@Autowired
+	private CertificationConverter certificationConverter;
+	
 	@Override
 	public ClassMemberDTO toDTO(ClassMemberEntity entity) {
 		ClassMemberDTO dto = new ClassMemberDTO();
@@ -29,6 +33,9 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 		if(entity.getTransaction() != null) {
 			dto.setTransaction(transactionConverter.toDTO(entity.getTransaction()));
 		}
+		if(entity.getCertification() != null) {
+			dto.setCertification(certificationConverter.toDTO(entity.getCertification()));
+		}
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setMemberAccepted(entity.getMemberAccepted());
 		dto.setClassAccepted(entity.getClassAccepted());
@@ -40,13 +47,7 @@ public class ClassMemberConverter implements IConverterToDTO<ClassMemberEntity, 
 
 	@Override
 	public List<ClassMemberDTO> toDTOList(List<ClassMemberEntity> entities) {
-		List<ClassMemberDTO> dtos = new ArrayList<>();
-
-		for (ClassMemberEntity classMemberEntity : entities) {
-			dtos.add(toDTO(classMemberEntity));
-		}
-
-		return dtos;
+		return entities.stream().map(item -> toDTO(item)).collect(Collectors.toList());
 	}
 
 	@Override

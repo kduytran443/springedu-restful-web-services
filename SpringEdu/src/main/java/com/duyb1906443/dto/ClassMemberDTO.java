@@ -17,6 +17,15 @@ public class ClassMemberDTO {
 	private int classAccepted;
 	private Integer discount;
 	private TransactionDTO transaction;
+	private CertificationDTO certification;
+
+	public CertificationDTO getCertification() {
+		return certification;
+	}
+
+	public void setCertification(CertificationDTO certification) {
+		this.certification = certification;
+	}
 
 	public TransactionDTO getTransaction() {
 		return transaction;
