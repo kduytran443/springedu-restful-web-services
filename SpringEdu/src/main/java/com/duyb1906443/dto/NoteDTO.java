@@ -1,40 +1,14 @@
-package com.duyb1906443.entity;
+package com.duyb1906443.dto;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "`note`")
-public class NoteEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class NoteDTO {
 	private Long id;
-
-	@Column(columnDefinition = "NTEXT")
 	private String content;
-
-	@Column(columnDefinition = "nvarchar(128)")
 	private String name;
-
-	@Column
 	private Timestamp createdDate;
-
-	@Column
+	private NoteFolderDTO noteFolder;
 	private Timestamp modifiedDate;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "note_folder_id")
-	private NoteFolderEntity noteFolder;
 
 	public Timestamp getModifiedDate() {
 		return modifiedDate;
@@ -76,11 +50,11 @@ public class NoteEntity {
 		this.createdDate = createdDate;
 	}
 
-	public NoteFolderEntity getNoteFolder() {
+	public NoteFolderDTO getNoteFolder() {
 		return noteFolder;
 	}
 
-	public void setNoteFolder(NoteFolderEntity noteFolder) {
+	public void setNoteFolder(NoteFolderDTO noteFolder) {
 		this.noteFolder = noteFolder;
 	}
 
