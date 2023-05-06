@@ -45,6 +45,17 @@ public class ChoiceQuestionEntity {
 	@Column(columnDefinition = "tinyint")
 	private Integer status;
 
+	@Column(columnDefinition = "tinyint")
+	private Integer important;
+
+	public Integer getImportant() {
+		return important;
+	}
+
+	public void setImportant(Integer important) {
+		this.important = important;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}

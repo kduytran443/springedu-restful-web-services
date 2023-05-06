@@ -124,8 +124,6 @@ public class DrawQuizServiceImpl implements DrawQuizService {
 				}
 			}
 
-			System.out.println("Random result: " + randomChoiceQuestionIds);
-
 			List<DrawQuizEntity> drawQuizEntities = new ArrayList<>();
 			// note
 			if (randomChoiceQuestionIds.size() == numberOfQuestion) {

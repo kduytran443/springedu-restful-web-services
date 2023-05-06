@@ -55,7 +55,6 @@ public class ClassLessonAPI {
 	@DeleteMapping("/api/class-lesson")
 	@CrossOriginsList
 	public ResponseEntity<?> deleteLesson(@RequestBody ClassLessonDTO classLessonDTO){
-		System.out.println("Xóa "+classLessonDTO.getId());
 		classLessonService.delete(classLessonDTO.getId());
 		return ResponseEntity.status(200).body(new ClassLessonDTO());
 	}

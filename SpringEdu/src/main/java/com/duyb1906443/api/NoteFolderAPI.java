@@ -50,7 +50,7 @@ public class NoteFolderAPI {
 			return ResponseEntity.status(200).body(dto);
 		}
 
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteFolderDTO());
 	}
 	
 	@PostMapping("/api/note-folder")
@@ -65,7 +65,7 @@ public class NoteFolderAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteFolderDTO());
 	}
 
 	@PutMapping("/api/note-folder")
@@ -75,7 +75,7 @@ public class NoteFolderAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteFolderDTO());
 	}
 
 	@DeleteMapping("/api/note-folder/{noteFolderId}")
@@ -85,6 +85,6 @@ public class NoteFolderAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteFolderDTO());
 	}
 }

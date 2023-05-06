@@ -12,6 +12,15 @@ public class ChoiceQuestionDTO {
 	private String content;
 	private Integer status;
 	private Integer answerQuantity;
+	private Integer important;
+
+	public Integer getImportant() {
+		return important;
+	}
+
+	public void setImportant(Integer important) {
+		this.important = important;
+	}
 
 	public Integer getAnswerQuantity() {
 		return answerQuantity;

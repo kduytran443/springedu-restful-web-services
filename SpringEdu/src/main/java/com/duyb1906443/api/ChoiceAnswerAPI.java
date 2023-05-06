@@ -59,7 +59,6 @@ public class ChoiceAnswerAPI {
 	@PutMapping("/api/choice-answer")
 	@CrossOriginsList
 	public ResponseEntity<ChoiceAnswerDTO> putChoiceAnswer(@RequestBody ChoiceAnswerDTO choiceAnswerDTO) {
-		System.out.println("controller "+choiceAnswerDTO);
 		ChoiceAnswerDTO dto = choiceAnswerService.save(choiceAnswerDTO);
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);

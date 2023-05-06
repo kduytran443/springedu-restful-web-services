@@ -65,7 +65,7 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 
 		List<ClassEntity> classEntities = categoryEntity.getClasses();
 		classEntities = classEntities.stream()
-				.filter(entity -> (entity.getAccepted() == 1 && entity.getVisiable() == 1 && entity.getStatus() == 1))
+				.filter(entity -> (entity.getVisiable() == 1 && entity.getStatus() == 1))
 				.collect(Collectors.toList());
 		List<ClassReviewCardDTO> dtos = new ArrayList<ClassReviewCardDTO>();
 		for (ClassEntity classEntity : classEntities) {
@@ -103,6 +103,35 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 		UserEntity userEntity = userRepository.findOne(userId);
 		List<ClassMemberEntity> classMemberEntities = classMemberRepository.findAllByUser(userEntity);
 		if (classMemberEntities != null) {
+			List<ClassReviewCardDTO> dtos = new ArrayList<ClassReviewCardDTO>();
+			for (ClassMemberEntity classMember : classMemberEntities) {
+				if(classMember.getClassAccepted() == 1 && classMember.getMemberAccepted() == 1 && classMember.getClassEntity().getStatus() == 1) {
+					ClassEntity classEntity = classMember.getClassEntity();
+					
+					ClassReviewCardDTO dto = classReviewCardConverter.toDTO(classEntity);
+					UserEntity user = classEntity.getCreator();
+					dto.setUserAvatar(user.getAvatar());
+					dto.setUsername(user.getUsername());
+					dto.setUserFullname(user.getFullname());
+					dto.setRole(classMember.getClassRole().getCode());
+					Float stars = reviewService.getAvgReviewRatingByClassId(dto.getId());
+					if (stars != null) {
+						dto.setStars(stars);
+					}
+
+					Integer countMember = classMemberService.countAllMember(dto.getId());
+					if (countMember != null) {
+						dto.setMemberCount(countMember);
+					}
+
+					dtos.add(dto);
+					
+				}
+			}
+
+			return dtos;
+			
+			/*
 			List<ClassEntity> classEntities = classMemberEntities.stream()
 					.filter(classMember -> (classMember.getClassAccepted() == 1 && classMember.getMemberAccepted() == 1
 							&& classMember.getClassEntity().getStatus() == 1))
@@ -114,6 +143,7 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 				dto.setUserAvatar(user.getAvatar());
 				dto.setUsername(user.getUsername());
 				dto.setUserFullname(user.getFullname());
+				dto.setRole(null);
 				Float stars = reviewService.getAvgReviewRatingByClassId(dto.getId());
 				if (stars != null) {
 					dto.setStars(stars);
@@ -127,6 +157,7 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 				dtos.add(dto);
 			}
 			return dtos;
+			*/
 		}
 
 		return null;
@@ -137,42 +168,34 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 		List<ClassEntity> classEntities = null;
 
 		if (categoryCode != null) {
-			System.out.println("Search - categoryCode " + categoryCode);
 			CategoryEntity categoryEntity = categoryRepository.findOneByCode(categoryCode);
 			if (categoryEntity != null)
 				classEntities = categoryEntity.getClasses();
 		} else {
-			System.out.println("Khong co category");
 			classEntities = classRepository.findAll().stream().filter(entity -> entity.getStatus() == 1)
 					.collect(Collectors.toList());
 		}
 
 		if (value != null && classEntities != null) {
-			System.out.println("value - value " + value);
 			classEntities = classEntities.stream()
 					.filter(entity -> entity.getName().toLowerCase().contains(value.toLowerCase()))
 					.collect(Collectors.toList());
 		}
 
 		if (maxFee != null) {
-			System.out.println("maxFee - maxFee " + maxFee);
 			classEntities = classEntities.stream().filter(entity -> entity.getFee() <= maxFee)
 					.collect(Collectors.toList());
 		}
 
 		if (rating != null) {
-			System.out.println("rating - rating " + rating);
 			classEntities = classEntities.stream().filter(entity -> {
 				Float stars = reviewService.getAvgReviewRatingByClassId(entity.getId());
 				if(stars == null) {
 					return false;
 				}
-				System.out.println("stars - " + stars);
 				return stars >= rating;
 			}).collect(Collectors.toList());
 		}
-
-		System.out.println("classEntity " + classEntities.size());
 
 		List<ClassReviewCardDTO> dtos = new ArrayList<ClassReviewCardDTO>();
 		for (ClassEntity classEntity : classEntities) {
@@ -195,6 +218,12 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 		}
 
 		return dtos;
+	}
+
+	@Override
+	public Long getMember(Long classId) {
+		
+		return null;
 	}
 
 }

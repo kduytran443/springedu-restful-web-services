@@ -58,7 +58,6 @@ public class ClassScheduleAPI {
 	@PostMapping("/api/class-schedule")
 	@CrossOriginsList
 	public ResponseEntity<ClassScheduleDTO> postClassSchedule(@RequestBody ClassScheduleDTO classScheduleDTO){
-		System.out.println("SAVE NÈ "+classScheduleDTO);
 		classScheduleDTO.setId(null);
 		ClassScheduleDTO dto = classScheduleService.save(classScheduleDTO);
 		if(dto != null) {

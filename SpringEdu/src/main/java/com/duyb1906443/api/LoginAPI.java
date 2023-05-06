@@ -80,7 +80,6 @@ public class LoginAPI {
 	@PostMapping("/api/sign-up/admin")
 	@CrossOriginsList
 	public UserDTO signUpAdmin(@RequestBody UserDTO userDTO) {
-		System.out.println("Sign up nè");
 		return userService.signUpAdmin(userDTO);
 	}
 	

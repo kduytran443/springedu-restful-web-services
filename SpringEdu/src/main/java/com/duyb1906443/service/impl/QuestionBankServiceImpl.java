@@ -62,7 +62,6 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 	public void delete(Long id) {
 		QuestionBankEntity questionBankEntity = questionBankRepository.findOne(id);
 		questionBankEntity.setStatus(0);
-		System.out.println("Question bank "+questionBankEntity.getName());
 		questionBankEntity = questionBankRepository.save(questionBankEntity);
 	}
 

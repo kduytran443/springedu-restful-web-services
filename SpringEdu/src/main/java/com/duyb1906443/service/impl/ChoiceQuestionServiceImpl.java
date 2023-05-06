@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duyb1906443.converter.ChoiceQuestionConverter;
+import com.duyb1906443.converter.FileConverter;
 import com.duyb1906443.dto.ChoiceQuestionDTO;
 import com.duyb1906443.entity.ChoiceQuestionEntity;
+import com.duyb1906443.entity.FileEntity;
 import com.duyb1906443.entity.QuestionBankEntity;
 import com.duyb1906443.repository.ChoiceQuestionRepository;
+import com.duyb1906443.repository.FileRepository;
 import com.duyb1906443.repository.QuestionBankRepository;
 import com.duyb1906443.service.ChoiceQuestionService;
 
@@ -25,7 +28,13 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 
 	@Autowired
 	private QuestionBankRepository questionBankRepository;
-
+	
+	@Autowired
+	private FileRepository fileRepository;
+	
+	@Autowired
+	private FileConverter fileConverter;
+	
 	@Override
 	public List<ChoiceQuestionDTO> findAllByQuestionBankId(Long questionBankId) {
 		QuestionBankEntity questionBankEntity = questionBankRepository.findOne(questionBankId);
@@ -59,11 +68,30 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 			choiceQuestionEntity = choiceQuestionRepository.findOne(choiceQuestionDTO.getId());
 			if(choiceQuestionDTO.getName() != null) choiceQuestionEntity.setName(choiceQuestionDTO.getName());
 			if(choiceQuestionDTO.getContent() != null) choiceQuestionEntity.setContent(choiceQuestionDTO.getContent());
+			if(choiceQuestionDTO.getImportant() != null) {
+				choiceQuestionEntity.setImportant(choiceQuestionDTO.getImportant());
+			}
+			if(choiceQuestionDTO.getFile() != null) {
+				FileEntity fileEntity = fileConverter.toEntity(choiceQuestionDTO.getFile());
+				fileEntity = fileRepository.save(fileEntity);
+				choiceQuestionEntity.setFile(fileEntity);
+			}
+			
 		} else {
 			choiceQuestionEntity = choiceQuestionConverter.toEntity(choiceQuestionDTO);
 			QuestionBankEntity questionBankEntity = questionBankRepository.findOne(choiceQuestionDTO.getQuestionBank());
 			choiceQuestionEntity.setQuestionBank(questionBankEntity);
 			choiceQuestionEntity.setStatus(1);
+			if(choiceQuestionDTO.getImportant() == null) {
+				choiceQuestionEntity.setImportant(0);
+			}
+			
+			if(choiceQuestionDTO.getFile() != null) {
+				FileEntity fileEntity = fileConverter.toEntity(choiceQuestionDTO.getFile());
+				fileEntity = fileRepository.save(fileEntity);
+				choiceQuestionEntity.setFile(fileEntity);
+			}
+			
 		}
 
 		if (choiceQuestionEntity != null) {

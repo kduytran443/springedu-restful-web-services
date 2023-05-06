@@ -13,7 +13,6 @@ public class DateDTO {
 	@SuppressWarnings("deprecation")
 	public DateDTO(long l) {
 		Date date = new Date(l);
-		System.out.println(date);
 		
 		this.year = date.getYear();
 		this.month = date.getMonth();
@@ -22,7 +21,6 @@ public class DateDTO {
 		this.minutes = date.getMinutes();
 		this.seconds = date.getSeconds();
 		
-		System.out.println(this.year + "/"+this.month+"/"+this.day);
 	}
 	@Override
 	public String toString() {

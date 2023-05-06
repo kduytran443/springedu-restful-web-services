@@ -40,7 +40,7 @@ public class NoteAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteDTO());
 	}
 	
 	@PostMapping("/api/note")
@@ -51,7 +51,7 @@ public class NoteAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteDTO());
 	}
 	
 	@PutMapping("/api/note")
@@ -61,7 +61,7 @@ public class NoteAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteDTO());
 	}
 
 	@DeleteMapping("/api/note/{noteId}")
@@ -71,7 +71,7 @@ public class NoteAPI {
 		if (dto != null) {
 			return ResponseEntity.status(200).body(dto);
 		}
-		return ResponseEntity.status(500).body(new Object());
+		return ResponseEntity.status(500).body(new NoteDTO());
 	}
 	
 }

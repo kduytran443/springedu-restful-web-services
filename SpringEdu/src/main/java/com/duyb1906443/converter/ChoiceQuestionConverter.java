@@ -3,20 +3,32 @@ package com.duyb1906443.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.duyb1906443.dto.ChoiceQuestionDTO;
+import com.duyb1906443.dto.FileDTO;
 import com.duyb1906443.entity.ChoiceQuestionEntity;
 
 @Component
 public class ChoiceQuestionConverter implements IConverterToDTO<ChoiceQuestionEntity, ChoiceQuestionDTO>, IConverterToEntity<ChoiceQuestionEntity, ChoiceQuestionDTO> {
-
+	
+	@Autowired
+	private FileConverter fileConverter;
+	
 	@Override
 	public ChoiceQuestionEntity toEntity(ChoiceQuestionDTO dto) {
 		
 		ChoiceQuestionEntity entity = new ChoiceQuestionEntity();
-		entity.setName(dto.getName());
-		entity.setContent(dto.getContent());
+		if(dto.getName() != null){
+			entity.setName(dto.getName());			
+		}
+		if(dto.getContent() != null) {
+			entity.setContent(dto.getContent());			
+		}
+		if(dto.getImportant() != null) {
+			entity.setImportant(dto.getImportant());
+		}
 		
 		return entity;
 	}
@@ -37,6 +49,12 @@ public class ChoiceQuestionConverter implements IConverterToDTO<ChoiceQuestionEn
 		dto.setQuestionBankName(entity.getQuestionBank().getName());
 		dto.setStatus(entity.getStatus());
 		if(entity.getChoiceAnswers() != null) dto.setAnswerQuantity(entity.getChoiceAnswers().size());
+		dto.setImportant(entity.getImportant());
+		
+		if(entity.getFile() != null) {
+			FileDTO fileDTO = fileConverter.toDTO(entity.getFile());
+			dto.setFile(fileDTO);
+		}
 		
 		return dto;
 	}

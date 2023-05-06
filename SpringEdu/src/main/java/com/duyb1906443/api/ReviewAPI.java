@@ -37,7 +37,6 @@ public class ReviewAPI {
 		reviewDTO.setClassId(classId);
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
 		reviewDTO.setUserId(userId);
-		System.out.println("userId: "+userId);
 		ReviewDTO dto = reviewService.getReviewByUserAndClass(reviewDTO);
 		if(dto != null) {
 			return ResponseEntity.status(200).body(dto);

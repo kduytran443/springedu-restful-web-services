@@ -28,7 +28,6 @@ public class TestAPI {
 @Service(value = "testAPISecurityService")
 class TestAPISecurityService {
 	public boolean isAllowed(long id) {
-		System.out.println("ID cực mạnh: " + id);
 		return id == 1;
 	}
 }

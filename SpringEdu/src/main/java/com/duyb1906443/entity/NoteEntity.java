@@ -32,9 +32,20 @@ public class NoteEntity {
 	@Column
 	private Timestamp modifiedDate;
 
+	@Column(columnDefinition = "tinyint")
+	private Integer privateMode;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "note_folder_id")
 	private NoteFolderEntity noteFolder;
+
+	public Integer getPrivateMode() {
+		return privateMode;
+	}
+
+	public void setPrivateMode(Integer privateMode) {
+		this.privateMode = privateMode;
+	}
 
 	public Timestamp getModifiedDate() {
 		return modifiedDate;

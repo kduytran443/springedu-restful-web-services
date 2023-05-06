@@ -31,10 +31,6 @@ public class CommentAPI {
 
 		List<CommentDTO> dtos = commentService.findAllByLessonId(classLessonId);
 		
-		for (CommentDTO commentDTO : dtos) {
-			System.out.println(commentDTO.getContent());
-		}
-		
 		if (dtos != null) {
 			return ResponseEntity.status(200).body(dtos);
 		}

@@ -9,6 +9,51 @@ public class NoteDTO {
 	private Timestamp createdDate;
 	private NoteFolderDTO noteFolder;
 	private Timestamp modifiedDate;
+	private Integer privateMode;
+	private Long userId;
+	private String username;
+	private String userAvatar;
+	private String userFullname;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUserAvatar() {
+		return userAvatar;
+	}
+
+	public void setUserAvatar(String userAvatar) {
+		this.userAvatar = userAvatar;
+	}
+
+	public String getUserFullname() {
+		return userFullname;
+	}
+
+	public void setUserFullname(String userFullname) {
+		this.userFullname = userFullname;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Integer getPrivateMode() {
+		return privateMode;
+	}
+
+	public void setPrivateMode(Integer privateMode) {
+		this.privateMode = privateMode;
+	}
 
 	public Timestamp getModifiedDate() {
 		return modifiedDate;

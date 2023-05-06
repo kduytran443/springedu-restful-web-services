@@ -31,6 +31,17 @@ public class QuizEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
 	private List<DrawQuizEntity> drawQuizzes;
 
+	@Column(columnDefinition = "tinyint")
+	private Integer seeResults;
+
+	public Integer getSeeResults() {
+		return seeResults;
+	}
+
+	public void setSeeResults(Integer seeResults) {
+		this.seeResults = seeResults;
+	}
+
 	public Long getId() {
 		return id;
 	}

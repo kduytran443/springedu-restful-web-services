@@ -57,8 +57,6 @@ public class NoteServiceImpl implements NoteService {
 	public NoteDTO save(NoteDTO noteDTO) {
 		NoteEntity noteEntity = null;
 		
-		System.out.println("Id "+noteDTO.getId());
-		
 		if(noteDTO.getId() != null) {
 			noteEntity = noteRepository.findOne(noteDTO.getId());
 			noteEntity = noteConverter.toEntity(noteDTO, noteEntity);
@@ -69,6 +67,7 @@ public class NoteServiceImpl implements NoteService {
 			noteEntity = noteConverter.toEntity(noteDTO);
 			Date date = new Date();
 			noteEntity.setCreatedDate(new Timestamp(date.getTime()));
+			noteEntity.setPrivateMode(1);
 			NoteFolderEntity noteFolderEntity = noteFolderRepository.findOne(noteDTO.getNoteFolder().getId());
 			noteEntity.setNoteFolder(noteFolderEntity);
 		}

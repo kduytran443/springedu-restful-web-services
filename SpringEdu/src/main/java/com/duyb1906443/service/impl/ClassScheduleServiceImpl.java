@@ -56,7 +56,6 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 	@Override
 	public ClassScheduleDTO save(ClassScheduleDTO classScheduleDTO) {
 
-		System.out.println("classScheduleDTO" + classScheduleDTO);
 		ClassScheduleEntity classScheduleEntity = null;
 		if (classScheduleDTO.getId() != null) { // edit
 			classScheduleEntity = classScheduleRepository.findOne(classScheduleDTO.getId());

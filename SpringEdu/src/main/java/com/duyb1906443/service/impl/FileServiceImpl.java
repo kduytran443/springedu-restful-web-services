@@ -18,7 +18,7 @@ public class FileServiceImpl implements FileService {
 
 	@Autowired
 	private ClassLessonRepository classLessonRepository;
-	
+
 	@Autowired
 	private FileRepository fileRepository;
 
@@ -28,9 +28,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public List<FileDTO> findAllByClassLessonId(Long classLessonId) {
 		ClassLessonEntity classLessonEntity = classLessonRepository.findOne(classLessonId);
-		System.out.println("classLessonEntity "+classLessonEntity.getName());
 		List<FileEntity> fileEntities = classLessonEntity.getFiles();
-		System.out.println("file length: "+fileEntities.size());
 		return fileConverter.toDTOList(fileEntities);
 	}
 
@@ -40,16 +38,23 @@ public class FileServiceImpl implements FileService {
 		FileEntity fileEntity = fileConverter.toEntity(fileDTO);
 		fileDTO.setId(null);
 		fileEntity = fileRepository.save(fileEntity);
-		
-		System.out.println("classLessonId "+classId);
-		
+
 		List<FileEntity> files = classLessonEntity.getFiles();
-		
-		System.out.println("files "+files.size());
+
 		files.add(fileEntity);
 		classLessonEntity.setFiles(files);
-		
+
 		classLessonRepository.save(classLessonEntity);
 	}
-	
+
+	@Override
+	public FileDTO getById(Long id) {
+		FileEntity fileEntity = fileRepository.findOne(id);
+		if(fileEntity != null) {
+				
+			return fileConverter.toDTO(fileEntity);
+		}
+		return null;
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.duyb1906443.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,14 +27,14 @@ public class FileEntity {
 	private String type;
 
 	@Column
-	private float size;
+	private Long size;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
 	private ChoiceQuestionEntity choiceQuestions;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "file")
 	private ChoiceAnswerEntity choiceAnswers;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -68,11 +67,11 @@ public class FileEntity {
 		this.type = type;
 	}
 
-	public float getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public void setSize(float size) {
+	public void setSize(Long size) {
 		this.size = size;
 	}
 

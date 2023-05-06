@@ -40,6 +40,12 @@ public class CategoryAPI {
 		return ResponseEntity.status(200).body(categoryService.findOneByCode(categoryCode));
 	}
 
+	@GetMapping("/public/api/category/size/{categoryCode}")
+	@CrossOriginsList
+	public ResponseEntity<Integer> getCategorySize(@PathVariable("categoryCode") String categoryCode) {
+		return ResponseEntity.status(200).body(categoryService.getMemberCount(categoryCode));
+	}
+
 	@GetMapping("/api/category/{categoryId}")
 	@CrossOriginsList
 	public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable("categoryId") Long id) {

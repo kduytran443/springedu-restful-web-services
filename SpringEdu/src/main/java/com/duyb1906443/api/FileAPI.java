@@ -8,6 +8,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,7 @@ public class FileAPI {
 		String data = Base64.encodeBase64String(file.getBytes());
 		fileDTO.setData(data);
 		fileDTO.setName(file.getOriginalFilename());
-		fileDTO.setSize(file.getSize());
+		//fileDTO.setSize(file.getSize());
 		fileDTO.setType(file.getContentType());
 		fileService.uploadFileOnClassLesson(fileDTO, classLessonId);
 		return ResponseEntity.status(200).body(new FileDTO());
@@ -48,6 +49,16 @@ public class FileAPI {
 			return ResponseEntity.status(200).body(dtos);
 		}
 		return ResponseEntity.status(200).body(Collections.emptyList());
+	}
+
+	@GetMapping("/api/file/{id}")
+	@CrossOriginsList
+	public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+		FileDTO dto = fileService.getById(id);
+		if(dto!=null) {
+			return ResponseEntity.status(200).body(dto);
+		}
+		return ResponseEntity.status(500).body(new FileDTO());
 	}
 
 }

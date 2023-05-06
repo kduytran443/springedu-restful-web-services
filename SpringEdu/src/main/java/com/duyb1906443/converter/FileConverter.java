@@ -37,11 +37,11 @@ public class FileConverter implements IConverterToDTO<FileEntity, FileDTO>, ICon
 	public FileEntity toEntity(FileDTO dto) {
 		FileEntity entity = new FileEntity();
 		
-		entity.setData(dto.getData());
+		if(dto.getData() != null) entity.setData(dto.getData());
 		if(dto.getId() != null) entity.setId(dto.getId());
-		entity.setName(dto.getName());
-		entity.setType(dto.getType());
-		entity.setSize(dto.getSize());
+		if(dto.getName() != null) entity.setName(dto.getName());
+		if(dto.getType() != null) entity.setType(dto.getType());
+		if(dto.getSize() != null) entity.setSize(dto.getSize());
 		
 		return entity;
 	}

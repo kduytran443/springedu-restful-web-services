@@ -17,6 +17,15 @@ public class ClassReviewCardDTO {
 	private String userAvatar;
 	private List<DiscountDTO> discounts;
 	private Integer memberCount;
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public Integer getMemberCount() {
 		return memberCount;

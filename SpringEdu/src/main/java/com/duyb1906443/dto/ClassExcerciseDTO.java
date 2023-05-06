@@ -19,6 +19,15 @@ public class ClassExcerciseDTO {
 	private Integer quizNumberOfQuestion;
 	private Integer isConstructedResponseTest;
 	private Integer done;
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public Integer getDone() {
 		return done;

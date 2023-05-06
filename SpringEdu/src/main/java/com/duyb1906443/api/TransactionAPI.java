@@ -20,7 +20,6 @@ public class TransactionAPI {
 	@CrossOriginsList
 	public ResponseEntity<TransactionDTO> postTransaction(@RequestBody TransactionDTO transactionDTO){
 		TransactionDTO dto = transactionService.save(transactionDTO);
-		System.out.println("Xong roi "+dto.getCode());
 		return ResponseEntity.status(200).body(dto);
 	}
 	

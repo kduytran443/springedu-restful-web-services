@@ -5,7 +5,7 @@ public class FileDTO {
 	private String name;
 	private String data;
 	private String type;
-	private float size;
+	private Long size;
 
 	public Long getId() {
 		return id;
@@ -39,11 +39,11 @@ public class FileDTO {
 		this.type = type;
 	}
 
-	public float getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public void setSize(float size) {
+	public void setSize(Long size) {
 		this.size = size;
 	}
 

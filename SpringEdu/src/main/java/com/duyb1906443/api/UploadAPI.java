@@ -3,6 +3,7 @@ package com.duyb1906443.api;
 
 import java.io.IOException;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,13 @@ public class UploadAPI {
     public ResponseEntity<FileDTO> uploadFile(@RequestParam MultipartFile file) throws IOException {
         System.out.println(String.format("File name '%s' uploaded successfully.", file.getOriginalFilename()));
         //System.out.println(ByteToBase64.byteToBase64(file));
-        return ResponseEntity.ok().build();
+        FileDTO fileDTO = new FileDTO();
+		String data = Base64.encodeBase64String(file.getBytes());
+		fileDTO.setData(data);
+		fileDTO.setName(file.getOriginalFilename());
+		//fileDTO.setSize(file.getSize());
+		fileDTO.setType(file.getContentType());
+		return ResponseEntity.status(200).body(fileDTO);
     }
 	
 }

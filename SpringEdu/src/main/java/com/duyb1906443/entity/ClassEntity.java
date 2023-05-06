@@ -98,7 +98,9 @@ public class ClassEntity {
 
 	@ManyToMany(mappedBy = "classEntities")
 	private List<QuestionBankEntity> questionBanks;
-
+	
+	
+	
 	public String getPaypalAccount() {
 		return paypalAccount;
 	}

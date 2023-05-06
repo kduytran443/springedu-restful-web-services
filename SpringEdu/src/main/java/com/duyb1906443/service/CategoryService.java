@@ -12,4 +12,5 @@ public interface CategoryService {
 	void unblock(Long id);
 	CategoryDTO findOneByCode(String code);
 	CategoryDTO findOne(Long id);
+	Integer getMemberCount(String code);
 }

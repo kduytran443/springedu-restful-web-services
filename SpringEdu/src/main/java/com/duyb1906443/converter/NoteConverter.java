@@ -26,7 +26,15 @@ public class NoteConverter implements IConverterToDTO<NoteEntity, NoteDTO>, ICon
 		if(entity.getNoteFolder() != null) {
 			dto.setNoteFolder(noteFolderConverter.toDTO(entity.getNoteFolder()));			
 		}
+		dto.setPrivateMode(entity.getPrivateMode());
 		dto.setModifiedDate(entity.getModifiedDate());
+		
+		if(entity.getNoteFolder().getUser() != null) {
+			dto.setUserAvatar(entity.getNoteFolder().getUser().getAvatar());
+			dto.setUserFullname(entity.getNoteFolder().getUser().getFullname());
+			dto.setUserId(entity.getNoteFolder().getUser().getId());
+			dto.setUsername(entity.getNoteFolder().getUser().getUsername());
+		}
 		
 		return dto;
 	}
@@ -52,6 +60,9 @@ public class NoteConverter implements IConverterToDTO<NoteEntity, NoteDTO>, ICon
 		if(dto.getName() != null) {
 			entity.setName(dto.getName());			
 		}
+		if(dto.getPrivateMode() != null) {
+			entity.setPrivateMode(dto.getPrivateMode());
+		}
 		
 		return entity;
 	}
@@ -68,6 +79,9 @@ public class NoteConverter implements IConverterToDTO<NoteEntity, NoteDTO>, ICon
 		}
 		if(dto.getName() != null) {
 			entity.setName(dto.getName());			
+		}
+		if(dto.getPrivateMode() != null) {
+			entity.setPrivateMode(dto.getPrivateMode());
 		}
 		
 		return entity;

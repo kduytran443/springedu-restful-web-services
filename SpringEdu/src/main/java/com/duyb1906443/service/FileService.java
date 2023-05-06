@@ -8,5 +8,6 @@ public interface FileService {
 	
 	List<FileDTO> findAllByClassLessonId(Long classLessonId);
 	void uploadFileOnClassLesson(FileDTO fileDTO, Long classId);
+	FileDTO getById(Long id);
 	
 }

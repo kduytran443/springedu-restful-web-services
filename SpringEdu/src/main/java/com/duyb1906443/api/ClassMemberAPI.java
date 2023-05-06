@@ -142,7 +142,6 @@ public class ClassMemberAPI {
 	public ResponseEntity<ClassMemberDTO> putClassMember(@RequestBody ClassMemberDTO classMemberDTO) {
 		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId();
 		classMemberDTO.setUserId(userId);
-		System.out.println("Đăng ký");
 		ClassMemberDTO dto = classMemberService.save(classMemberDTO);
 
 		if (dto != null) {
