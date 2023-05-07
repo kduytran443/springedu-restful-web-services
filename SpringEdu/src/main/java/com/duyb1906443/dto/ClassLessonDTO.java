@@ -12,7 +12,12 @@ public class ClassLessonDTO {
 	private String textData;
 	private List<FileDTO> files;
 	private int ordinalNumber;
+	private List<Long> fileIds;
 
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+	
 	public Long getId() {
 		return id;
 	}

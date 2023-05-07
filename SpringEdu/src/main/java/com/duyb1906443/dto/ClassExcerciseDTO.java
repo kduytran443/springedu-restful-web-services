@@ -20,6 +20,16 @@ public class ClassExcerciseDTO {
 	private Integer isConstructedResponseTest;
 	private Integer done;
 	private String role;
+	
+	private List<Long> fileIds;
+
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
+	}
 
 	public String getRole() {
 		return role;

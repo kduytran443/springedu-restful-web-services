@@ -109,6 +109,17 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 						.findOne(classExcerciseDTO.getQuestionBankId());
 				classExcerciseEntity.setQuestionBank(questionBankEntity);
 			}
+			
+			if(classExcerciseDTO.getFileIds() != null) {
+				List<Long> fileIds = classExcerciseDTO.getFileIds();
+				List<FileEntity> fileEntities = new ArrayList<>();
+				for (Long fileId : fileIds) {
+					FileEntity fileEntity = fileRepository.findOne(fileId);
+					fileEntities.add(fileEntity);
+				}
+				classExcerciseEntity.setFiles(fileEntities);
+			}
+			
 		}
 
 		if (classExcerciseEntity != null) {
@@ -159,9 +170,17 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 
 	@Override
 	public FileDTO saveFile(Long id, FileDTO fileDTO) {
-		ClassExcerciseEntity classExcerciseEntity = classExcerciseRepository.findOne(id);
+		ClassExcerciseEntity classExcerciseEntity = null; 
 		
-		List<FileEntity> fileEntities = classExcerciseEntity.getFiles();
+		if(id != 0) {
+			classExcerciseEntity = classExcerciseRepository.findOne(id);			
+		}
+		
+		List<FileEntity> fileEntities = null; 
+		
+		if(classExcerciseEntity != null) {
+			classExcerciseEntity.getFiles();			
+		}
 		
 		if(fileDTO.getId() == null) {
 			
@@ -172,9 +191,12 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 			FileEntity fileEntity = fileConverter.toEntity(fileDTO);
 			fileEntity = fileRepository.save(fileEntity);
 			fileEntities.add(fileEntity);
-			classExcerciseEntity.setFiles(fileEntities);
 			
-			classExcerciseEntity = classExcerciseRepository.save(classExcerciseEntity);
+			if(classExcerciseEntity != null) {
+				classExcerciseEntity.setFiles(fileEntities);
+				classExcerciseEntity = classExcerciseRepository.save(classExcerciseEntity);
+			}
+			
 			return fileConverter.toDTO(fileEntity);
 		}
 		
@@ -200,16 +222,17 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 	public FileDTO delete(Long id, Long fileId) {
 		FileEntity fileEntity = fileRepository.findOne(fileId);
 		
-		ClassExcerciseEntity classExcerciseEntity = classExcerciseRepository.findOne(id);
+		if(id != 0) {
+			ClassExcerciseEntity classExcerciseEntity = classExcerciseRepository.findOne(id);
+			List<FileEntity> fileEntities = classExcerciseEntity.getFiles().stream().filter(item -> item.getId() != fileId).map(item -> {
+				item.setData("");
+				return item;
+			}).collect(Collectors.toList());
+			
+			classExcerciseEntity.setFiles(fileEntities);
+			classExcerciseEntity = classExcerciseRepository.save(classExcerciseEntity);
+		}
 		
-		List<FileEntity> fileEntities = classExcerciseEntity.getFiles().stream().filter(item -> item.getId() != fileId).map(item -> {
-			item.setData("");
-			return item;
-		}).collect(Collectors.toList());
-		
-		classExcerciseEntity.setFiles(fileEntities);
-		
-		classExcerciseEntity = classExcerciseRepository.save(classExcerciseEntity);
 		fileRepository.delete(fileId);
 		
 		FileDTO fileDTO = new FileDTO();
