@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 import com.duyb1906443.converter.ClassMemberConverter;
 import com.duyb1906443.converter.TransactionConverter;
 import com.duyb1906443.dto.ClassMemberDTO;
+import com.duyb1906443.entity.CertificationEntity;
 import com.duyb1906443.entity.ClassEntity;
 import com.duyb1906443.entity.ClassMemberEntity;
 import com.duyb1906443.entity.ClassRoleEntity;
-import com.duyb1906443.entity.TransactionEntity;
 import com.duyb1906443.entity.UserEntity;
 import com.duyb1906443.entity.id.ClassMemberId;
+import com.duyb1906443.repository.CertificationRepository;
 import com.duyb1906443.repository.ClassMemberRepository;
 import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.repository.ClassRoleRepository;
@@ -47,6 +48,9 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private CertificationRepository certificationRepository;
 
 	@Override
 	public List<ClassMemberDTO> findAllByClassId(Long classId) {
@@ -206,6 +210,24 @@ public class ClassMemberServiceImpl implements ClassMemberService {
 		if (classMemberEntity != null) {
 			return classMemberConverter.toDTO(classMemberEntity);
 		}
+		return null;
+	}
+
+	@Override
+	public ClassMemberDTO deleteCertification(ClassMemberDTO classMemberDTO) {
+		ClassEntity classEntity = classRepository.findOne(classMemberDTO.getClassId());
+		UserEntity userEntity = userRepository.findOne(classMemberDTO.getUserId());
+
+		ClassMemberEntity classMemberEntity = classMemberRepository.findOneByClassEntityAndUser(classEntity,
+				userEntity);
+		if (classMemberEntity != null) {
+			CertificationEntity certificationEntity = classMemberEntity.getCertification();
+			classMemberEntity.setCertification(null);
+			classMemberEntity = classMemberRepository.save(classMemberEntity);
+			certificationRepository.delete(certificationEntity);
+			return classMemberConverter.toDTO(classMemberEntity);
+		}
+		
 		return null;
 	}
 

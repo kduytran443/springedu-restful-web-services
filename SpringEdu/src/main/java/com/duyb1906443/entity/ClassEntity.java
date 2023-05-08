@@ -42,6 +42,9 @@ public class ClassEntity {
 	@Column(columnDefinition = "tinyint default 0")
 	private Integer accepted;
 
+	@Column(columnDefinition = "tinyint")
+	private Integer minimumCompletionRate;
+
 	@Column(columnDefinition = "NVARCHAR(256)")
 	private String shortDescription;
 
@@ -98,9 +101,15 @@ public class ClassEntity {
 
 	@ManyToMany(mappedBy = "classEntities")
 	private List<QuestionBankEntity> questionBanks;
-	
-	
-	
+
+	public Integer getMinimumCompletionRate() {
+		return minimumCompletionRate;
+	}
+
+	public void setMinimumCompletionRate(Integer minimumCompletionRate) {
+		this.minimumCompletionRate = minimumCompletionRate;
+	}
+
 	public String getPaypalAccount() {
 		return paypalAccount;
 	}

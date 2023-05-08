@@ -42,6 +42,7 @@ public class ClassIntroConverter implements IConverterToDTO<ClassEntity, ClassIn
 		dto.setCategoryId(entity.getCategory().getId());
 		dto.setUserId(entity.getCreator().getId());
 		dto.setPaypalAccount(entity.getPaypalAccount());
+		dto.setMinimumCompletionRate(entity.getMinimumCompletionRate());
 		
 		if(entity.getClassSchedules() != null) {
 			dto.setClassSchedules(classScheduleConverter.toDTOList(entity.getClassSchedules()));

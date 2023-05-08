@@ -6,6 +6,6 @@ import com.duyb1906443.entity.WeeklyClassScheduleEntity;
 
 public interface WeeklyClassScheduleRepository extends JpaRepository<WeeklyClassScheduleEntity, Long> {
 	
-	
+	WeeklyClassScheduleEntity findOneByCode(String code);
 	
 }

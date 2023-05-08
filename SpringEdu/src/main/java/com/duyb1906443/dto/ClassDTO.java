@@ -19,6 +19,15 @@ public class ClassDTO {
 	private String videoData;
 	private String content;
 	private String paypalAccount;
+	private Integer minimumCompletionRate;
+
+	public Integer getMinimumCompletionRate() {
+		return minimumCompletionRate;
+	}
+
+	public void setMinimumCompletionRate(Integer minimumCompletionRate) {
+		this.minimumCompletionRate = minimumCompletionRate;
+	}
 
 	public String getPaypalAccount() {
 		return paypalAccount;

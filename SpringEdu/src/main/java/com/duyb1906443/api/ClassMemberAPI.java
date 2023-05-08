@@ -160,4 +160,14 @@ public class ClassMemberAPI {
 		return ResponseEntity.status(200).body(new ClassMemberDTO());
 	}
 
+	@DeleteMapping("/api/class-member/certification")
+	@CrossOriginsList
+	public ResponseEntity<ClassMemberDTO> deleteCertificationFromClassMember(@RequestBody ClassMemberDTO classMemberDTO) {
+		ClassMemberDTO dto = classMemberService.deleteCertification(classMemberDTO);
+		if(dto != null) {
+			return ResponseEntity.status(200).body(dto);			
+		}
+		return ResponseEntity.status(500).body(new ClassMemberDTO()); 
+	}
+
 }

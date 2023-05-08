@@ -27,6 +27,7 @@ public class ClassConverter
 		dto.setStatus(entity.getStatus());
 		dto.setVisiable(entity.getVisiable());
 		dto.setCreatorId(entity.getCreator().getId());
+		dto.setMinimumCompletionRate(entity.getMinimumCompletionRate());
 		return dto;
 	}
 
@@ -60,7 +61,12 @@ public class ClassConverter
 			classEntity.setStatus(dto.getStatus());
 		if (dto.getVisiable() != null)
 			classEntity.setVisiable(dto.getVisiable());
-		classEntity.setPaypalAccount(dto.getPaypalAccount());
+		if(dto.getPaypalAccount() != null) {
+			classEntity.setPaypalAccount(dto.getPaypalAccount());			
+		}
+		if(dto.getMinimumCompletionRate() != null) {
+			classEntity.setMinimumCompletionRate(dto.getMinimumCompletionRate());
+		}
 
 		return classEntity;
 	}
@@ -86,7 +92,12 @@ public class ClassConverter
 			classEntity.setVideo(dto.getVideoData());
 		if(dto.getContent() != null)
 			classEntity.setContent(dto.getContent());
-		classEntity.setPaypalAccount(dto.getPaypalAccount());
+		if(dto.getPaypalAccount() != null) {
+			classEntity.setPaypalAccount(dto.getPaypalAccount());			
+		}
+		if(dto.getMinimumCompletionRate() != null) {
+			classEntity.setMinimumCompletionRate(dto.getMinimumCompletionRate());
+		}
 		return classEntity;
 	}
 

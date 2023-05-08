@@ -179,7 +179,7 @@ public class ClassExcerciseServiceImpl implements ClassExcerciseService {
 		List<FileEntity> fileEntities = null; 
 		
 		if(classExcerciseEntity != null) {
-			classExcerciseEntity.getFiles();			
+			fileEntities = classExcerciseEntity.getFiles();			
 		}
 		
 		if(fileDTO.getId() == null) {

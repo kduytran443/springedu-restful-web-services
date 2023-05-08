@@ -95,7 +95,7 @@ public class ClassLessonServiceImpl implements ClassLessonService {
 		List<FileEntity> fileEntities = null; 
 		
 		if(classLessonEntity != null) {
-			classLessonEntity.getFiles();			
+			fileEntities = classLessonEntity.getFiles();			
 		}
 		
 		if(fileDTO.getId() == null) {
@@ -142,8 +142,10 @@ public class ClassLessonServiceImpl implements ClassLessonService {
 			ClassLessonEntity classLessonEntity = classLessonRepository.findOne(id);
 			List<FileEntity> fileEntities = classLessonEntity.getFiles().stream().filter(item -> item.getId() != fileId).map(item -> {
 				item.setData("");
+				
 				return item;
 			}).collect(Collectors.toList());
+			
 			
 			classLessonEntity.setFiles(fileEntities);
 			classLessonEntity = classLessonRepository.save(classLessonEntity);

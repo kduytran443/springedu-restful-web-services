@@ -13,8 +13,6 @@ import com.duyb1906443.entity.ClassLessonEntity;
 public class ClassLessonConverter implements IConverterToDTO<ClassLessonEntity, ClassLessonDTO>,
 		IConverterToEntity<ClassLessonEntity, ClassLessonDTO> {
 
-	@Autowired
-	private FileConverter fileConverter;
 
 	@Override
 	public ClassLessonDTO toDTO(ClassLessonEntity entity) {
@@ -28,7 +26,7 @@ public class ClassLessonConverter implements IConverterToDTO<ClassLessonEntity, 
 		}
 		dto.setTopicId(entity.getTopic().getId());
 		dto.setTopicName(entity.getTopic().getName());
-		if(entity.getFiles() != null) dto.setFiles(fileConverter.toDTOList(entity.getFiles()));
+		
 		return dto;
 	}
 

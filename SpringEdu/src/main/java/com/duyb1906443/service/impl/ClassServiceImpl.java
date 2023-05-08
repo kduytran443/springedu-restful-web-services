@@ -105,8 +105,14 @@ public class ClassServiceImpl implements ClassService {
 			
 			classMemberEntity.setMemberAccepted(1);
 			classMemberEntity.setUser(user);
+
+			if(classDTO.getMinimumCompletionRate() != null) {
+				classEntity.setMinimumCompletionRate(50);
+			}
 			
 			classEntity = classRepository.save(classEntity);
+			
+			
 			classMemberEntity.setClassEntity(classEntity);
 			ClassMemberId classMemberId = new ClassMemberId();
 			classMemberId.setClassId(classEntity.getId());

@@ -28,6 +28,15 @@ public class ClassIntroDTO {
 	private Long categoryId;
 	private Long userId;
 	private String paypalAccount;
+	private Integer minimumCompletionRate;
+
+	public Integer getMinimumCompletionRate() {
+		return minimumCompletionRate;
+	}
+
+	public void setMinimumCompletionRate(Integer minimumCompletionRate) {
+		this.minimumCompletionRate = minimumCompletionRate;
+	}
 
 	public String getPaypalAccount() {
 		return paypalAccount;
