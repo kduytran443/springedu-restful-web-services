@@ -14,6 +14,7 @@ import com.duyb1906443.entity.ClassScheduleEntity;
 import com.duyb1906443.entity.WeeklyClassScheduleEntity;
 import com.duyb1906443.mail.MailService;
 import com.duyb1906443.repository.ClassMemberRepository;
+import com.duyb1906443.repository.ClassRepository;
 import com.duyb1906443.repository.ClassScheduleRepository;
 import com.duyb1906443.repository.WeeklyClassScheduleRepository;
 
@@ -35,10 +36,13 @@ public class ScheduledTasksController {
 	@Autowired
 	private MailService mailService;
 	
-	@Scheduled(fixedRate = 300000)
+	@Autowired
+	private ClassRepository classRepository;
+	
+	@Scheduled(fixedRate = 60000)
 	public void scheduleTaskWithFixedRate() {
 		// call send email method here
-		Long miliseconds = 300000L;
+		Long miliseconds = 60000L;
 		
 		Date date = new Date();
 		String dayOfWeek = daysOfWeek[date.getDay()];
@@ -62,6 +66,7 @@ public class ScheduledTasksController {
 			
 			for (ClassScheduleEntity classScheduleEntity : filteredList) {
 				ClassEntity classEntity = classScheduleEntity.getClassEntity();
+				//ClassEntity classEntity = classRepository.findOneByClassSchedule(classScheduleEntity);
 				String subject = "Lớp "+classEntity.getName() + " sẽ bắt đầu buổi học";
 				String content = "Đường dẫn đến lớp học: http://localhost:3000/class/"+classEntity.getId()+"/live";
 				

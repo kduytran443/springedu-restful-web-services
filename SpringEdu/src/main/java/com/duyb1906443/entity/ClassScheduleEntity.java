@@ -30,7 +30,7 @@ public class ClassScheduleEntity {
 	@Column(columnDefinition = "tinyint default 0")
 	private int endMinutes;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "class_id")
 	private ClassEntity classEntity;
 

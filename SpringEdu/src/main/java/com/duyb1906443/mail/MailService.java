@@ -18,14 +18,15 @@ public class MailService {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
-		mailSender.setUsername("tigerstranstudio69@gmail.com");
-		mailSender.setPassword("grcvdrotksikaoxv");
+		mailSender.setUsername("springedu2023@gmail.com");
+		mailSender.setPassword("frygatdszvocteky");
 		
 		Properties javaMailProperties = new Properties();
-		javaMailProperties.put("mail.smtp.starttls.enable", "true");
+		javaMailProperties.put("mail.smtp.starttls.enable", "true");	
 		javaMailProperties.put("mail.smtp.auth", "true");
 		javaMailProperties.put("mail.transport.protocol", "smtp");
 		javaMailProperties.put("mail.debug", "true");
+		javaMailProperties.put("mail.smtp.ssl.protocols", "TLSv1.2");
 		
 		mailSender.setJavaMailProperties(javaMailProperties);
 		
