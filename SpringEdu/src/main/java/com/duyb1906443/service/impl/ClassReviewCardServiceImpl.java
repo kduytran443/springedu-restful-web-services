@@ -76,16 +76,12 @@ public class ClassReviewCardServiceImpl implements ClassReviewCardService {
 			dto.setUserFullname(user.getFullname());
 
 			List<ReviewEntity> reviewEntities = reviewRepository.findAllByClassEntity(classEntity);
-
-			if (reviewEntities != null) {
-				if (dto.getId() != null) {
-					Float stars = reviewService.getAvgReviewRatingByClassId(dto.getId());
-					if (stars != null) {
-						dto.setStars(stars);
-					}
-				}
-
+			Float avg = 0F;
+			for (ReviewEntity reviewEntity : reviewEntities) {
+				avg += reviewEntity.getStars();
 			}
+			if(reviewEntities != null && reviewEntities.size() > 0) avg = avg/reviewEntities.size();
+			dto.setStars(avg);
 
 			Integer countMember = classMemberService.countAllMember(dto.getId());
 			if (countMember != null) {

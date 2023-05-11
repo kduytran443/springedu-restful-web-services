@@ -23,6 +23,7 @@ import com.duyb1906443.annotation.CrossOriginsList;
 import com.duyb1906443.dto.ClassLessonDTO;
 import com.duyb1906443.dto.FileDTO;
 import com.duyb1906443.service.ClassLessonService;
+import com.duyb1906443.utils.ByteToBase64;
 
 @RestController
 public class ClassLessonAPI {
@@ -74,7 +75,8 @@ public class ClassLessonAPI {
         System.out.println(String.format("File name '%s' uploaded successfully.", file.getOriginalFilename()));
         //System.out.println(ByteToBase64.byteToBase64(file));
         FileDTO fileDTO = new FileDTO();
-		String data = Base64.encodeBase64String(file.getBytes());
+		
+        String data = Base64.encodeBase64String(file.getBytes());
 		fileDTO.setData(data);
 		fileDTO.setName(file.getOriginalFilename());
 		fileDTO.setSize(file.getSize());

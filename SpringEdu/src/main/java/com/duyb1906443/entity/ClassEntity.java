@@ -101,6 +101,9 @@ public class ClassEntity {
 
 	@ManyToMany(mappedBy = "classEntities")
 	private List<QuestionBankEntity> questionBanks;
+	
+	@ManyToMany(mappedBy = "favoritedClassess")
+	private List<UserEntity> lovers; // who favorites this product
 
 	public Integer getMinimumCompletionRate() {
 		return minimumCompletionRate;

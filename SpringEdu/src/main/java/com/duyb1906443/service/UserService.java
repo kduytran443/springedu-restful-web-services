@@ -2,6 +2,7 @@ package com.duyb1906443.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -153,6 +154,16 @@ public class UserService implements UserDetailsService {
 			userEntity.setGender(userDTO.getGender());
 		if (userDTO.getPhoneNumber() != null)
 			userEntity.setPhoneNumber(userDTO.getPhoneNumber());
+		
+		UserEntity checkMailEntity = userRepository.findOneByEmail(userDTO.getEmail());
+		if (checkMailEntity != null) {
+			if(checkMailEntity.getUsername() != userEntity.getUsername()) {
+				throw new RuntimeException("Email đã tồn tại");
+			}
+		}
+		else {
+			userEntity.setEmail(userDTO.getEmail());
+		}
 
 		userEntity = userRepository.save(userEntity);
 

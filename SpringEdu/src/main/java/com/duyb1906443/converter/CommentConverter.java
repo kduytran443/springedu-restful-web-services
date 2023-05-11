@@ -26,9 +26,12 @@ public class CommentConverter
 			dto.setParentId(entity.getParentComment().getId());			
 		}
 		if(entity.getReplies() != null) {
-			List<CommentEntity> replies = entity.getReplies().stream().filter(item -> item.getStatus() == 1).collect(Collectors.toList());
+			List<CommentEntity> replies = entity.getReplies();
 			List<CommentDTO> commentDTOs = commentConverter.toDTOList(replies);
 			dto.setReplies(commentDTOs);
+		}
+		if(entity.getClassLesson() != null) {
+			dto.setLessonId(entity.getClassLesson().getId());
 		}
 		dto.setContent(entity.getContent());
 		dto.setCreatedDate(entity.getCreatedDate());

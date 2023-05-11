@@ -10,6 +10,7 @@ import com.duyb1906443.converter.ClassIntroConverter;
 import com.duyb1906443.dto.ClassIntroDTO;
 import com.duyb1906443.entity.ClassEntity;
 import com.duyb1906443.entity.ClassMemberEntity;
+import com.duyb1906443.entity.ReviewEntity;
 import com.duyb1906443.entity.UserEntity;
 import com.duyb1906443.repository.ClassMemberRepository;
 import com.duyb1906443.repository.ClassRepository;
@@ -49,9 +50,14 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 	public ClassIntroDTO findOneByClassIdAndUserId(Long classId, Long userId) {
 		ClassEntity classEntity = classRepository.findOne(classId);
 		ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(classEntity);
-		if(reviewRepository.getAvgReviewRatingByClassId(classId) != null) {
-			classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(classId));			
+		
+		List<ReviewEntity> reviewEntities = reviewRepository.findAllByClassEntity(classEntity);
+		Float avg = 0F;
+		for (ReviewEntity reviewEntity : reviewEntities) {
+			avg += reviewEntity.getStars();
 		}
+		if(reviewEntities != null && reviewEntities.size() > 0) avg = avg/reviewEntities.size();
+		classIntroDTO.setStars(avg);
 		
 		UserEntity userEntity = userRepository.findOne(userId);
 
@@ -97,9 +103,14 @@ public class ClassIntroServiceImpl implements ClassIntroService {
 		if(classEntity != null) {
 			return classEntity.stream().map(item -> {
 				ClassIntroDTO classIntroDTO = classIntroConverter.toDTO(item);
-				if(reviewRepository.getAvgReviewRatingByClassId(item.getId()) != null) {
-					classIntroDTO.setStars(reviewRepository.getAvgReviewRatingByClassId(item.getId()));			
+
+				List<ReviewEntity> reviewEntities = reviewRepository.findAllByClassEntity(item);
+				Float avg = 0F;
+				for (ReviewEntity reviewEntity : reviewEntities) {
+					avg += reviewEntity.getStars();
 				}
+				if(reviewEntities != null && reviewEntities.size() > 0) avg = avg/reviewEntities.size();
+				classIntroDTO.setStars(avg);
 				return classIntroDTO;
 			}).collect(Collectors.toList());
 		}

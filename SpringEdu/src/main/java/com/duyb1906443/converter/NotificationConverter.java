@@ -41,6 +41,9 @@ public class NotificationConverter implements IConverterToEntity<NotificationEnt
 		NotificationDTO dto = new NotificationDTO();
 		
 		dto.setContent(entity.getContent());
+		System.out.println("Test");
+		System.out.println(entity.getUser().getFullname());
+		System.out.println(entity.getUser().getUsername());
 		dto.setSenderFullname(entity.getUser().getFullname());
 		dto.setId(entity.getId());
 		dto.setRedirectUrl(entity.getRedirectUrl());

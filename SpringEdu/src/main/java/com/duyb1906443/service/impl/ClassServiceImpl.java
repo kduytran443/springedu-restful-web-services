@@ -1,7 +1,12 @@
 package com.duyb1906443.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,6 +128,58 @@ public class ClassServiceImpl implements ClassService {
 		}
 		
 		return classConverter.toDTO(classEntity);
+	}
+
+	@Override
+	public List<Integer> getClassChart() {
+		List<ClassEntity> classEntities = classRepository.findAll();
+		
+		Map<Integer, List<ClassEntity>> map = classEntities.stream().collect(Collectors.groupingBy(item -> item.getCreatedDate().getMonth()));
+		
+		List<Integer> integers = new ArrayList<>();
+		
+		for(int i = 0; i < 12; i++) {
+			if(map.containsKey(i)) {
+				integers.add(map.get(i).size());
+			}
+			else {
+				integers.add(0);
+			}
+		}
+		
+		return integers;
+	}
+
+	@Override
+	public boolean checkFavorited(Long classId, Long userId) {
+		UserEntity userEntity = userRepository.findOne(userId);
+		ClassEntity classEntity = classRepository.findOne(classId);
+
+		if (userEntity.getFavoritedClassess() != null && userEntity.getFavoritedClassess().contains(classEntity)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public void favorite(Long classId, Long userId) {
+		UserEntity userEntity = userRepository.findOne(userId);
+		ClassEntity classEntity = classRepository.findOne(classId);
+
+		List<ClassEntity> classEntities = userEntity.getFavoritedClassess();
+		List<ClassEntity> filterList = classEntities.stream().filter(entity -> entity.getId() == classId).collect(Collectors.toList());
+		
+		if(filterList != null && filterList.size() != 0) {
+			for (ClassEntity entity : filterList) {
+				classEntities.remove(entity);
+			}
+		}
+		else {
+			classEntities.add(classEntity);
+		}
+		userEntity.setFavoritedClassess(classEntities);
+		userRepository.save(userEntity);		
 	}
 
 }

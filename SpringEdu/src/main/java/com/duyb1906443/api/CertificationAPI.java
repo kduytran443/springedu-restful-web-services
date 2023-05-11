@@ -23,11 +23,11 @@ public class CertificationAPI {
 	@Autowired
 	private CertificationService certificationService;
 	
-	@GetMapping("/public/api/certification/user/{userId}")
+	@GetMapping("/public/api/certification/user/{username}")
 	@CrossOriginsList
-	public ResponseEntity<List<CertificationDTO>> getAll(@PathVariable("userId") Long userId) {
+	public ResponseEntity<List<CertificationDTO>> getAll(@PathVariable("username") String username) {
 
-		List<CertificationDTO> dtos = certificationService.findAllByUserId(userId);
+		List<CertificationDTO> dtos = certificationService.findAllByUsername(username);
 		if (dtos != null) {
 			return ResponseEntity.status(200).body(dtos);
 		}

@@ -36,7 +36,11 @@ public class CommentServiceImpl implements CommentService {
 	public List<CommentDTO> findAllByLessonId(Long topicId) {
 		ClassLessonEntity classLessonEntity = classLessonRepository.findOne(topicId);
 		if(classLessonEntity.getComments() != null) {
-			return commentConverter.toDTOList(classLessonEntity.getComments().stream().filter(item -> item.getStatus() == 1).collect(Collectors.toList()));			
+			List<CommentEntity> commentEntities = classLessonEntity.getComments().stream().filter(item -> item.getStatus() != null && item.getStatus() == 1).collect(Collectors.toList());
+			if(commentEntities != null) {
+				return commentConverter.toDTOList(commentEntities);
+			}
+			else return null;
 		}
 		return null;
 	}

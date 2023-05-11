@@ -19,7 +19,7 @@ public class MailService {
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
 		mailSender.setUsername("springedu2023@gmail.com");
-		mailSender.setPassword("frygatdszvocteky");
+		mailSender.setPassword("sbvmndvasfszosnj");
 		
 		Properties javaMailProperties = new Properties();
 		javaMailProperties.put("mail.smtp.starttls.enable", "true");	
@@ -38,7 +38,7 @@ public class MailService {
 			mailHolders = new ArrayList<MailHolder>();
 		}
 		
-		String fromMailAddress = "tigerstranstudio69@gmail.com";
+		String fromMailAddress = "springedu2023@gmail.com";
 		if(from != null) {
 			fromMailAddress = from;
 		}

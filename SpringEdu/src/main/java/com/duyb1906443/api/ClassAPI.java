@@ -55,6 +55,12 @@ public class ClassAPI {
 			@RequestParam(name = "rating", required = false) Float rating) {
 		return ResponseEntity.status(200).body(classReviewCardService.search(value, categoryCode, maxFee, rating));
 	}
+	
+	@GetMapping("/api/class/chart")
+	@CrossOriginsList
+	public ResponseEntity<List<Integer>> getChart() {
+		return ResponseEntity.status(200).body(classService.getClassChart());
+	}
 
 	@GetMapping("/api/class-review")
 	@CrossOriginsList
@@ -147,6 +153,26 @@ public class ClassAPI {
 		}
 
 		return ResponseEntity.status(500).body(new ClassIntroDTO());
+	}
+	
+	@GetMapping("/api/class/favorite/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<?> getFavoriteByUserAndProductCode(@PathVariable("classId") Long classId) {
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+				.getUser().getId();
+
+		boolean isFavoried = classService.checkFavorited(classId, userId);
+
+		return ResponseEntity.status(200).body(isFavoried);
+	}
+
+	@PostMapping("/api/class/favorite/{classId}")
+	@CrossOriginsList
+	public ResponseEntity<ClassDTO> favoriteProduct(@PathVariable("classId") Long classId) {
+		Long userId = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+				.getUser().getId();
+		classService.favorite(classId, userId);
+		return ResponseEntity.status(200).body(new ClassDTO());
 	}
 
 }

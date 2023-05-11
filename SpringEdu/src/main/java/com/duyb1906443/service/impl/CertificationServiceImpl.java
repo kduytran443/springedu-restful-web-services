@@ -94,8 +94,8 @@ public class CertificationServiceImpl implements CertificationService {
 	}
 
 	@Override
-	public List<CertificationDTO> findAllByUserId(Long userId) {
-		UserEntity userEntity = userRepository.findOne(userId);
+	public List<CertificationDTO> findAllByUsername(String username) {
+		UserEntity userEntity = userRepository.findOneByUsername(username);
 		List<ClassMemberEntity> classMemberEntities = classMemberRepository.findAllByUser(userEntity);
 
 		List<CertificationEntity> certificationEntities = classMemberEntities.stream()

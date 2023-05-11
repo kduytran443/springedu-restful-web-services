@@ -248,7 +248,7 @@ public class SubmittedExerciseServiceImpl implements SubmittedExerciseService {
 		List<SubmittedExerciseEntity> submittedExerciseEntities = new ArrayList<>();
 		List<ClassMemberEntity> classMemberEntities = classMemberRepository.findAllByUser(userEntity);
 		for (ClassMemberEntity classMemberEntity : classMemberEntities) {
-			if(classMemberEntity.getClassRole().getCode().equals("teacher")) {
+			if(classMemberEntity.getClassRole().getCode().equals("teacher") || classMemberEntity.getClassRole().getCode().equals("supporter")) {
 				ClassEntity classEntity = classMemberEntity.getClassEntity();
 				List<ClassExcerciseEntity> classExcerciseEntities = classEntity.getClassExcercises();
 				for (ClassExcerciseEntity classExcerciseEntity : classExcerciseEntities) {

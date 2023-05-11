@@ -48,6 +48,9 @@ public class UserEntity {
 	@Column(columnDefinition = "tinyint default '1'")
 	private Integer status;
 
+	@Column(columnDefinition = "NTEXT")
+	private String description;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles;
@@ -84,6 +87,18 @@ public class UserEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<NoteFolderEntity> noteFolders;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "class_id"))
+	private List<ClassEntity> favoritedClassess;
+
+	public List<ClassEntity> getFavoritedClassess() {
+		return favoritedClassess;
+	}
+
+	public void setFavoritedClassess(List<ClassEntity> favoritedClassess) {
+		this.favoritedClassess = favoritedClassess;
+	}
 
 	public List<NoteFolderEntity> getNoteFolders() {
 		return noteFolders;
@@ -263,6 +278,14 @@ public class UserEntity {
 
 	public void setMessages(List<MessageEntity> messages) {
 		this.messages = messages;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

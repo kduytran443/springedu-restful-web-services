@@ -65,7 +65,7 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 	private NotificationDTO miniConvert(UserNotificationEntity entity) {
 		NotificationDTO dto = new NotificationDTO();
 		dto.setContent(entity.getNotification().getContent());
-		dto.setSenderFullname(entity.getUser().getFullname());
+		dto.setSenderFullname(entity.getNotification().getUser().getFullname());
 		dto.setId(entity.getId());
 		dto.setRedirectUrl(entity.getNotification().getRedirectUrl());
 		dto.setSenderAvatar(entity.getNotification().getUser().getAvatar());

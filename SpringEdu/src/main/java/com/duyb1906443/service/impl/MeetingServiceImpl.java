@@ -44,7 +44,10 @@ public class MeetingServiceImpl implements MeetingService {
 			}
 		}
 		
-		dto.setRole(memberDTO.getClassRole());
+		if(memberDTO != null && memberDTO.getClassRole() != null) {
+			dto.setRole(memberDTO.getClassRole());			
+		}
+		
 		return dto;
 	}
 
